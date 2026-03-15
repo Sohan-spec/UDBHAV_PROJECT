@@ -19,6 +19,8 @@ def address(request):
 def checkout(request):
     return render(request,'checkout.html')
 
+def admin_dashboard(request):
+    return render(request,'admin_dashboard.html')
 def clothes(request):
     return render(request,'clothes.html')
 
