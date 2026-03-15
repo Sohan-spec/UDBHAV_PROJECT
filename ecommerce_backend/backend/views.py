@@ -4,6 +4,23 @@ from django.http import HttpResponse
 def homepage(request):
     return render(request,'homepage.html')
 
+def login(request):
+    return render(request,'login.html')
+
+def signup(request):
+    return render(request,'signup.html')
+
+def profile(request):
+    return render(request,'Profile.html')
+
+def address(request):
+    return render(request,'address.html')
+
+def checkout(request):
+    return render(request,'checkout.html')
+
+def admin_dashboard(request):
+    return render(request,'admin_dashboard.html')
 def clothes(request):
     return render(request,'clothes.html')
 
