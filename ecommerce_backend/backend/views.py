@@ -30,3 +30,27 @@ def asus(request):
 
 def macbook(request):
     return render(request,'macbook.html')
+
+def kitchenware(request):
+    return render(request,'kitchen.html')
+
+def furniture(request):
+    return render(request,'furniture.html')
+
+def tshirts(request):
+    return render(request,'tshirts.html')
+
+def pants(request):
+    return render(request,'pants.html')
+
+def utensils(request):
+    return render(request,'utensils.html')
+
+def groceries(request):
+    return render(request,'grocery.html')
+
+def sofas(request):
+    return render(request,'sofas.html')
+
+def beds(request):
+    return render(request,'beds.html')

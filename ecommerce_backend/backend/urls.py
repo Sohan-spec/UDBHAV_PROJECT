@@ -11,4 +11,12 @@ urlpatterns=[
     path('electronics/laptops/',views.laptops,name='laptops'),
     path('electronics/laptops/asus/',views.asus,name='asus'),
     path('electronics/laptops/macbook/',views.macbook,name='macbook'),
+    path('household/kitchen/',views.kitchenware,name='kitchenware'),
+    path('household/furniture/',views.furniture,name='furniture'),
+    path('clothes/tshirts/',views.tshirts,name='tshirts'),
+    path('clothes/pants/',views.pants,name='pants'),
+    path('household/kitchen/utensils/',views.utensils,name='utensils'),
+    path('household/kitchen/groceries/',views.groceries,name='groceries'),
+    path('household/furniture/sofas/',views.sofas,name='sofas'),
+    path('household/furniture/beds/',views.beds,name='beds'),
 ]
