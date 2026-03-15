@@ -21,6 +21,10 @@ def checkout(request):
 
 def admin_dashboard(request):
     return render(request,'admin_dashboard.html')
+
+def cart(request):
+    return render(request,'cart.html')
+
 def clothes(request):
     return render(request,'clothes.html')
 
