@@ -19,4 +19,10 @@ urlpatterns=[
     path('household/kitchen/groceries/',views.groceries,name='groceries'),
     path('household/furniture/sofas/',views.sofas,name='sofas'),
     path('household/furniture/beds/',views.beds,name='beds'),
+    path('login/',views.login,name='login'),
+    path('signup/',views.signup,name='signup'),
+    path('profile/',views.profile,name='profile'),
+    path('profile/address/',views.address,name='address'),
+    path('cart/checkout/',views.checkout,name='checkout'),
+
 ]
