@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forgot Password</title>
+
+<style>
+
+:root{
+    --primary:#00ff9c;
+    --primary-hover:#00cc7a;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Consolas, monospace;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:url("https://images.unsplash.com/photo-1518770660439-4636190af475") no-repeat center/cover;
+    position:relative;
+}
+
+/* Blur overlay */
+
+body::before{
+    content:"";
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.75);
+    backdrop-filter:blur(6px);
+}
+
+/* Container */
+
+.forgot-box{
+    position:relative;
+    background:rgba(0,0,0,0.6);
+    padding:35px;
+    width:90%;
+    max-width:360px;
+    border-radius:12px;
+    backdrop-filter:blur(12px);
+    box-shadow:0 0 20px rgba(0,255,156,0.4);
+    color:#00ff9c;
+    text-align:center;
+}
+
+.forgot-box h2{
+    margin-bottom:15px;
+    text-shadow:0 0 10px #00ff9c;
+}
+
+.forgot-box p{
+    font-size:14px;
+    margin-bottom:20px;
+}
+
+/* Input */
+
+.input-box{
+    margin-bottom:15px;
+}
+
+.input-box input{
+    width:100%;
+    padding:10px;
+    border:none;
+    border-radius:5px;
+    background:#111;
+    color:#00ff9c;
+    outline:none;
+}
+
+.input-box input:focus{
+    box-shadow:0 0 8px #00ff9c;
+}
+
+/* Button */
+
+.reset-btn{
+    width:100%;
+    padding:10px;
+    border:none;
+    border-radius:5px;
+    background:var(--primary);
+    color:black;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.reset-btn:hover{
+    background:var(--primary-hover);
+    box-shadow:0 0 12px #00ff9c;
+}
+
+.links{
+    margin-top:15px;
+    font-size:14px;
+}
+
+.links a{
+    text-decoration:none;
+    color:#00ff9c;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="forgot-box">
+
+<h2>Reset Password</h2>
+<p>Enter your email to receive a reset link</p>
+
+<form>
+
+<div class="input-box">
+<input type="email" placeholder="Enter your email" required>
+</div>
+
+<button class="reset-btn">Send Reset Link</button>
+
+<div class="links">
+<p><a href="login.html">Back to Login</a></p>
+</div>
+
+</form>
+
+</div>
+
+</body>
+</html>
