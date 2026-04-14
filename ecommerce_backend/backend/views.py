@@ -1,5 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
+
+def admin_required_session(view_func):
+    def _wrapped(request, *args, **kwargs):
+        if not request.user.is_authenticated or request.user.role != 'admin':
+            return HttpResponse('Unauthorized: Admin access required', status=403)
+        return view_func(request, *args, **kwargs)
+    return _wrapped
+
 # Create your views here.
 def homepage(request):
     return render(request,'homepage.html')
@@ -19,7 +27,9 @@ def address(request):
 def checkout(request):
     return render(request,'checkout.html')
 
+@admin_required_session
 def admin_dashboard(request):
+    # Protected route placeholder
     return render(request,'admin_dashboard.html')
 
 def cart(request):
