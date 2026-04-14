@@ -75,3 +75,6 @@ def sofas(request):
 
 def beds(request):
     return render(request,'beds.html')
+
+def checkout(request):
+    return render(request,"checkout.html")
