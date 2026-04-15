@@ -3,7 +3,122 @@
 Checkout Page
 {%endblock%}
 
+{% block body_class %}dark-theme{% endblock %}
+
 {%block content%}
-<h1> Welcome to Our E-Commerce Website</h1>
-<h2>Checkout page</h2>
+<main class="page">
+	<section class="section-header-main">
+		<h1>Checkout</h1>
+	</section>
+    <section class="homepage-cart">
+        <h3><u><a href="/">Homepage</a></u></h3>
+    </section>
+
+	<section class="cart-layout">
+		<div class="summary-card">
+			<h3>Payment Method</h3>
+			<label><input type="radio" name="payment" value="cod"> Cash on Delivery</label><br>
+			<label><input type="radio" name="payment" value="upi"> UPI</label><br>
+			<label><input type="radio" name="payment" value="card"> Card</label><br><br>
+			<button class="btn-primary" id="place-order" type="button">Place Order</button>
+			<p id="checkout-msg" class="muted"></p>
+		</div>
+
+		<aside class="cart-summary">
+			<div class="summary-card">
+				<h3>Order Summary</h3>
+				<div id="checkout-items" class="cart-items"></div>
+				<div class="summary-row total-row">
+					<span>Total</span>
+					<span id="checkout-total">0.00</span>
+				</div>
+			</div>
+		</aside>
+	</section>
+</main>
+
+<script>
+const checkoutToken = localStorage.getItem("token");
+
+async function loadCheckoutCart() {
+	const msg = document.getElementById("checkout-msg");
+	msg.textContent = "";
+	if (!checkoutToken) {
+		msg.textContent = "Login required.";
+		return;
+	}
+
+	try {
+		const res = await fetch("/api/cart/", {
+			headers: { "Authorization": "Bearer " + checkoutToken }
+		});
+		const data = await res.json();
+		if (!res.ok) {
+			msg.textContent = data.error || "Failed to load cart";
+			return;
+		}
+		renderCheckoutItems(data.items || [], data.total || 0);
+	} catch (e) {
+		msg.textContent = "Request failed";
+	}
+}
+
+function renderCheckoutItems(items, total) {
+	const wrapper = document.getElementById("checkout-items");
+	if (!items.length) {
+		wrapper.innerHTML = "<p>Cart is empty.</p>";
+	} else {
+		wrapper.innerHTML = items.map(item => `
+			<article class="cart-item">
+				<div class="cart-item-info">
+					<div class="cart-item-name">${item.name}</div>
+					<div class="cart-item-meta">Qty: ${item.qty}</div>
+				</div>
+				<div class="cart-item-actions">
+					<span class="price">${Number(item.price).toFixed(2)}</span>
+				</div>
+			</article>
+		`).join("");
+	}
+	document.getElementById("checkout-total").textContent = Number(total).toFixed(2);
+}
+
+document.getElementById("place-order").addEventListener("click", async function () {
+	const msg = document.getElementById("checkout-msg");
+	msg.textContent = "";
+
+	const selectedPayment = document.querySelector("input[name='payment']:checked");
+	if (!selectedPayment) {
+		msg.textContent = "Select a payment method.";
+		return;
+	}
+
+	if (!checkoutToken) {
+		msg.textContent = "Login required.";
+		return;
+	}
+
+	try {
+		const res = await fetch("/api/orders/create/", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				"Authorization": "Bearer " + checkoutToken
+			},
+			body: JSON.stringify({ payment_method: selectedPayment.value })
+		});
+		const data = await res.json();
+		if (!res.ok) {
+			msg.textContent = data.error || "Order failed";
+			return;
+		}
+		msg.textContent = "Order placed successfully. Order ID: " + data.order_id;
+		loadCheckoutCart();
+	} catch (e) {
+		msg.textContent = "Request failed";
+	}
+});
+
+loadCheckoutCart();
+</script>
 {%endblock%}

@@ -3,7 +3,110 @@
 Cart Page
 {%endblock%}
 
+{% block body_class %}dark-theme{% endblock %}
+
 {%block content%}
-<h1>Your Shopping Cart</h1>
-<li><p><a href="checkout/">Checkout</a></p></li>
+<main class="page page-cart">
+	<section class="section-header-main">
+		<h1>Your Cart</h1>
+	</section>
+    <section class="homepage-cart">
+        <h3><u><a href="/">Homepage</a></u></h3>
+    </section>
+
+	<section class="cart-layout">
+		<div id="cart-items" class="cart-items"></div>
+		<aside class="cart-summary">
+			<div class="summary-card">
+				<div class="summary-row total-row">
+					<span>Total</span>
+					<span id="cart-total">0.00</span>
+				</div>
+				<a class="btn-primary full-width" href="/cart/checkout/">Go to Checkout</a>
+			</div>
+		</aside>
+	</section>
+
+	<p id="cart-msg" class="muted"></p>
+</main>
+
+<script>
+const token = localStorage.getItem("token");
+
+async function loadCart() {
+	const msg = document.getElementById("cart-msg");
+	msg.textContent = "";
+	if (!token) {
+		msg.textContent = "Login required.";
+		document.getElementById("cart-items").innerHTML = "";
+		document.getElementById("cart-total").textContent = "Total: 0.00";
+		return;
+	}
+
+	try {
+		const res = await fetch("/api/cart/", {
+			headers: { "Authorization": "Bearer " + token }
+		});
+		const data = await res.json();
+		if (!res.ok) {
+			msg.textContent = data.error || "Failed to load cart";
+			return;
+		}
+		renderCart(data.items || [], data.total || 0);
+	} catch (e) {
+		msg.textContent = "Request failed";
+	}
+}
+
+function renderCart(items, total) {
+	const wrapper = document.getElementById("cart-items");
+	if (!items.length) {
+		wrapper.innerHTML = "<p>Cart is empty.</p>";
+	} else {
+		wrapper.innerHTML = items.map(item => `
+			<article class="cart-item">
+				<div class="cart-item-info">
+					<div class="cart-item-name">${item.name}</div>
+					<div class="cart-item-meta">
+						<span>Qty: ${item.qty}</span>
+						<span class="price">${Number(item.price).toFixed(2)}</span>
+					</div>
+				</div>
+				<div class="cart-item-actions">
+					<button class="btn-link" type="button" data-remove="${item.product_id}">Remove</button>
+				</div>
+			</article>
+		`).join("");
+
+		wrapper.querySelectorAll("button[data-remove]").forEach(btn => {
+			btn.addEventListener("click", () => removeItem(Number(btn.dataset.remove)));
+		});
+	}
+	document.getElementById("cart-total").textContent = Number(total).toFixed(2);
+}
+
+async function removeItem(productId) {
+	const msg = document.getElementById("cart-msg");
+	try {
+		const res = await fetch("/api/cart/", {
+			method: "DELETE",
+			headers: {
+				"Content-Type": "application/json",
+				"Authorization": "Bearer " + token
+			},
+			body: JSON.stringify({ product_id: productId })
+		});
+		const data = await res.json();
+		if (!res.ok) {
+			msg.textContent = data.error || "Remove failed";
+			return;
+		}
+		loadCart();
+	} catch (e) {
+		msg.textContent = "Request failed";
+	}
+}
+
+loadCart();
+</script>
 {%endblock%}

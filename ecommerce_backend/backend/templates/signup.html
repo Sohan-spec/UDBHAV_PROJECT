@@ -1,9 +1,75 @@
 {%extends "master.html"%}
+{% load static %}
 {%block title%}
 Sign Up Page
 {%endblock%}
 
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+
 {%block content%}
-<h1> Welcome to Our E-Commerce Website</h1>
-<h2>Sign up page</h2>
+<header class="navbar">
+	<a href="/">Home</a>
+</header>
+
+<div class="signup-box">
+	<h2>Create Account</h2>
+	<form id="signup-form">
+		<div class="input-box">
+			<label for="username">Username</label>
+			<input id="username" type="text" required>
+		</div>
+
+		<div class="input-box">
+			<label for="password">Password</label>
+			<input id="password" type="password" required>
+		</div>
+
+		<div class="input-box">
+			<label for="confirm-password">Confirm Password</label>
+			<input id="confirm-password" type="password" required>
+		</div>
+
+		<button class="signup-btn" type="submit">Create Account</button>
+	</form>
+	<div class="links">
+		<p>Already have an account? <a href="/login/">Login</a></p>
+	</div>
+	<p id="signup-msg" class="links"></p>
+</div>
+
+<script>
+document.getElementById("signup-form").addEventListener("submit", async function (e) {
+	e.preventDefault();
+	const msg = document.getElementById("signup-msg");
+	msg.textContent = "";
+
+	const username = document.getElementById("username").value.trim();
+	const password = document.getElementById("password").value;
+	const confirmPassword = document.getElementById("confirm-password").value;
+
+	if (password !== confirmPassword) {
+		msg.textContent = "Passwords do not match.";
+		return;
+	}
+
+	try {
+		const res = await fetch("/api/register/", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ username, password, role: "user" })
+		});
+		const data = await res.json();
+		if (!res.ok) {
+			msg.textContent = data.error || "Signup failed";
+			return;
+		}
+		msg.textContent = "Account created. Redirecting to login.";
+		window.location.href = "/login/";
+	} catch (err) {
+		msg.textContent = "Request failed.";
+	}
+});
+</script>
 {%endblock%}

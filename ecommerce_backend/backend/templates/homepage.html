@@ -3,13 +3,130 @@
 Home Page
 {%endblock%}
 
+{% block body_class %}dark-theme{% endblock %}
+
 {%block content%}
-<h1> Welcome to Our E-Commerce Website</h1>
-<h2>Product Categories:</h3>
-<ul>
-<h3><li><p><a href="electronics/">Electronics</a></p></li>
-<li><p><a href="household/">Household</a></p></li>
-<li><p><a href="clothes/">Clothes</a></p></li></h3>
-<li><p><a href="cart/">Cart</a></p></li>
-</ul>
+<header class="navbar">
+	<div class="navbar-inner">
+		<a href="/" class="logo">Shopkio</a>
+		<div class="nav-links">
+			<a href="/login/">Login</a>
+			<a href="/signup/">Signup</a>
+			<a href="/cart/">Cart</a>
+			<a href="/dashboard/">Admin Dashboard</a>
+		</div>
+	</div>
+</header>
+
+<main class="page page-products">
+	<section class="section-header-main">
+		<h1>Products</h1>
+		<p class="muted">Search, sort, and add products to cart.</p>
+	</section>
+
+	<div style="display:flex;gap:8px;flex-wrap:wrap;margin:12px 0;">
+		<div class="search-bar" style="max-width:420px;">
+			<input id="search" placeholder="Search products">
+			<button id="load-btn" type="button">Apply</button>
+		</div>
+		<select id="sort" class="select" style="max-width:220px;">
+			<option value="default">Sort</option>
+			<option value="price-asc">Price: Low to High</option>
+			<option value="price-desc">Price: High to Low</option>
+			<option value="name-asc">Name: A-Z</option>
+			<option value="name-desc">Name: Z-A</option>
+		</select>
+	</div>
+
+	<div id="list" class="product-grid"></div>
+	<p id="msg" class="muted"></p>
+</main>
+
+<script>
+let productsCache = [];
+
+function sortProducts(items, mode) {
+	const arr = [...items];
+	if (mode === "price-asc") arr.sort((a, b) => (a.price || 0) - (b.price || 0));
+	if (mode === "price-desc") arr.sort((a, b) => (b.price || 0) - (a.price || 0));
+	if (mode === "name-asc") arr.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
+	if (mode === "name-desc") arr.sort((a, b) => (b.name || "").localeCompare(a.name || ""));
+	return arr;
+}
+
+async function loadProducts() {
+	const search = document.getElementById("search").value.trim();
+	const sort = document.getElementById("sort").value;
+	const params = new URLSearchParams({ page: "1", size: "30", search });
+	const msg = document.getElementById("msg");
+	msg.textContent = "";
+
+	try {
+		const res = await fetch("/api/products/?" + params.toString());
+		const data = await res.json();
+		if (!res.ok) {
+			msg.textContent = data.error || "Failed to load products";
+			return;
+		}
+		productsCache = sortProducts(data.products || [], sort);
+		renderProducts();
+	} catch (e) {
+		msg.textContent = "Request failed";
+	}
+}
+
+function renderProducts() {
+	const list = document.getElementById("list");
+	if (!productsCache.length) {
+		list.innerHTML = "<p>No products found.</p>";
+		return;
+	}
+
+	list.innerHTML = productsCache.map(p => `
+		<article class="product-card">
+			<div class="product-card-body">
+				<div class="product-card-category">${p.category || "-"}</div>
+				<h3 class="product-card-name">${p.name}</h3>
+				<div class="product-card-meta">
+					<div class="price">${Number(p.price || 0).toFixed(2)}</div>
+					<div class="muted">Stock: ${p.stock ?? "-"}</div>
+				</div>
+				<div class="product-card-actions">
+					<button class="btn-primary" type="button" data-add="${p.id}">Add to Cart</button>
+				</div>
+			</div>
+		</article>
+	`).join("");
+
+	list.querySelectorAll("button[data-add]").forEach(btn => {
+		btn.addEventListener("click", () => addToCart(Number(btn.dataset.add)));
+	});
+}
+
+async function addToCart(productId) {
+	const token = localStorage.getItem("token");
+	const msg = document.getElementById("msg");
+	if (!token) {
+		msg.textContent = "Login required to add cart items.";
+		return;
+	}
+	try {
+		const res = await fetch("/api/cart/", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				"Authorization": "Bearer " + token
+			},
+			body: JSON.stringify({ product_id: productId, quantity: 1 })
+		});
+		const data = await res.json();
+		msg.textContent = res.ok ? "Added to cart." : (data.error || "Add to cart failed");
+	} catch (e) {
+		msg.textContent = "Request failed";
+	}
+}
+
+document.getElementById("load-btn").addEventListener("click", loadProducts);
+loadProducts();
+</script>
 {%endblock%}
