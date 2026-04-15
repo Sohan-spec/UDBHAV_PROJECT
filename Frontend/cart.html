@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Shopkio — Cart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap' rel='stylesheet'>
+  <link rel="stylesheet" href="anand-style.css" />
+</head>
+<body class="dark-theme">
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="logo">Shopkio</a>
+
+      <form class="search-bar" id="search-form">
+        <input type="text" id="search-input" placeholder="Search luxury pieces..." />
+        <button type="submit">Search</button>
+      </form>
+
+      <nav class="nav-links">
+        <a href="index.html">Collection</a>
+        <a href="wishlist.html">Wishlist</a>
+        <a href="cart.html" class="active">Cart</a>
+      </nav>
+
+      <div class="nav-icons">
+        <a href="wishlist.html" class="icon-button" aria-label="Wishlist">
+          <span class="icon-heart"></span>
+          <span class="badge" id="wishlist-count">0</span>
+        </a>
+        <a href="cart.html" class="icon-button" aria-label="Cart">
+          <span class="icon-cart"></span>
+          <span class="badge" id="cart-count">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="page page-cart">
+    <section class="section-header-main">
+      <h1>Your cart</h1>
+      <p class="muted">Refine your selection before checkout.</p>
+    </section>
+
+    <section class="cart-layout">
+      <div class="cart-items" id="cart-items">
+        <!-- Items via JS -->
+      </div>
+
+      <aside class="cart-summary">
+        <div class="summary-card">
+          <h2>Order summary</h2>
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span id="cart-subtotal">₹0.00</span>
+          </div>
+          <div class="summary-row">
+            <span>Shipping</span>
+            <span id="cart-shipping">₹15.00</span>
+          </div>
+          <div class="summary-row total-row">
+            <span>Total</span>
+            <span id="cart-total">₹0.00</span>
+          </div>
+          <a href="checkout.html" class="btn-primary full-width" id="checkout-btn">
+            Proceed to Checkout
+          </a>
+          <p class="muted tiny">
+            This is a demo. Connect a backend checkout flow later.
+          </p>
+        </div>
+      </aside>
+    </section>
+
+    <p class="muted no-results" id="empty-cart-message" hidden>
+      Your cart is currently empty. Discover pieces in the <a href="index.html">collection</a>.
+    </p>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="logo">Shopkio</div>
+        <p>Your one stop shop for everything you need.</p>
+      </div>
+      <div class="footer-links">
+        <div>
+          <h4>Explore</h4>
+          <a href="index.html">Collection</a>
+          <a href="wishlist.html">Wishlist</a>
+          <a href="cart.html">Cart</a>
+        </div>
+        <div>
+          <h4>About</h4>
+          <a href="#">Our story</a>
+          <a href="#">Journal</a>
+          <a href="#">Support</a>
+        </div>
+      </div>
+      <div class="footer-meta">
+        <p>&copy; <span id="year"></span> Shopkio. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="products.js" defer></script>
+  <script src="cart.js" defer></script>
+  <script src="wishlist.js" defer></script>
+  <script src="main.js" defer></script>
+</body>
+</html>
