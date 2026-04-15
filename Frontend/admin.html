@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Shopkio - Dashboard</title>
+  <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap' rel='stylesheet'>
+  <link rel="stylesheet" href="admin-style.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" id="sidebar">
+      <div class="logo"><i class="fa-solid fa-shop fa-lg" style="color:var(--accent)"></i><h1>Shopkio</h1></div>
+      <nav class="nav">
+        <a href="#" class="active" data-target="dashboard"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+        <a href="#" data-target="add-product"><i class="fa-solid fa-plus"></i> Products</a>
+        <a href="#" data-target="products"><i class="fa-solid fa-boxes-stacked"></i> Product List</a>
+        <a href="#" data-target="orders"><i class="fa-solid fa-receipt"></i> Orders</a>
+      </nav>
+      <div class="logout">
+        <button class="btn logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+      </div>
+    </aside>
+    <main class="main">
+      <div class="topbar">
+        <div style="display:flex;align-items:center;gap:12px">
+          <button class="hamburger" aria-label="Toggle sidebar"> <i class="fa-solid fa-bars"></i> </button>
+          <div class="page-title">Dashboard</div>
+        </div>
+        <a href="index.html" class="btn">Back to Store</a>
+        <div class="admin-info"><div style="text-align:right"><div class="name">Admin</div><div class="name">shop@admin.com</div></div><img src="https://i.pravatar.cc/100" alt="avatar"></div>
+      </div>
+
+      <!-- Sections -->
+      <section id="dashboard" class="section">
+        <div class="cards">
+          <div class="card"><div><div class="label">Total Products</div><div id="total-products" class="value">-</div></div><i class="fa-solid fa-box fa-2x" style="color:var(--muted)"></i></div>
+          <div class="card"><div><div class="label">Total Orders</div><div id="total-orders" class="value">-</div></div><i class="fa-solid fa-receipt fa-2x" style="color:var(--muted)"></i></div>
+          <div class="card"><div><div class="label">Revenue</div><div id="revenue" class="value">-</div></div><i class="fa-solid fa-dollar-sign fa-2x" style="color:var(--muted)"></i></div>
+          <div class="card"><div><div class="label">Pending Orders</div><div id="pending-orders" class="value">-</div></div><i class="fa-solid fa-hourglass-half fa-2x" style="color:var(--muted)"></i></div>
+        </div>
+        <div class="form-card">
+          <h3 style="margin-top:0">Recent Orders</h3>
+          <div class="table-wrapper">
+            <table id="recent-orders">
+              <thead><tr><th>Order</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="add-product" class="section hidden" style="display:none">
+        <div id="add-product-section">
+          <h3>Add Product</h3>
+          <div class="form-card">
+            <form id="add-product-form">
+              <div class="form-row">
+                <div>
+                  <label>Product Name</label>
+                  <input name="name" type="text" />
+                </div>
+                <div>
+                  <label>Category</label>
+                  <select name="category"><option value="">Select</option><option>Electronics</option><option>Clothing</option><option>Home</option></select>
+                </div>
+              </div>
+              <div class="form-row single">
+                <div>
+                  <label>Description</label>
+                  <textarea name="description"></textarea>
+                </div>
+              </div>
+              <div class="form-row">
+                <div>
+                  <label>Price</label>
+                  <input name="price" type="number" step="0.01" />
+                </div>
+                <div>
+                  <label>Stock Quantity</label>
+                  <input name="stock" type="number" />
+                </div>
+              </div>
+              <div class="form-row single">
+                <div>
+                  <label>Image URL</label>
+                  <input name="image_url" type="text" />
+                </div>
+              </div>
+              <div class="form-actions">
+                <button type="submit" class="btn primary">Add Product</button>
+                <button type="reset" class="btn">Reset</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section id="products" class="section hidden" style="display:none">
+        <div id="products-section">
+          <h3>Product List</h3>
+          <div class="table-wrapper form-card">
+            <table id="products-table">
+              <thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Actions</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="orders" class="section hidden" style="display:none">
+        <div id="orders-section">
+          <h3>Orders</h3>
+          <div style="margin-bottom:12px;display:flex;gap:8px;align-items:center">
+            <label style="color:var(--muted);font-size:13px">Filter:</label>
+            <select id="orders-filter">
+              <option value="all">All</option>
+              <option value="pending">Pending</option>
+              <option value="delivered">Delivered</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+          </div>
+          <div class="table-wrapper form-card">
+            <table id="orders-table">
+              <thead><tr><th>Order ID</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th><th>Date</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+</body>
+</html>

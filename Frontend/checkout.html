@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Shopkio — Checkout</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap' rel='stylesheet'>
+  <link rel="stylesheet" href="anand-style.css" />
+</head>
+<body class="dark-theme page-checkout">
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="logo">Shopkio</a>
+
+      <form class="search-bar" id="search-form">
+        <input type="text" id="search-input" placeholder="Search luxury pieces..." />
+        <button type="submit">Search</button>
+      </form>
+
+      <nav class="nav-links">
+        <a href="index.html">Collection</a>
+        <a href="wishlist.html">Wishlist</a>
+        <a href="cart.html" class="active">Cart</a>
+      </nav>
+
+      <div class="nav-icons">
+        <a href="wishlist.html" class="icon-button" aria-label="Wishlist">
+          <span class="icon-heart"></span>
+          <span class="badge" id="wishlist-count">0</span>
+        </a>
+        <a href="cart.html" class="icon-button" aria-label="Cart">
+          <span class="icon-cart"></span>
+          <span class="badge" id="cart-count">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="page page-checkout">
+    <section class="section-header-main">
+      <h1>Checkout</h1>
+      <p class="muted">Complete your purchase securely.</p>
+    </section>
+
+    <section class="checkout-layout">
+      <div class="checkout-form">
+        <div class="form-section">
+          <h2>Payment Method</h2>
+          <div class="payment-options">
+            <label class="payment-option">
+              <input type="radio" name="payment-method" value="cod" />
+              <span class="option-label">Cash on Delivery</span>
+            </label>
+            <label class="payment-option">
+              <input type="radio" name="payment-method" value="upi" />
+              <span class="option-label">UPI</span>
+            </label>
+            <label class="payment-option">
+              <input type="radio" name="payment-method" value="card" />
+              <span class="option-label">Credit/Debit Card</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-section" id="payment-details" style="display: none;">
+          <h2>Payment Details</h2>
+          <div id="cod-details" class="payment-form" style="display: none;">
+            <p>No additional details required for Cash on Delivery.</p>
+          </div>
+          <div id="upi-details" class="payment-form" style="display: none;">
+            <div class="form-group">
+              <label for="upi-id">UPI ID</label>
+              <input type="text" id="upi-id" placeholder="yourname@upi" required />
+            </div>
+          </div>
+          <div id="card-details" class="payment-form" style="display: none;">
+            <div class="form-group">
+              <label for="card-number">Card Number</label>
+              <input type="text" id="card-number" placeholder="1234 5678 9012 3456" required />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="expiry">Expiry Date</label>
+                <input type="text" id="expiry" placeholder="MM/YY" required />
+              </div>
+              <div class="form-group">
+                <label for="cvv">CVV</label>
+                <input type="text" id="cvv" placeholder="123" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="card-name">Name on Card</label>
+              <input type="text" id="card-name" placeholder="John Doe" required />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <button type="button" class="btn-primary full-width" id="place-order-btn" disabled>
+            Place Order
+          </button>
+        </div>
+      </div>
+
+      <aside class="checkout-summary">
+        <div class="summary-card">
+          <h2>Order Summary</h2>
+          <div id="order-items">
+            <!-- Items via JS -->
+          </div>
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span id="checkout-subtotal">₹0.00</span>
+          </div>
+          <div class="summary-row">
+            <span>Shipping</span>
+            <span id="checkout-shipping">₹15.00</span>
+          </div>
+          <div class="summary-row total-row">
+            <span>Total</span>
+            <span id="checkout-total">₹0.00</span>
+          </div>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <!-- Order Confirmation Modal -->
+  <div id="confirmation-modal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Order Confirmed!</h2>
+        <button type="button" class="modal-close" id="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Thank you for your purchase. Your order has been placed successfully.</p>
+        <p><strong>Order ID:</strong> <span id="order-id"></span></p>
+        <p>You will receive a confirmation email shortly.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-primary" id="continue-shopping">Continue Shopping</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="logo">Shopkio</div>
+        <p>Your one stop shop for everything you need.</p>
+      </div>
+      <div class="footer-links">
+        <div>
+          <h4>Explore</h4>
+          <a href="index.html">Collection</a>
+          <a href="wishlist.html">Wishlist</a>
+          <a href="cart.html">Cart</a>
+        </div>
+        <div>
+          <h4>About</h4>
+          <a href="#">Our story</a>
+          <a href="#">Journal</a>
+          <a href="#">Support</a>
+        </div>
+      </div>
+      <div class="footer-meta">
+        <p>&copy; <span id="year"></span> Shopkio. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="products.js"></script>
+  <script src="cart.js"></script>
+  <script src="wishlist.js"></script>
+  <script src="checkout.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
