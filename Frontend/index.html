@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Shopkio — Collection</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap' rel='stylesheet'>
+  <link rel="stylesheet" href="anand-style.css" />
+</head>
+<body class="dark-theme">
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="logo">Shopkio</a>
+
+      <form class="search-bar" id="search-form">
+        <input type="text" id="search-input" placeholder="Search luxury pieces..." />
+        <button type="submit">Search</button>
+      </form>
+
+      <nav class="nav-links">
+        <a href="index.html" class="active">Collection</a>
+        <a href="product.html">Product</a>
+        <a href="wishlist.html">Wishlist</a>
+        <a href="cart.html">Cart</a>
+        <a href="login.html">Login</a>
+      </nav>
+
+      <div class="nav-icons">
+        <a href="wishlist.html" class="icon-button" aria-label="Wishlist">
+          <span class="icon-heart"></span>
+          <span class="badge" id="wishlist-count">0</span>
+        </a>
+        <a href="cart.html" class="icon-button" aria-label="Cart">
+          <span class="icon-cart"></span>
+          <span class="badge" id="cart-count">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="eyebrow">NEW ARRIVALS</p>
+      <h1>Shop the best deals, delivered fast.</h1>
+      <p class="subtitle">
+        Discover thousands of products across electronics, fashion, home and more.
+      </p>
+      <div class="hero-actions">
+        <a href="product.html" class="btn-primary">Shop the collection</a>
+        <button type="button" class="btn-ghost" id="clear-filters-btn">Clear filters</button>
+      </div>
+    </div>
+  </section>
+
+  <main class="page page-products">
+    <div class="layout">
+      <!-- Filter sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-card">
+          <h2>Filter</h2>
+
+          <div class="filter-group">
+            <label class="filter-label">Category</label>
+            <div class="filter-chips" id="category-filters">
+              <button type="button" class="chip active" data-category="all">All</button>
+              <button type="button" class="chip" data-category="electronics">Electronics</button>
+              <button type="button" class="chip" data-category="clothing">Clothing</button>
+              <button type="button" class="chip" data-category="accessories">Accessories</button>
+              <button type="button" class="chip" data-category="home">Home</button>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <label for="price-range" class="filter-label">
+              Max price: <span id="price-range-value"></span>
+            </label>
+            <input
+              type="range"
+              id="price-range"
+              min="0"
+              max="1000"
+              step="10"
+              value="1000"
+            />
+          </div>
+
+          <div class="filter-group">
+            <label class="filter-label">Minimum rating</label>
+            <div class="rating-filter" id="rating-filter">
+              <button type="button" class="chip active" data-rating="0">Any</button>
+              <button type="button" class="chip" data-rating="3">3★ &amp; up</button>
+              <button type="button" class="chip" data-rating="4">4★ &amp; up</button>
+              <button type="button" class="chip" data-rating="4.5">4.5★ &amp; up</button>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <label for="sort-select" class="filter-label">Sort by</label>
+            <select id="sort-select" class="select">
+              <option value="newest">Newest</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+              <option value="rating-desc">Rating</option>
+            </select>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Product grid -->
+      <section class="products-section">
+        <div class="section-header">
+          <h2>Featured pieces</h2>
+          <p class="muted">Handpicked for a modern, minimal aesthetic.</p>
+        </div>
+        <div id="products" class="product-grid" data-page="listing">
+          <!-- Cards rendered by JS -->
+        </div>
+        <p class="muted no-results" id="no-results" hidden>
+          No products match these filters. Adjust your selection to discover more pieces.
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="logo">Shopkio</div>
+        <p>Your one stop shop for everything you need.</p>
+      </div>
+      <div class="footer-links">
+        <div>
+          <h4>Explore</h4>
+          <a href="index.html">Collection</a>
+          <a href="wishlist.html">Wishlist</a>
+          <a href="cart.html">Cart</a>
+        </div>
+        <div>
+          <h4>About</h4>
+          <a href="#">Our story</a>
+          <a href="#">Journal</a>
+          <a href="#">Support</a>
+        </div>
+      </div>
+      <div class="footer-meta">
+        <p>&copy; <span id="year"></span> Shopkio. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="products.js" defer></script>
+  <script src="cart.js" defer></script>
+  <script src="wishlist.js" defer></script>
+  <script src="main.js" defer></script>
+</body>
+</html>

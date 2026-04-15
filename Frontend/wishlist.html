@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Shopkio — Wishlist</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap' rel='stylesheet'>
+  <link rel="stylesheet" href="anand-style.css" />
+</head>
+<body class="dark-theme">
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="logo">Shopkio</a>
+
+      <form class="search-bar" id="search-form">
+        <input type="text" id="search-input" placeholder="Search luxury pieces..." />
+        <button type="submit">Search</button>
+      </form>
+
+      <nav class="nav-links">
+        <a href="index.html">Collection</a>
+        <a href="wishlist.html" class="active">Wishlist</a>
+        <a href="cart.html">Cart</a>
+      </nav>
+
+      <div class="nav-icons">
+        <a href="wishlist.html" class="icon-button" aria-label="Wishlist">
+          <span class="icon-heart"></span>
+          <span class="badge" id="wishlist-count">0</span>
+        </a>
+        <a href="cart.html" class="icon-button" aria-label="Cart">
+          <span class="icon-cart"></span>
+          <span class="badge" id="cart-count">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="page page-wishlist">
+    <section class="section-header-main">
+      <h1>Your wishlist</h1>
+      <p class="muted">
+        Saved for later. Move your favourites directly to cart when ready.
+      </p>
+    </section>
+
+    <section class="wishlist-section">
+      <div class="product-grid" id="wishlist-grid" data-page="listing">
+        <!-- Wishlist items via JS -->
+      </div>
+      <p class="muted no-results" id="empty-wishlist-message" hidden>
+        Your wishlist is empty. Explore the <a href="index.html">collection</a> to begin curating.
+      </p>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="logo">Shopkio</div>
+        <p>Your one stop shop for everything you need.</p>
+      </div>
+      <div class="footer-links">
+        <div>
+          <h4>Explore</h4>
+          <a href="index.html">Collection</a>
+          <a href="wishlist.html">Wishlist</a>
+          <a href="cart.html">Cart</a>
+        </div>
+        <div>
+          <h4>About</h4>
+          <a href="#">Our story</a>
+          <a href="#">Journal</a>
+          <a href="#">Support</a>
+        </div>
+      </div>
+      <div class="footer-meta">
+        <p>&copy; <span id="year"></span> Shopkio. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="products.js" defer></script>
+  <script src="cart.js" defer></script>
+  <script src="wishlist.js" defer></script>
+  <script src="main.js" defer></script>
+</body>
+</html>
