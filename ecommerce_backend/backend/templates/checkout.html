@@ -1,124 +1,295 @@
-{%extends "master.html"%}
-{%block title%}
-Checkout Page
-{%endblock%}
+{% extends "master.html" %}
+{% load static %}
 
-{% block body_class %}dark-theme{% endblock %}
+{% block title %}Checkout | UDBHAV{% endblock %}
 
-{%block content%}
-<main class="page">
-	<section class="section-header-main">
-		<h1>Checkout</h1>
-	</section>
-    <section class="homepage-cart">
-        <h3><u><a href="/">Homepage</a></u></h3>
-    </section>
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'css/anand-style.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+        corePlugins: { preflight: false },
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    teal: {
+                        50: '#f0fdfa',
+                        100: '#ccfbf1',
+                        300: '#5eead4',
+                        400: '#2dd4bf',
+                        600: '#0d9488',
+                        700: '#0f766e',
+                        800: '#115e59',
+                        900: '#134e4a',
+                    }
+                },
+                fontFamily: { sans: ["Sora", "sans-serif"] }
+            },
+        },
+    }
+</script>
+<style>
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    .glass-card {
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+    body {
+        background: radial-gradient(circle at top right, #f0fdfa, #f1f5f9) !important;
+        background-attachment: fixed !important;
+    }
+</style>
+{% endblock %}
 
-	<section class="cart-layout">
-		<div class="summary-card">
-			<h3>Payment Method</h3>
-			<label><input type="radio" name="payment" value="cod"> Cash on Delivery</label><br>
-			<label><input type="radio" name="payment" value="upi"> UPI</label><br>
-			<label><input type="radio" name="payment" value="card"> Card</label><br><br>
-			<button class="btn-primary" id="place-order" type="button">Place Order</button>
-			<p id="checkout-msg" class="muted"></p>
-		</div>
+{% block content %}
+<!-- TopAppBar Section -->
+<header class="sticky top-0 z-50 flex justify-between items-center px-6 py-3 w-full max-w-screen-2xl mx-auto bg-white/60 backdrop-blur-xl dark:bg-slate-950/60 rounded-b-3xl border-b border-white/20 dark:border-slate-800/50 shadow-lg shadow-teal-900/5 backdrop-saturate-150 font-sans">
+    <div class="flex items-center gap-4">
+        <a href="/" class="hover:bg-teal-50/50 dark:hover:bg-teal-900/20 rounded-full transition-all p-2 active:scale-95 duration-200 ease-out inline-block no-underline">
+            <span class="material-symbols-outlined text-slate-500">arrow_back</span>
+        </a>
+        <h1 class="text-2xl font-bold tracking-tight text-teal-800 dark:text-teal-300 m-0">UDBHAV</h1>
+    </div>
+</header>
 
-		<aside class="cart-summary">
-			<div class="summary-card">
-				<h3>Order Summary</h3>
-				<div id="checkout-items" class="cart-items"></div>
-				<div class="summary-row total-row">
-					<span>Total</span>
-					<span id="checkout-total">0.00</span>
-				</div>
-			</div>
-		</aside>
-	</section>
+<main class="max-w-6xl mx-auto px-6 py-12 font-sans">
+    <div class="mb-10">
+        <h2 class="text-4xl font-bold text-slate-900 tracking-tight m-0">Checkout</h2>
+        <p class="text-slate-500 mt-2">Complete your premium beauty experience.</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- Left Column: Payment & Delivery -->
+        <div class="lg:col-span-7 space-y-8">
+            <!-- Delivery Badge Section -->
+            <section class="glass-card rounded-xl p-8 shadow-sm">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full bg-teal-100 flex items-center justify-center text-teal-700">
+                        <span class="material-symbols-outlined">local_shipping</span>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold uppercase tracking-widest text-teal-800 m-0">Delivery Status</h3>
+                        <div class="mt-2 inline-flex items-center px-4 py-1.5 rounded-full bg-teal-600/10 text-teal-700 font-medium text-lg">
+                            Arriving by <span class="ml-2 font-bold" id="delivery-date">...</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Payment Method Section -->
+            <section class="glass-card rounded-xl p-8 shadow-sm">
+                <h3 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2 m-0">
+                    <span class="material-symbols-outlined text-teal-600">payments</span>
+                    Payment Method
+                </h3>
+                <div class="space-y-4">
+                    <!-- UPI Option -->
+                    <label class="group relative flex items-center p-5 rounded-lg border border-transparent hover:border-teal-200 cursor-pointer transition-all bg-white/30 hover:bg-white/60 m-0">
+                        <input checked class="w-5 h-5 text-teal-600 focus:ring-teal-500 border-slate-300" name="payment" type="radio" value="upi"/>
+                        <div class="ml-4 flex items-center justify-between w-full">
+                            <div>
+                                <span class="block font-bold text-slate-800">UPI</span>
+                                <span class="text-xs text-slate-500">Google Pay, PhonePe, or Any UPI App</span>
+                            </div>
+                            <span class="material-symbols-outlined text-slate-400 group-hover:text-teal-600 transition-colors">qr_code_2</span>
+                        </div>
+                    </label>
+                    <!-- COD Option -->
+                    <label class="group relative flex items-center p-5 rounded-lg border border-transparent hover:border-teal-200 cursor-pointer transition-all bg-white/30 hover:bg-white/60 m-0">
+                        <input class="w-5 h-5 text-teal-600 focus:ring-teal-500 border-slate-300" name="payment" type="radio" value="cod"/>
+                        <div class="ml-4 flex items-center justify-between w-full">
+                            <div>
+                                <span class="block font-bold text-slate-800">Cash on Delivery</span>
+                                <span class="text-xs text-slate-500">Pay when your beauty products arrive</span>
+                            </div>
+                            <span class="material-symbols-outlined text-slate-400 group-hover:text-teal-600 transition-colors">payments</span>
+                        </div>
+                    </label>
+                </div>
+            </section>
+        </div>
+
+        <!-- Right Column: Order Summary -->
+        <div class="lg:col-span-5 sticky top-28">
+            <div class="glass-card rounded-xl overflow-hidden shadow-xl border border-white/40">
+                <div class="p-8">
+                    <h3 class="text-xl font-bold text-slate-800 mb-6 m-0">Order Summary</h3>
+                    
+                    <p id="checkout-msg" class="text-sm text-red-500 font-bold text-center"></p>
+
+                    <div id="checkout-items" class="space-y-4 mb-8 max-h-[300px] overflow-y-auto pr-2">
+                        <!-- dynamically populated via JS -->
+                    </div>
+
+                    <!-- Price Breakdown -->
+                    <div class="space-y-4 pt-6 border-t border-teal-100/30">
+                        <div class="flex justify-between text-slate-600">
+                            <span>Subtotal</span>
+                            <span id="checkout-subtotal">₹0.00</span>
+                        </div>
+                        <div class="flex justify-between text-slate-600">
+                            <span>Shipping</span>
+                            <span class="text-teal-600 font-medium">Free</span>
+                        </div>
+                        <div class="flex justify-between items-center pt-4 border-t border-teal-200/40">
+                            <span class="text-lg font-bold text-slate-900">Total</span>
+                            <span class="text-2xl font-extrabold text-teal-800" id="checkout-total">₹0.00</span>
+                        </div>
+                    </div>
+
+                    <!-- Place Order Button -->
+                    <button id="place-order" class="w-full mt-8 bg-teal-800 hover:bg-teal-700 text-white py-4 px-6 rounded-lg font-bold text-lg shadow-lg shadow-teal-900/20 active:scale-[0.98] transition-all flex items-center justify-center gap-3 border-0 cursor-pointer">
+                        Place Order
+                        <span class="material-symbols-outlined">arrow_forward</span>
+                    </button>
+                    
+                    <div class="mt-6 flex items-center justify-center gap-2 text-slate-400 text-xs">
+                        <span class="material-symbols-outlined text-[16px]">lock</span>
+                        Secure encrypted checkout
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
 
+<!-- Order Success Modal (Hidden by default) -->
+<div id="success-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100] hidden items-center justify-center flex transition-opacity font-sans">
+    <div class="bg-white/90 backdrop-blur-xl p-10 rounded-2xl shadow-2xl flex flex-col items-center max-w-md w-full mx-4 border border-white/40">
+        <div class="w-20 h-20 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center mb-6">
+            <span class="material-symbols-outlined text-[40px]">check_circle</span>
+        </div>
+        <h2 class="text-3xl font-bold text-slate-900 mb-2 m-0">Order Placed!</h2>
+        <p class="text-slate-500 text-center mb-8 mt-2">Thank you for your purchase. We are redirecting you back to the homepage.</p>
+        <div class="w-8 h-8 border-4 border-teal-200 border-t-teal-600 rounded-full animate-spin"></div>
+    </div>
+</div>
+
 <script>
+// Calculate Expected Delivery Date
+function setDeliveryDate() {
+    const today = new Date();
+    // Options to sync with New Delhi
+    const options = { timeZone: 'Asia/Kolkata' };
+    const indiaTimeStr = today.toLocaleString('en-US', options);
+    const indiaDate = new Date(indiaTimeStr);
+    
+    // Add 7 days
+    indiaDate.setDate(indiaDate.getDate() + 7);
+    
+    const displayOptions = { weekday: 'long', month: 'short', day: 'numeric' };
+    document.getElementById("delivery-date").textContent = indiaDate.toLocaleDateString('en-US', displayOptions);
+}
+setDeliveryDate();
+
 const checkoutToken = localStorage.getItem("token");
 
 async function loadCheckoutCart() {
-	const msg = document.getElementById("checkout-msg");
-	msg.textContent = "";
-	if (!checkoutToken) {
-		msg.textContent = "Login required.";
-		return;
-	}
+    const msg = document.getElementById("checkout-msg");
+    msg.textContent = "";
+    if (!checkoutToken) {
+        msg.textContent = "Login required.";
+        return;
+    }
 
-	try {
-		const res = await fetch("/api/cart/", {
-			headers: { "Authorization": "Bearer " + checkoutToken }
-		});
-		const data = await res.json();
-		if (!res.ok) {
-			msg.textContent = data.error || "Failed to load cart";
-			return;
-		}
-		renderCheckoutItems(data.items || [], data.total || 0);
-	} catch (e) {
-		msg.textContent = "Request failed";
-	}
+    try {
+        const res = await fetch("/api/cart/", {
+            headers: { "Authorization": "Bearer " + checkoutToken }
+        });
+        const data = await res.json();
+        if (!res.ok) {
+            msg.textContent = data.error || "Failed to load cart";
+            return;
+        }
+        renderCheckoutItems(data.items || [], data.total || 0);
+    } catch (e) {
+        msg.textContent = "Request failed";
+    }
 }
 
 function renderCheckoutItems(items, total) {
-	const wrapper = document.getElementById("checkout-items");
-	if (!items.length) {
-		wrapper.innerHTML = "<p>Cart is empty.</p>";
-	} else {
-		wrapper.innerHTML = items.map(item => `
-			<article class="cart-item">
-				<div class="cart-item-info">
-					<div class="cart-item-name">${item.name}</div>
-					<div class="cart-item-meta">Qty: ${item.qty}</div>
-				</div>
-				<div class="cart-item-actions">
-					<span class="price">${Number(item.price).toFixed(2)}</span>
-				</div>
-			</article>
-		`).join("");
-	}
-	document.getElementById("checkout-total").textContent = Number(total).toFixed(2);
+    const wrapper = document.getElementById("checkout-items");
+    if (!items.length) {
+        wrapper.innerHTML = "<p class='text-slate-500'>Your cart is empty.</p>";
+    } else {
+        wrapper.innerHTML = items.map(item => `
+            <div class="flex items-center gap-4 py-2 border-b border-slate-100 last:border-0">
+                <div class="w-16 h-20 flex-shrink-0 rounded-lg overflow-hidden bg-slate-100 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-slate-300 text-3xl">shopping_bag</span>
+                </div>
+                <div class="flex-grow">
+                    <h4 class="font-bold text-sm text-slate-900 m-0">${item.name}</h4>
+                    <p class="text-xs text-slate-500 mt-1 mb-0">Quantity: ${item.qty}</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-teal-700 font-semibold text-sm m-0">₹${Number(item.price).toFixed(2)}</p>
+                </div>
+            </div>
+        `).join("");
+    }
+    const totalStr = "₹" + Number(total).toFixed(2);
+    document.getElementById("checkout-subtotal").textContent = totalStr;
+    document.getElementById("checkout-total").textContent = totalStr;
 }
 
 document.getElementById("place-order").addEventListener("click", async function () {
-	const msg = document.getElementById("checkout-msg");
-	msg.textContent = "";
+    const msg = document.getElementById("checkout-msg");
+    msg.textContent = "";
 
-	const selectedPayment = document.querySelector("input[name='payment']:checked");
-	if (!selectedPayment) {
-		msg.textContent = "Select a payment method.";
-		return;
-	}
+    const selectedPayment = document.querySelector("input[name='payment']:checked");
+    if (!selectedPayment) {
+        msg.textContent = "Select a payment method.";
+        return;
+    }
 
-	if (!checkoutToken) {
-		msg.textContent = "Login required.";
-		return;
-	}
+    if (!checkoutToken) {
+        msg.textContent = "Login required.";
+        return;
+    }
 
-	try {
-		const res = await fetch("/api/orders/create/", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				"Authorization": "Bearer " + checkoutToken
-			},
-			body: JSON.stringify({ payment_method: selectedPayment.value })
-		});
-		const data = await res.json();
-		if (!res.ok) {
-			msg.textContent = data.error || "Order failed";
-			return;
-		}
-		msg.textContent = "Order placed successfully. Order ID: " + data.order_id;
-		loadCheckoutCart();
-	} catch (e) {
-		msg.textContent = "Request failed";
-	}
+    // Optional: show loading state
+    this.disabled = true;
+    this.innerHTML = "Processing...";
+
+    try {
+        const res = await fetch("/api/orders/create/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + checkoutToken
+            },
+            body: JSON.stringify({ payment_method: selectedPayment.value })
+        });
+        const data = await res.json();
+        
+        if (!res.ok) {
+            msg.textContent = data.error || "Order failed";
+            this.disabled = false;
+            this.innerHTML = 'Place Order <span class="material-symbols-outlined">arrow_forward</span>';
+            return;
+        }
+        
+        // Success -> Show Modal and Redirect
+        const modal = document.getElementById("success-modal");
+        modal.classList.remove("hidden");
+        
+        // Ensure UI updates properly then delay redirect
+        setTimeout(() => {
+            window.location.href = "/";
+        }, 2500);
+
+    } catch (e) {
+        msg.textContent = "Request failed";
+        this.disabled = false;
+        this.innerHTML = 'Place Order <span class="material-symbols-outlined">arrow_forward</span>';
+    }
 });
 
 loadCheckoutCart();
 </script>
-{%endblock%}
+{% endblock %}

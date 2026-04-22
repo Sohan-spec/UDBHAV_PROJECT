@@ -6,7 +6,17 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate
 from django.db.models import Q
+from django.utils.text import slugify
 from .models import User, Category, Product, Cart, CartItem, Order, OrderItem, Review
+from .views import featured_product_by_name, featured_product_by_slug
+
+
+def resolve_product_media(product):
+    slug = slugify(product.name)
+    featured = featured_product_by_slug(slug) or featured_product_by_name(product.name)
+    if not featured:
+        return "", []
+    return featured["image"], featured.get("gallery", [])
 
 # Helper function
 def get_user_from_token(request):
@@ -91,12 +101,17 @@ def get_products(request):
     
     data = []
     for p in products:
+        image, gallery = resolve_product_media(p)
         data.append({
             'id': p.id,
             'name': p.name,
+            'slug': slugify(p.name),
             'price': float(p.price),
             'stock': p.stock,
-            'category': p.category.name if p.category else ''
+            'category': p.category.name if p.category else '',
+            'description': p.description or '',
+            'image': image,
+            'gallery': gallery,
         })
     return JsonResponse({'products': data, 'total': total, 'page': page})
 
@@ -213,3 +228,34 @@ def create_product(request):
         })
 
     return JsonResponse({"error": "Method not allowed"}, status=405)
+
+@csrf_exempt
+@user_required
+def profile(request):
+    user = request.user
+    if request.method == 'GET':
+        return JsonResponse({
+            'username': user.username,
+            'mobile': user.first_name
+        })
+    elif request.method == 'POST':
+        data = json.loads(request.body)
+        new_username = data.get('username')
+        new_password = data.get('password')
+        new_mobile = data.get('mobile')
+        
+        if new_username:
+            if User.objects.filter(username=new_username).exclude(id=user.id).exists():
+                return JsonResponse({'error': 'Username already taken'}, status=400)
+            user.username = new_username
+            
+        if new_password:
+            user.set_password(new_password)
+            
+        if new_mobile is not None:
+            user.first_name = new_mobile
+            
+        user.save()
+        return JsonResponse({'message': 'Profile updated successfully'})
+    
+    return JsonResponse({'error': 'Method not allowed'}, status=405)

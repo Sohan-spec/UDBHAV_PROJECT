@@ -1,38 +1,95 @@
-{%extends "master.html"%}
-{% load static %}
-{%block title%}
-Login Page
-{%endblock%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Login - Udbhav</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+	tailwind.config = {
+		darkMode: "class",
+		theme: {
+			extend: {
+				colors: {
+					"primary-container": "#abfbff",
+					"on-surface-variant": "#3e4949",
+					"on-primary-container": "#1d767a",
+					"surface-container": "#a2fdff",
+					"outline-variant": "#bdc9c9",
+					"surface-container-lowest": "#ffffff",
+					"surface-container-high": "#99f8fa",
+					"surface": "#f2fbfa",
+					"on-surface": "#002020",
+					"primary": "#00696d",
+					"on-primary": "#ffffff"
+				},
+				borderRadius: {
+					DEFAULT: "0.25rem",
+					lg: "0.5rem",
+					xl: "0.75rem",
+					full: "9999px"
+				},
+				fontFamily: {
+					headline: ["Plus Jakarta Sans", "sans-serif"],
+					body: ["Plus Jakarta Sans", "sans-serif"],
+					label: ["Plus Jakarta Sans", "sans-serif"]
+				}
+			}
+		}
+	};
+</script>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased min-h-screen flex flex-col overflow-x-hidden relative">
+<div class="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-br from-surface-container-lowest/40 to-transparent blur-3xl pointer-events-none"></div>
+<div class="absolute bottom-[-20%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-tl from-surface-container-high/60 to-transparent blur-3xl pointer-events-none"></div>
 
-{% block page_css %}
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
-{% endblock %}
-
-{%block content%}
-<header class="navbar">
-	<a href="/">Home</a>
-</header>
-
-<div class="login-box">
-	<h2>Secure Login</h2>
-	<form id="login-form">
-		<div class="input-box">
-			<label for="username">Username</label>
-			<input id="username" type="text" required>
-		</div>
-
-		<div class="input-box">
-			<label for="password">Password</label>
-			<input id="password" type="password" required>
-		</div>
-
-		<button class="login-btn" type="submit">Login</button>
-	</form>
-	<div class="links">
-		<p>No account? <a href="/signup/">Sign up</a></p>
+<nav class="fixed top-0 w-full z-50 bg-[#f2fbfa]/80 backdrop-blur-lg shadow-[0px_20px_40px_rgba(0,32,32,0.06)]">
+	<div class="flex justify-between items-center w-full px-8 py-4 max-w-[1440px] mx-auto">
+		<a class="text-3xl font-bold uppercase text-[#00696d]" href="/">Udbhav</a>
+		<a class="text-[#3e4949] font-medium hover:text-[#1d767a] transition-colors duration-300" href="/signup/">Create account</a>
 	</div>
-	<p id="login-msg" class="links"></p>
-</div>
+</nav>
+
+<main class="flex-1 flex items-center justify-center pt-32 pb-24 px-4 relative z-10">
+	<div class="w-full max-w-[420px] bg-surface-container-lowest rounded-xl shadow-[0px_20px_40px_rgba(0,32,32,0.06)] overflow-hidden flex flex-col relative">
+		<div class="w-full h-48 relative bg-surface-container-high overflow-hidden">
+			<div class="absolute inset-0 bg-gradient-to-b from-transparent to-surface-container-lowest/90"></div>
+			<div class="absolute bottom-4 left-8">
+				<span class="text-primary font-headline font-bold tracking-widest text-xs uppercase opacity-80">Welcome to</span>
+				<h2 class="text-3xl font-bold uppercase text-[#00696d] leading-none mt-1">Udbhav</h2>
+			</div>
+		</div>
+
+		<div class="px-8 pt-8 pb-10">
+			<h1 class="text-[1.5rem] font-headline font-semibold text-on-surface mb-8 tracking-tight">Login</h1>
+			<form class="flex flex-col gap-5" id="login-form">
+				<div class="flex flex-col gap-2">
+					<label class="text-sm font-medium text-on-surface-variant" for="username">Username</label>
+					<input class="w-full h-14 bg-surface-container-lowest border border-outline-variant/30 rounded-xl px-4 text-on-surface placeholder:text-on-surface-variant/50 focus:border-primary/40 focus:ring-2 focus:ring-primary/10" id="username" placeholder="Enter username" required type="text"/>
+				</div>
+
+				<div class="flex flex-col gap-2">
+					<label class="text-sm font-medium text-on-surface-variant" for="password">Password</label>
+					<input class="w-full h-14 bg-surface-container-lowest border border-outline-variant/30 rounded-xl px-4 text-on-surface placeholder:text-on-surface-variant/50 focus:border-primary/40 focus:ring-2 focus:ring-primary/10" id="password" placeholder="Enter password" required type="password"/>
+				</div>
+
+				<button class="w-full h-14 rounded-full bg-gradient-to-br from-primary to-on-primary-container text-on-primary text-sm font-headline font-bold uppercase tracking-wide mt-2 shadow-[0px_8px_16px_rgba(0,105,109,0.2)] hover:shadow-[0px_12px_24px_rgba(0,105,109,0.25)] hover:-translate-y-0.5 transition-all duration-300" type="submit">
+					Continue
+				</button>
+				<p class="text-center text-sm text-on-surface-variant">No account? <a class="text-primary font-semibold hover:text-on-primary-container" href="/signup/">Sign up</a></p>
+				<p class="text-center text-sm text-red-700 min-h-5" id="login-msg"></p>
+			</form>
+		</div>
+	</div>
+</main>
+
+<footer class="w-full py-10 bg-surface flex flex-col items-center gap-4 px-10 border-t border-cyan-100/20 relative z-10">
+	<div class="text-xl font-black text-[#00696d]">Udbhav</div>
+</footer>
 
 <script>
 document.getElementById("login-form").addEventListener("submit", async function (e) {
@@ -52,17 +109,19 @@ document.getElementById("login-form").addEventListener("submit", async function 
 			body: JSON.stringify(payload)
 		});
 		const data = await res.json();
+
 		if (!res.ok) {
 			msg.textContent = data.error || "Login failed";
 			return;
 		}
+
 		localStorage.setItem("token", data.token);
 		localStorage.setItem("role", data.role || "user");
-		msg.textContent = "Login successful.";
-		window.location.href = "/";
-	} catch (err) {
+		window.location.href = data.role === "admin" ? "/dashboard/" : "/";
+	} catch (_err) {
 		msg.textContent = "Request failed.";
 	}
 });
 </script>
-{%endblock%}
+</body>
+</html>

@@ -1,75 +1,193 @@
-{%extends "master.html"%}
-{% load static %}
-{%block title%}
-Sign Up Page
-{%endblock%}
+<!DOCTYPE html>
+<html class="light" lang="en">
 
-{% block page_css %}
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
-{% endblock %}
+<head>
+	<meta charset="utf-8" />
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<title>Udbhav - Signup</title>
+	<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+		rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap"
+		rel="stylesheet" />
+	<script>
+		tailwind.config = {
+			darkMode: "class",
+			theme: {
+				extend: {
+					colors: {
+						"primary-container": "#abfbff",
+						"on-surface-variant": "#3e4949",
+						"on-primary-container": "#1d767a",
+						"outline-variant": "#bdc9c9",
+						"surface-container-lowest": "#ffffff",
+						"surface-container-highest": "#e6fcfc",
+						"surface-container-high": "#e6fcfc",
+						"surface": "#f4fcfc",
+						"on-surface": "#002020",
+						"primary": "#00696d",
+						"on-primary": "#ffffff"
+					},
+					borderRadius: {
+						DEFAULT: "0.25rem",
+						lg: "0.5rem",
+						xl: "0.75rem",
+						full: "9999px"
+					},
+					fontFamily: {
+						headline: ["Plus Jakarta Sans", "sans-serif"],
+						body: ["Plus Jakarta Sans", "sans-serif"],
+						label: ["Plus Jakarta Sans", "sans-serif"]
+					}
+				}
+			}
+		};
+	</script>
+</head>
 
-{%block content%}
-<header class="navbar">
-	<a href="/">Home</a>
-</header>
+<body class="bg-surface-container-high font-body text-on-surface min-h-screen flex flex-col antialiased">
+	<header class="fixed top-0 w-full z-50 bg-[#f4fcfc]/80 backdrop-blur-lg shadow-[0px_20px_40px_rgba(0,32,32,0.06)]">
+		<div class="flex justify-between items-center w-full px-8 py-4 max-w-[1440px] mx-auto">
+			<a class="tracking-tight text-3xl font-bold uppercase text-[#00696d]" href="/">Udbhav</a>
+			<a class="text-[#3e4949] font-medium hover:text-[#1d767a] transition-colors duration-300"
+				href="/login/">Already a member?</a>
+		</div>
+	</header>
 
-<div class="signup-box">
-	<h2>Create Account</h2>
-	<form id="signup-form">
-		<div class="input-box">
-			<label for="username">Username</label>
-			<input id="username" type="text" required>
+	<main class="flex-grow flex items-center justify-center pt-32 pb-24 px-6 relative overflow-hidden">
+		<div class="absolute top-20 left-10 w-96 h-96 bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
+		<div
+			class="absolute bottom-10 right-10 w-80 h-80 bg-primary-container/20 rounded-full blur-[80px] pointer-events-none">
 		</div>
 
-		<div class="input-box">
-			<label for="password">Password</label>
-			<input id="password" type="password" required>
+		<div
+			class="w-full max-w-lg bg-surface-container-lowest rounded-[1.5rem] shadow-[0px_20px_40px_rgba(0,32,32,0.06)] relative z-10 overflow-hidden flex flex-col border-0">
+			<div class="h-40 w-full relative bg-primary-container">
+				<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest to-transparent"></div>
+			</div>
+
+			<div class="p-10 pt-8 flex flex-col gap-8">
+				<div class="text-center space-y-2">
+					<h1 class="font-headline text-3xl font-semibold tracking-tight text-primary">Signup</h1>
+					<p class="text-on-surface-variant text-sm">Join us to experience pure shopping bliss.</p>
+				</div>
+
+				<form class="flex flex-col gap-5" id="signup-form">
+					<div class="space-y-1">
+						<label class="block text-xs text-on-surface-variant font-medium ml-2"
+							for="username">Username</label>
+						<input
+							class="w-full bg-surface-container-lowest border-0 ring-1 ring-outline-variant/20 rounded-[1.5rem] px-5 py-3.5 text-on-surface focus:ring-2 focus:ring-primary/40 focus:outline-none placeholder:text-on-surface-variant/40"
+							id="username" placeholder="Choose a username" required type="text" />
+					</div>
+
+					<div class="space-y-1">
+						<label class="block text-xs text-on-surface-variant font-medium ml-2" for="email">Email Address
+							(optional)</label>
+						<input
+							class="w-full bg-surface-container-lowest border-0 ring-1 ring-outline-variant/20 rounded-[1.5rem] px-5 py-3.5 text-on-surface focus:ring-2 focus:ring-primary/40 focus:outline-none placeholder:text-on-surface-variant/40"
+							id="email" placeholder="hello@example.com" type="email" />
+					</div>
+
+					<div class="space-y-1">
+						<label class="block text-xs text-on-surface-variant font-medium ml-2" for="phone">Phone Number
+							(optional)</label>
+						<input
+							class="w-full bg-surface-container-lowest border-0 ring-1 ring-outline-variant/20 rounded-[1.5rem] px-5 py-3.5 text-on-surface focus:ring-2 focus:ring-primary/40 focus:outline-none placeholder:text-on-surface-variant/40"
+							id="phone" placeholder="+91 | Mobile Number" type="tel" />
+					</div>
+
+					<div class="space-y-1">
+						<label class="block text-xs text-on-surface-variant font-medium ml-2"
+							for="password">Password</label>
+						<input
+							class="w-full bg-surface-container-lowest border-0 ring-1 ring-outline-variant/20 rounded-[1.5rem] px-5 py-3.5 text-on-surface focus:ring-2 focus:ring-primary/40 focus:outline-none placeholder:text-on-surface-variant/40"
+							id="password" placeholder="Create password" required type="password" />
+					</div>
+
+					<div class="space-y-1">
+						<label class="block text-xs text-on-surface-variant font-medium ml-2"
+							for="confirm-password">Confirm Password</label>
+						<input
+							class="w-full bg-surface-container-lowest border-0 ring-1 ring-outline-variant/20 rounded-[1.5rem] px-5 py-3.5 text-on-surface focus:ring-2 focus:ring-primary/40 focus:outline-none placeholder:text-on-surface-variant/40"
+							id="confirm-password" placeholder="Confirm password" required type="password" />
+					</div>
+
+					<div class="flex items-start gap-3 mt-1">
+						<input
+							class="w-5 h-5 rounded-sm border-0 ring-1 ring-outline-variant/30 text-primary focus:ring-primary/40 focus:ring-offset-0 bg-surface-container-highest cursor-pointer"
+							id="terms" required type="checkbox" />
+						<label class="text-sm text-on-surface-variant cursor-pointer select-none leading-tight pt-0.5"
+							for="terms">
+							I agree to the <a
+								class="text-primary font-medium hover:text-on-primary-container transition-colors"
+								href="#">Terms of Use</a> and <a
+								class="text-primary font-medium hover:text-on-primary-container transition-colors"
+								href="#">Privacy Policy</a>.
+						</label>
+					</div>
+
+					<button
+						class="mt-4 w-full rounded-full bg-gradient-to-br from-primary to-on-primary-container text-on-primary py-4 font-headline font-bold text-[15px] tracking-wide hover:shadow-lg hover:shadow-primary/20 transform hover:-translate-y-0.5 transition-all duration-300"
+						type="submit">
+						Create Account
+					</button>
+					<p class="text-sm text-center text-red-700 min-h-5" id="signup-msg"></p>
+				</form>
+
+				<div class="text-center mt-1">
+					<p class="text-sm text-on-surface-variant">
+						Already have an account?
+						<a class="text-primary font-semibold hover:text-on-primary-container transition-colors ml-1"
+							href="/login/">Login</a>
+					</p>
+				</div>
+			</div>
 		</div>
+	</main>
 
-		<div class="input-box">
-			<label for="confirm-password">Confirm Password</label>
-			<input id="confirm-password" type="password" required>
-		</div>
+	<footer
+		class="w-full py-12 bg-cyan-50/50 flex flex-col items-center gap-6 px-10 border-t border-cyan-100/20 mt-auto">
+		<div class="text-xl font-black text-[#00696d]">Udbhav</div>
+		<p class="text-xs uppercase tracking-widest text-[#00696d] mt-1 text-center">
+			© 2026 Udbhav.
+		</p>
+	</footer>
 
-		<button class="signup-btn" type="submit">Create Account</button>
-	</form>
-	<div class="links">
-		<p>Already have an account? <a href="/login/">Login</a></p>
-	</div>
-	<p id="signup-msg" class="links"></p>
-</div>
+	<script>
+		document.getElementById("signup-form").addEventListener("submit", async function (e) {
+			e.preventDefault();
+			const msg = document.getElementById("signup-msg");
+			msg.textContent = "";
 
-<script>
-document.getElementById("signup-form").addEventListener("submit", async function (e) {
-	e.preventDefault();
-	const msg = document.getElementById("signup-msg");
-	msg.textContent = "";
+			const username = document.getElementById("username").value.trim();
+			const password = document.getElementById("password").value;
+			const confirmPassword = document.getElementById("confirm-password").value;
 
-	const username = document.getElementById("username").value.trim();
-	const password = document.getElementById("password").value;
-	const confirmPassword = document.getElementById("confirm-password").value;
+			if (password !== confirmPassword) {
+				msg.textContent = "Passwords do not match.";
+				return;
+			}
 
-	if (password !== confirmPassword) {
-		msg.textContent = "Passwords do not match.";
-		return;
-	}
-
-	try {
-		const res = await fetch("/api/register/", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ username, password, role: "user" })
+			try {
+				const res = await fetch("/api/register/", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({ username, password, role: "user" })
+				});
+				const data = await res.json();
+				if (!res.ok) {
+					msg.textContent = data.error || "Signup failed";
+					return;
+				}
+				msg.textContent = "Account created. Redirecting to login.";
+				window.location.href = "/login/";
+			} catch (_err) {
+				msg.textContent = "Request failed.";
+			}
 		});
-		const data = await res.json();
-		if (!res.ok) {
-			msg.textContent = data.error || "Signup failed";
-			return;
-		}
-		msg.textContent = "Account created. Redirecting to login.";
-		window.location.href = "/login/";
-	} catch (err) {
-		msg.textContent = "Request failed.";
-	}
-});
-</script>
-{%endblock%}
+	</script>
+</body>
+
+</html>

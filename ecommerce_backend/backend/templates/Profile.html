@@ -1,9 +1,331 @@
-{%extends "master.html"%}
-{%block title%}
-Profile Page
-{%endblock%}
+{% extends "master.html" %}
+{% load static %}
 
-{%block content%}
-<h1> Welcome to Our E-Commerce Website</h1>
-<h2>Profile page</h2>
-{%endblock%}
+{% block title %}My Profile | UDBHAV{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'css/anand-style.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+        corePlugins: { preflight: false },
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    teal: {
+                        50: '#f0f9f9',
+                        100: '#d9f2f2',
+                        200: '#b8e5e5',
+                        300: '#86d0d0',
+                        400: '#4eb4b4',
+                        500: '#0e7a7a',
+                        600: '#0b6262',
+                        700: '#094e4e',
+                        800: '#084040',
+                        900: '#073636',
+                    }
+                },
+                fontFamily: { sans: ["Sora", "sans-serif"] }
+            },
+        },
+    }
+</script>
+<style>
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    .glass-panel {
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+    }
+
+    body {
+        background: radial-gradient(circle at top right, #f0fdfa, #f1f5f9) !important;
+        background-attachment: fixed !important;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- TopAppBar -->
+<header class="bg-white/70 backdrop-blur-lg border-b border-white/20 shadow-sm fixed top-0 w-full z-50">
+    <div class="flex justify-between items-center h-16 px-6 max-w-full">
+        <div class="text-xl font-bold tracking-tight text-teal-800 m-0"><a href="/"
+                class="text-teal-800 no-underline">UDBHAV</a></div>
+        <div class="hidden md:flex items-center space-x-8">
+            <a class="text-slate-500 hover:bg-teal-50/50 transition-all px-3 py-1 rounded-lg tracking-tight text-sm no-underline"
+                href="/">Home</a>
+            <a class="text-teal-600 font-semibold hover:bg-teal-50/50 transition-all px-3 py-1 rounded-lg tracking-tight text-sm no-underline"
+                href="#">Profile</a>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content Canvas -->
+<main class="pt-24 pb-32 px-4 md:px-8 min-h-screen relative overflow-hidden font-sans">
+    <!-- Background Accents -->
+    <div class="absolute top-0 left-0 w-full h-full -z-10 bg-gradient-to-br from-teal-50 via-slate-50 to-teal-100/30">
+    </div>
+    <div class="absolute -top-24 -right-24 w-96 h-96 bg-teal-200/20 rounded-full blur-3xl"></div>
+    <div class="absolute top-1/2 -left-24 w-80 h-80 bg-slate-200/30 rounded-full blur-3xl"></div>
+
+    <div class="max-w-2xl mx-auto">
+        <!-- Profile Header -->
+        <div class="mb-8 text-center">
+            <h1 class="text-4xl font-extrabold tracking-tight text-teal-900 mb-2 m-0">My Profile</h1>
+            <p class="text-slate-500 text-sm mt-2">Manage your account settings and track your beauty journey</p>
+        </div>
+
+        <!-- Profile Card -->
+        <div class="glass-panel rounded-xl shadow-xl shadow-teal-900/5 p-8 border border-white/40 relative">
+
+            <p id="profile-msg" class="text-sm font-bold text-teal-600 text-center hidden m-0 mb-4 transition-all"></p>
+
+            <!-- User Form -->
+            <form class="space-y-6" id="profile-form">
+                <div class="grid grid-cols-1 gap-6">
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold uppercase tracking-widest text-teal-700 ml-1">Username</label>
+                        <div class="relative">
+                            <input id="profile-username"
+                                class="w-full bg-teal-50/40 border-none rounded-lg px-4 py-3 text-slate-700 focus:ring-2 focus:ring-teal-500/20 transition-all placeholder-slate-400 m-0"
+                                placeholder="Enter username" type="text" />
+                            <span
+                                class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-teal-300">person</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold uppercase tracking-widest text-teal-700 ml-1">Password</label>
+                        <div class="relative">
+                            <input id="profile-password"
+                                class="w-full bg-teal-50/40 border-none rounded-lg px-4 py-3 text-slate-700 focus:ring-2 focus:ring-teal-500/20 transition-all m-0"
+                                placeholder="Enter new password" type="password" />
+                            <span
+                                class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-teal-300">lock</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2 hidden transition-all duration-300" id="confirm-password-container">
+                        <label class="text-xs font-bold uppercase tracking-widest text-teal-700 ml-1">Confirm Password</label>
+                        <div class="relative">
+                            <input id="profile-confirm-password"
+                                class="w-full bg-teal-50/40 border-none rounded-lg px-4 py-3 text-slate-700 focus:ring-2 focus:ring-teal-500/20 transition-all m-0"
+                                placeholder="Confirm new password" type="password" />
+                            <span
+                                class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-teal-300">lock</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold uppercase tracking-widest text-teal-700 ml-1">Mobile
+                            Number</label>
+                        <div class="relative">
+                            <input id="profile-mobile"
+                                class="w-full bg-teal-50/40 border-none rounded-lg px-4 py-3 text-slate-700 focus:ring-2 focus:ring-teal-500/20 transition-all m-0"
+                                placeholder="Enter mobile number" type="tel" />
+                            <span
+                                class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-teal-300">smartphone</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button
+                    class="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-4 rounded-lg shadow-lg shadow-teal-600/20 transition-all active:scale-[0.98] mt-4 border-0 cursor-pointer"
+                    type="submit">
+                    Save Changes
+                </button>
+            </form>
+
+            <!-- Collapsible Orders -->
+            <div class="mt-12 border-t border-teal-100/50 pt-8">
+                <details class="group" id="orders-details">
+                    <summary
+                        class="flex justify-between items-center cursor-pointer list-none p-4 bg-teal-50/60 rounded-xl hover:bg-teal-100/40 transition-all group-open:rounded-b-none m-0">
+                        <div class="flex items-center space-x-3">
+                            <span class="material-symbols-outlined text-teal-600">receipt_long</span>
+                            <span class="text-lg font-bold text-teal-900 m-0">My Orders</span>
+                        </div>
+                        <span
+                            class="material-symbols-outlined text-teal-600 transition-transform duration-300 group-open:rotate-180">expand_more</span>
+                    </summary>
+
+                    <div class="bg-white/40 border-x border-b border-teal-50/40 rounded-b-xl overflow-hidden divide-y divide-teal-50/50 max-h-[400px] overflow-y-auto"
+                        id="orders-list">
+                        <div class="p-5 text-center text-slate-500 text-sm">Loading orders...</div>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- Secondary Actions -->
+        <div class="mt-8 flex justify-center">
+            <button id="sign-out-btn"
+                class="flex items-center justify-center space-x-2 p-4 px-8 bg-white/40 hover:bg-white/60 rounded-xl transition-all text-slate-600 text-sm font-semibold border border-white/50 cursor-pointer">
+                <span class="material-symbols-outlined text-slate-400 text-[20px]">logout</span>
+                <span>Sign Out</span>
+            </button>
+        </div>
+
+    </div>
+</main>
+
+<script>
+    const profileToken = localStorage.getItem("token");
+
+    if (!profileToken) {
+        window.location.href = "/";
+    }
+
+    async function loadProfile() {
+        try {
+            const res = await fetch("/api/profile/", {
+                headers: { "Authorization": "Bearer " + profileToken }
+            });
+            if (res.ok) {
+                const data = await res.json();
+                document.getElementById("profile-username").value = data.username || "";
+                document.getElementById("profile-mobile").value = data.mobile || "";
+            }
+        } catch (e) {
+            console.error("Failed to load profile", e);
+        }
+    }
+
+    document.getElementById("profile-password").addEventListener("input", (e) => {
+        const confirmContainer = document.getElementById("confirm-password-container");
+        if (e.target.value.length > 0) {
+            confirmContainer.classList.remove("hidden");
+        } else {
+            confirmContainer.classList.add("hidden");
+            document.getElementById("profile-confirm-password").value = "";
+        }
+    });
+
+    document.getElementById("profile-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const msg = document.getElementById("profile-msg");
+        const username = document.getElementById("profile-username").value;
+        const password = document.getElementById("profile-password").value;
+        const confirmPassword = document.getElementById("profile-confirm-password").value;
+        const mobile = document.getElementById("profile-mobile").value;
+
+        if (password && password !== confirmPassword) {
+            msg.textContent = "Passwords do not match!";
+            msg.classList.remove("text-teal-600", "hidden");
+            msg.classList.add("text-red-500");
+            setTimeout(() => msg.classList.add("hidden"), 3000);
+            return;
+        }
+
+        try {
+            const res = await fetch("/api/profile/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + profileToken
+                },
+                body: JSON.stringify({ username, password, mobile })
+            });
+            const data = await res.json();
+
+            if (res.ok) {
+                msg.textContent = "Profile updated successfully!";
+                msg.classList.remove("text-red-500");
+                msg.classList.add("text-teal-600");
+                document.getElementById("profile-password").value = ""; // clear password after save
+                document.getElementById("profile-confirm-password").value = "";
+                document.getElementById("confirm-password-container").classList.add("hidden");
+            } else {
+                msg.textContent = data.error || "Failed to update profile";
+                msg.classList.remove("text-teal-600");
+                msg.classList.add("text-red-500");
+            }
+
+            msg.classList.remove("hidden");
+            setTimeout(() => msg.classList.add("hidden"), 3000);
+        } catch (e) {
+            msg.textContent = "Request failed";
+            msg.classList.remove("text-teal-600");
+            msg.classList.add("text-red-500");
+            msg.classList.remove("hidden");
+        }
+    });
+
+    document.getElementById("sign-out-btn").addEventListener("click", () => {
+        localStorage.removeItem("token");
+        window.location.href = "/";
+    });
+
+    loadProfile();
+
+    async function loadMyOrders() {
+        const listWrapper = document.getElementById("orders-list");
+        if (!profileToken) {
+            listWrapper.innerHTML = "<div class='p-5 text-center text-slate-500 text-sm'>Please sign in to view your orders.</div>";
+            return;
+        }
+
+        try {
+            const res = await fetch("/api/orders/", {
+                headers: { "Authorization": "Bearer " + profileToken }
+            });
+            const data = await res.json();
+
+            if (!res.ok) {
+                listWrapper.innerHTML = "<div class='p-5 text-center text-slate-500 text-sm'>Failed to load orders.</div>";
+                return;
+            }
+
+            const orders = data.orders || [];
+            if (orders.length === 0) {
+                listWrapper.innerHTML = "<div class='p-5 text-center text-slate-500 text-sm'>You haven't placed any orders yet.</div>";
+                return;
+            }
+
+            listWrapper.innerHTML = orders.map(order => {
+                // Compute expected delivery date (7 days from order date)
+                const orderDate = new Date(order.date);
+                orderDate.setDate(orderDate.getDate() + 7);
+                const deliveryOptions = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
+                const deliveryDateStr = orderDate.toLocaleDateString('en-US', deliveryOptions);
+
+                const itemsHtml = order.items.map(i => `<h4 class="font-bold text-slate-800 m-0">${i.name} (x${i.qty})</h4>`).join("");
+
+                return `
+            <div class="p-5 hover:bg-white/60 transition-colors">
+                <div class="flex justify-between items-start mb-2">
+                    <div>
+                        ${itemsHtml}
+                        <p class="text-xs text-slate-500 mt-1 mb-0">Order ID: #UB-${order.id}</p>
+                    </div>
+                    <span class="text-teal-700 font-bold ml-4">₹${Number(order.total).toFixed(2)}</span>
+                </div>
+                <div class="flex items-center text-xs font-medium text-teal-600 mt-3">
+                    <span class="material-symbols-outlined text-sm mr-1">local_shipping</span>
+                    Expected Delivery: ${deliveryDateStr}
+                </div>
+            </div>
+            `;
+            }).join("");
+
+        } catch (e) {
+            listWrapper.innerHTML = "<div class='p-5 text-center text-red-500 text-sm'>Error fetching orders.</div>";
+        }
+    }
+
+    // Load orders when details is opened
+    document.getElementById("orders-details").addEventListener("toggle", function (e) {
+        if (this.open && !this.dataset.loaded) {
+            loadMyOrders();
+            this.dataset.loaded = "true";
+        }
+    });
+</script>
+{% endblock %}

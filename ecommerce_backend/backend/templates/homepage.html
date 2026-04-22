@@ -1,132 +1,1401 @@
-{%extends "master.html"%}
-{%block title%}
-Home Page
-{%endblock%}
+{% extends "master.html" %}
+{% load static %}
 
-{% block body_class %}dark-theme{% endblock %}
+{% block title %}UDBHAV | Home{% endblock %}
+{% block body_class %}page-home{% endblock %}
 
-{%block content%}
-<header class="navbar">
-	<div class="navbar-inner">
-		<a href="/" class="logo">Shopkio</a>
-		<div class="nav-links">
-			<a href="/login/">Login</a>
-			<a href="/signup/">Signup</a>
-			<a href="/cart/">Cart</a>
-			<a href="/dashboard/">Admin Dashboard</a>
-		</div>
-	</div>
-</header>
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'css/anand-style.css' %}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+<script>
+    tailwind.config = {
+        corePlugins: { preflight: false },
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    teal: {
+                        50: '#f0fdfa',
+                        100: '#ccfbf1',
+                        300: '#5eead4',
+                        400: '#2dd4bf',
+                        600: '#0d9488',
+                        700: '#0f766e',
+                        800: '#115e59',
+                        900: '#134e4a',
+                    }
+                },
+                fontFamily: { sans: ["Sora", "sans-serif"] }
+            },
+        },
+    }
+</script>
 
-<main class="page page-products">
-	<section class="section-header-main">
-		<h1>Products</h1>
-		<p class="muted">Search, sort, and add products to cart.</p>
-	</section>
+<style>
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
 
-	<div style="display:flex;gap:8px;flex-wrap:wrap;margin:12px 0;">
-		<div class="search-bar" style="max-width:420px;">
-			<input id="search" placeholder="Search products">
-			<button id="load-btn" type="button">Apply</button>
-		</div>
-		<select id="sort" class="select" style="max-width:220px;">
-			<option value="default">Sort</option>
-			<option value="price-asc">Price: Low to High</option>
-			<option value="price-desc">Price: High to Low</option>
-			<option value="name-asc">Name: A-Z</option>
-			<option value="name-desc">Name: Z-A</option>
-		</select>
-	</div>
+    .glass-panel {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+    }
 
-	<div id="list" class="product-grid"></div>
-	<p id="msg" class="muted"></p>
-</main>
+    :root {
+        --night: #0a0f19;
+        --surface: #eff6f6;
+        --ink: #18353d;
+        --ink-soft: #4f6c73;
+        --teal-900: #0f5d68;
+        --teal-700: #1f7f8b;
+        --mint-100: #e7f2f2;
+        --mint-200: #d5e8e8;
+        --coral-500: #ef6d66;
+        --violet-frame: #5852f6;
+        --white: #ffffff;
+    }
+
+    .page-home {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--ink);
+        font-family: "Plus Jakarta Sans", sans-serif;
+        background: var(--surface);
+    }
+
+    .home-frame {
+        max-width: none;
+        margin: 0;
+        border: 0;
+        border-radius: 0;
+        background: var(--surface);
+        box-shadow: none;
+        overflow: hidden;
+    }
+
+    .mini-strip {
+        background: linear-gradient(90deg, #0f3f48, #155760);
+        color: #d3ece8;
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 8px 18px;
+    }
+
+    .main-shell {
+        padding: 0 24px 26px;
+    }
+
+    .topbar {
+        display: grid;
+        grid-template-columns: 220px 1fr auto;
+        gap: 14px;
+        align-items: center;
+        padding: 16px 0 10px;
+    }
+
+    .brand {
+        text-decoration: none;
+        color: #2b5962;
+        font-size: 27px;
+        font-family: "Cormorant Garamond", serif;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+    }
+
+    .search-wrap {
+        display: flex;
+        align-items: center;
+        border: 1px solid #cedfdf;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.9);
+        overflow: hidden;
+        height: 44px;
+    }
+
+    .search-wrap input {
+        width: 100%;
+        border: 0;
+        outline: none;
+        padding: 0 14px;
+        font-size: 13px;
+        color: #2f4f57;
+        background: transparent;
+    }
+
+    .search-wrap button {
+        border: 0;
+        background: transparent;
+        color: #4a6d74;
+        font-weight: 700;
+        font-size: 13px;
+        cursor: pointer;
+        padding: 0 16px;
+        border-left: 1px solid #d8e7e7;
+        height: 100%;
+    }
+
+    .quick-links {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+
+    .quick-links a {
+        text-decoration: none;
+        color: #3a5f67;
+        font-size: 12px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        border: 1px solid #c9dddd;
+        background: rgba(255, 255, 255, 0.8);
+        position: relative;
+    }
+
+    .cart-count {
+        position: absolute;
+        top: -4px;
+        right: -4px;
+        min-width: 16px;
+        height: 16px;
+        padding: 0 4px;
+        border-radius: 100px;
+        background: var(--coral-500);
+        color: var(--white);
+        font-size: 10px;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+    }
+
+    .category-nav {
+        display: flex;
+        gap: 18px;
+        align-items: center;
+        color: #4a6a72;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        padding: 0 2px 10px;
+        border-bottom: 1px solid #dcebeb;
+    }
+
+    .category-nav button {
+        border: 0;
+        background: transparent;
+        color: inherit;
+        font: inherit;
+        cursor: pointer;
+        padding: 0;
+        opacity: 0.78;
+    }
+
+    .category-nav button.is-active {
+        color: #0f5f6a;
+        opacity: 1;
+    }
+
+    .offer-marquee {
+        margin: 9px 0 14px;
+        border-top: 1px solid #dceaea;
+        border-bottom: 1px solid #dceaea;
+        overflow: hidden;
+        white-space: nowrap;
+        color: #5f9ea5;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        padding: 7px 0;
+    }
+
+    .offer-marquee span {
+        display: inline-block;
+        padding-left: 100%;
+        animation: slide 21s linear infinite;
+        font-weight: 700;
+    }
+
+    @keyframes slide {
+        from {
+            transform: translateX(0);
+        }
+
+        to {
+            transform: translateX(-100%);
+        }
+    }
+
+    .hero-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 12px;
+        margin-bottom: 18px;
+    }
+
+    .hero-main {
+        min-height: 326px;
+        border-radius: 14px;
+        overflow: hidden;
+        position: relative;
+        background:
+            radial-gradient(circle at 68% 30%, rgba(255, 255, 255, 0.35), transparent 40%),
+            linear-gradient(122deg, #8f0723, #b90e24 52%, #de4151);
+    }
+
+    .hero-main img {
+        position: absolute;
+        right: 110px;
+        bottom: 0;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.94;
+        mix-blend-mode: screen;
+    }
+
+    .hero-copy {
+        position: relative;
+        z-index: 2;
+        width: 270px;
+        margin: 28px;
+        border-radius: 18px;
+        background: rgba(255, 223, 230, 0.74);
+        padding: 22px;
+        backdrop-filter: blur(2px);
+    }
+
+    .hero-kicker {
+        margin: 0 0 8px;
+        font-size: 10px;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: #6f3845;
+        font-weight: 700;
+    }
+
+    .hero-copy h1 {
+        margin: 0;
+        font-size: 52px;
+        line-height: 0.88;
+        letter-spacing: -0.03em;
+        color: #173a47;
+        font-family: "Cormorant Garamond", serif;
+    }
+
+    .hero-copy p {
+        margin: 12px 0 16px;
+        font-size: 13px;
+        color: #4a5963;
+        line-height: 1.5;
+    }
+
+    .hero-copy .hero-cta {
+        display: inline-block;
+        text-decoration: none;
+        border: 0;
+        border-radius: 999px;
+        background: #216f79;
+        color: var(--white);
+        font-weight: 700;
+        letter-spacing: 0.07em;
+        font-size: 11px;
+        padding: 9px 15px;
+        cursor: pointer;
+    }
+
+    .hero-copy .hero-cta:hover {
+        filter: brightness(1.06);
+    }
+
+    .hero-side {
+        display: grid;
+        gap: 10px;
+    }
+
+    .promo-card {
+        position: relative;
+        border-radius: 14px;
+        min-height: 156px;
+        overflow: hidden;
+        background: #0f4954;
+        border: 1px solid rgba(255, 255, 255, 0.72);
+    }
+
+    .promo-card img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        inset: 0;
+        object-fit: cover;
+    }
+
+    .promo-card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(95deg, rgba(239, 246, 246, 0.72), rgba(239, 246, 246, 0.28));
+    }
+
+    .promo-card.bottom::after {
+        background: linear-gradient(95deg, rgba(222, 72, 85, 0.75), rgba(222, 72, 85, 0.38));
+    }
+
+    .promo-content {
+        position: relative;
+        z-index: 1;
+        padding: 20px;
+    }
+
+    .promo-content h3 {
+        margin: 0 0 6px;
+        font-size: 28px;
+        font-family: "Cormorant Garamond", serif;
+        color: #214047;
+    }
+
+    .promo-card.bottom .promo-content h3,
+    .promo-card.bottom .promo-content p,
+    .promo-card.bottom .promo-content a {
+        color: #fff4f4;
+    }
+
+    .promo-content p {
+        margin: 0;
+        color: #415f66;
+        font-size: 12px;
+    }
+
+    .promo-content a {
+        display: inline-block;
+        margin-top: 10px;
+        color: #295e68;
+        text-decoration: none;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+    }
+
+    .summer-banner {
+        position: relative;
+        border-radius: 12px;
+        min-height: 180px;
+        overflow: hidden;
+        margin-bottom: 28px;
+        background: linear-gradient(180deg, #7db0c2, #3d8ca7 70%, #0c6e8f);
+    }
+
+    .summer-banner img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        inset: 0;
+        object-fit: cover;
+        opacity: 0.35;
+    }
+
+    .summer-banner::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(89, 156, 180, 0.55), rgba(4, 84, 115, 0.62));
+    }
+
+    .summer-copy {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        color: var(--white);
+        padding-top: 36px;
+    }
+
+    .summer-copy p {
+        margin: 0;
+        font-size: 10px;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+        opacity: 0.92;
+    }
+
+    .summer-copy h2 {
+        margin: 10px 0 4px;
+        font-size: 52px;
+        line-height: 0.9;
+        letter-spacing: -0.02em;
+        font-family: "Cormorant Garamond", serif;
+        font-weight: 600;
+    }
+
+    .summer-copy h2 strong {
+        font-weight: 700;
+    }
+
+    .summer-copy small {
+        display: block;
+        font-size: 12px;
+        opacity: 0.82;
+        margin-bottom: 14px;
+    }
+
+    .summer-copy .hero-cta {
+        display: inline-block;
+        text-decoration: none;
+        border: 0;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.94);
+        color: #356572;
+        font-weight: 700;
+        font-size: 11px;
+        padding: 10px 18px;
+        cursor: pointer;
+    }
+
+    .deals-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 12px;
+        margin-bottom: 12px;
+    }
+
+    .deals-head h3 {
+        margin: 0;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 44px;
+        line-height: 0.9;
+        color: #2d525b;
+    }
+
+    .deals-head h3 em {
+        font-style: italic;
+        color: #0d5561;
+    }
+
+    .deals-head p {
+        margin: 6px 0 0;
+        color: #80a1a7;
+        font-size: 12px;
+    }
+
+    .deal-nav {
+        display: flex;
+        gap: 8px;
+    }
+
+    .deal-nav button {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        border: 1px solid #c5dcde;
+        background: transparent;
+        color: #6f9aa1;
+        cursor: pointer;
+    }
+
+    .deals-track {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(160px, 1fr);
+        gap: 16px;
+        overflow-x: auto;
+        padding-bottom: 8px;
+        scrollbar-width: thin;
+        scrollbar-color: #b8d7d9 transparent;
+    }
+
+    .deals-track::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    .deals-track::-webkit-scrollbar-thumb {
+        border-radius: 999px;
+        background: #bfdfe1;
+    }
+
+    .deal-card {
+        min-width: 0;
+    }
+
+    .deal-media {
+        border-radius: 10px;
+        height: 196px;
+        overflow: hidden;
+        background: #d5e8ea;
+        position: relative;
+    }
+
+    .deal-link {
+        display: block;
+        text-decoration: none;
+    }
+
+    .deal-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .deal-discount {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #2f5d66;
+        background: rgba(255, 255, 255, 0.84);
+        border-radius: 100px;
+        padding: 4px 6px;
+    }
+
+    .deal-type {
+        margin-top: 10px;
+        color: #92abb0;
+        text-transform: uppercase;
+        letter-spacing: 0.09em;
+        font-size: 10px;
+        font-weight: 600;
+    }
+
+    .deal-name {
+        margin: 4px 0 6px;
+        color: #1e434d;
+        font-weight: 700;
+        font-size: 13px;
+        min-height: 34px;
+        line-height: 1.35;
+    }
+
+    .deal-link .deal-name:hover {
+        color: #0f5d68;
+    }
+
+    .deal-price {
+        margin: 0;
+        font-size: 22px;
+        font-family: "Cormorant Garamond", serif;
+        font-weight: 700;
+        color: #153b46;
+    }
+
+    .deal-price span {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        color: #93acb1;
+        font-size: 11px;
+        margin-left: 6px;
+        text-decoration: line-through;
+        font-weight: 500;
+    }
+
+    .deal-card button {
+        width: 100%;
+        border: 1px solid #d4e5e6;
+        border-radius: 999px;
+        color: #5f7e84;
+        background: transparent;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.11em;
+        padding: 8px 10px;
+        text-transform: uppercase;
+        cursor: pointer;
+        margin-top: 8px;
+    }
+
+    .home-message {
+        min-height: 20px;
+        margin: 8px 0 10px;
+        color: #5d848c;
+        font-size: 12px;
+    }
+
+    .logo-row {
+        margin: 16px 0 18px;
+        border-top: 1px solid #dceaea;
+        border-bottom: 1px solid #dceaea;
+        padding: 16px 8px;
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 10px;
+        text-align: center;
+        color: #a1b2b8;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 33px;
+        font-weight: 600;
+    }
+
+    .values {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .value-card {
+        background: var(--mint-100);
+        border-radius: 12px;
+        padding: 18px 14px;
+        text-align: center;
+    }
+
+    .value-icon {
+        font-size: 18px;
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    .value-card h4 {
+        margin: 0 0 4px;
+        color: #2f5861;
+        font-size: 14px;
+    }
+
+    .value-card p {
+        margin: 0;
+        color: #7c989f;
+        font-size: 11px;
+        line-height: 1.4;
+    }
+
+    @media (max-width: 1024px) {
+        .main-shell {
+            padding: 0 16px 24px;
+        }
+
+        .hero-main img {
+            right: 24px;
+        }
+    }
+
+    @media (max-width: 860px) {
+        .topbar {
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .quick-links {
+            justify-content: space-between;
+        }
+
+        .hero-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .hero-main img {
+            right: 0;
+            opacity: 0.55;
+        }
+
+        .hero-copy {
+            margin: 18px;
+        }
+
+        .logo-row {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .values {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @media (max-width: 560px) {
+        .mini-strip {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            font-size: 9px;
+        }
+
+        .category-nav {
+            gap: 11px;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding-bottom: 12px;
+        }
+
+        .hero-copy {
+            width: auto;
+        }
+
+        .hero-copy h1,
+        .summer-copy h2 {
+            font-size: 40px;
+        }
+
+        .values {
+            grid-template-columns: 1fr;
+        }
+
+        .logo-row {
+            font-size: 28px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="home-frame">
+
+    <div class="main-shell">
+        <header class="topbar">
+            <a href="/" class="brand">UDBHAV</a>
+
+            <form id="search-form" class="search-wrap" autocomplete="off">
+                <input id="search-input" type="search" placeholder="Search essential beauty...">
+                <button type="submit">Search</button>
+            </form>
+
+            <nav class="quick-links" aria-label="Main links">
+                <a href="/login/" id="link-login">Login</a>
+                <a href="/signup/" id="link-signup">Signup</a>
+                <a href="#" id="link-logout" style="display: none;" onclick="handleLogout(event)">Sign out</a>
+                <a href="#" onclick="toggleCartDrawer(event)">Cart <span id="cart-count" class="cart-count">0</span></a>
+                <a href="/profile/">Profile</a>
+            </nav>
+        </header>
+
+        <div id="category-nav" class="category-nav" aria-label="Categories"></div>
+
+        <div class="offer-marquee">
+            <span>20% off summer sets . sea kelp infused skincare now available . 20% off summer sets . sea kelp infused
+                skincare now available</span>
+        </div>
+
+        <section class="hero-grid">
+            <article class="hero-main">
+                <img src="https://images.pexels.com/photos/6621469/pexels-photo-6621469.jpeg?auto=compress&cs=tinysrgb&w=1300"
+                    alt="Beauty bottle in studio light" loading="lazy"
+                    onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1300&q=80';">
+                <div class="hero-copy">
+                    <p class="hero-kicker">New Arrival</p>
+                    <h1>Algae Bloom Revitalizer</h1>
+                    <p>Infused with deep-sea minerals to restore your natural glow overnight.</p>
+                    <a class="hero-cta" href="/product/algae-bloom-revitalizer/">Shop now</a>
+                </div>
+            </article>
+
+            <div class="hero-side">
+                <article class="promo-card">
+                    <img src="https://images.pexels.com/photos/3737579/pexels-photo-3737579.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                        alt="Ocean mist body oil" loading="lazy"
+                        onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=1200&q=80';">
+                    <div class="promo-content">
+                        <h3>Ocean Mist Body Oil</h3>
+                        <p>Pure hydration from the coast.</p>
+                        <a href="/product/ocean-mist-body-oil/">Explore</a>
+                    </div>
+                </article>
+
+                <article class="promo-card bottom">
+                    <img src="https://images.pexels.com/photos/7796574/pexels-photo-7796574.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                        alt="Gift set circular cream texture" loading="lazy"
+                        onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1556228453-efd1f6f5ff83?auto=format&fit=crop&w=1200&q=80';">
+                    <div class="promo-content">
+                        <h3>The Gift Set</h3>
+                        <p>Perfect bundles for skin-loving routines.</p>
+                        <a href="/product/the-gift-set/">View bundle</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="summer-banner">
+            <img src="https://images.pexels.com/photos/6663570/pexels-photo-6663570.jpeg?auto=compress&cs=tinysrgb&w=1800"
+                alt="Summer skincare background" loading="lazy"
+                onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1800&q=80';">
+            <div class="summer-copy">
+                <p>Limited edition</p>
+                <h2>Summer <strong>Refresh</strong></h2>
+                <small>Discover our sun-safe essentials designed to protect and nourish through the warmest
+                    months.</small>
+                <a class="hero-cta" href="/product/estee-lauder-call-555-lipstick/">Shop The Collection</a>
+            </div>
+        </section>
+
+        <section>
+            <div class="deals-head">
+                <div>
+                    <h3>Deals <em>of the Day</em></h3>
+                    <p id="refresh-timer">Refreshes in 08:24:12</p>
+                </div>
+                <div class="deal-nav">
+                    <button id="deal-prev" type="button" aria-label="Previous deals">&#8249;</button>
+                    <button id="deal-next" type="button" aria-label="Next deals">&#8250;</button>
+                </div>
+            </div>
+
+            <div id="deals-track" class="deals-track" aria-live="polite"></div>
+            <p id="home-message" class="home-message"></p>
+        </section>
+
+        <section class="logo-row" aria-label="Partner brands">
+            <span>Maybelline</span>
+            <span>Nykaa</span>
+            <div>Dot & Key</div>
+            <div>The Derma Co.</div>
+            <div>Lakmé</div>
+        </section>
+
+        <section class="values">
+            <div class="value-card">
+                <span class="value-icon">✧</span>
+                <h4>Clean Actives</h4>
+                <p>Free from parabens & sulfates.</p>
+            </div>
+            <div class="value-card">
+                <span class="value-icon">≈</span>
+                <h4>Ocean Safe</h4>
+                <p>Reef-friendly formulations.</p>
+            </div>
+            <div class="value-card">
+                <span class="value-icon">♡</span>
+                <h4>Cruelty Free</h4>
+                <p>Never tested on animals.</p>
+            </div>
+            <div class="value-card">
+                <span class="value-icon">↺</span>
+                <h4>Recycled</h4>
+                <p>100% post-consumer packaging.</p>
+            </div>
+        </section>
+    </div>
+</div>
+
+
+<div id="cart-drawer-overlay" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[55] hidden transition-opacity"
+    onclick="toggleCartDrawer(event)"></div>
+
+
+<aside id="cart-drawer"
+    class="fixed inset-y-0 right-0 w-full max-w-[420px] z-[60] bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl md:rounded-l-3xl shadow-2xl flex flex-col border-l border-white/30 overflow-hidden transition-transform transform translate-x-full font-sans">
+
+   
+    <div class="px-6 h-20 flex items-center justify-between border-b border-teal-50 dark:border-slate-800">
+        <div class="flex items-center gap-3">
+            <span class="text-teal-800 dark:text-teal-300 font-bold text-xl tracking-tight"
+                id="cart-header-title">Bag</span>
+        </div>
+        <a href="#" onclick="toggleCartDrawer(event)"
+            class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-teal-50 dark:hover:bg-teal-900/30 transition-all text-slate-600 dark:text-slate-400 text-decoration-none">
+            <span class="material-symbols-outlined">close</span>
+        </a>
+    </div>
+
+    
+    <div class="flex-1 overflow-y-auto px-6 py-4 space-y-6">
+        <p id="drawer-cart-msg" class="text-sm text-red-500 font-bold text-center"></p>
+
+       
+        <div class="bg-teal-50 dark:bg-teal-900/20 p-4 rounded-xl flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span
+                    class="material-symbols-outlined text-teal-700 dark:text-teal-400">featured_seasonal_and_gifts</span>
+                <span class="text-sm font-medium text-teal-900 dark:text-teal-100">Pick your gifts</span>
+            </div>
+            <span class="material-symbols-outlined text-teal-600">chevron_right</span>
+        </div>
+
+        
+        <div id="drawer-auth-prompt"
+            class="bg-slate-100 dark:bg-slate-800/50 p-5 rounded-xl border border-white/50 hidden">
+            <p class="text-sm text-slate-600 dark:text-slate-300 mb-3">Login / Register to grab the best offers</p>
+            <a href="/login/"
+                class="text-teal-700 dark:text-teal-400 text-sm font-bold tracking-tight uppercase no-underline">Sign In
+                Now</a>
+        </div>
+
+       
+        <div id="drawer-cart-items" class="space-y-6">
+           
+        </div>
+
+       
+        <div class="space-y-3 pt-4 border-t border-teal-50/50">
+            <h4 class="text-xs font-bold uppercase tracking-widest text-slate-400">Promotions</h4>
+            <div class="relative">
+                <input
+                    class="w-full h-12 bg-white/50 dark:bg-slate-800/50 backdrop-blur-md border border-white/30 dark:border-slate-700 rounded-xl px-4 text-sm focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all outline-none"
+                    placeholder="Apply now and save extra!" type="text" />
+                <button
+                    class="absolute right-2 top-2 h-8 px-4 bg-teal-800 hover:bg-teal-700 text-white rounded-lg text-xs font-bold shadow-lg shadow-teal-900/20 transition-all border-0 cursor-pointer">Apply</button>
+            </div>
+        </div>
+
+        <div class="border-t border-teal-50 dark:border-slate-800 pt-6">
+            <div class="flex items-center justify-between mb-4">
+                <span class="text-sm font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider">Price
+                    Details</span>
+                <span class="material-symbols-outlined text-slate-400">expand_more</span>
+            </div>
+            <div class="space-y-3">
+                <div class="flex justify-between text-sm">
+                    <span class="text-slate-500">Subtotal</span>
+                    <span class="text-slate-800 dark:text-slate-100 font-medium" id="drawer-cart-subtotal">₹0.00</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                    <span class="text-slate-500">Shipping</span>
+                    <span class="text-teal-600 font-bold uppercase text-[10px] tracking-widest">Free</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <div
+        class="p-6 pb-8 glass-panel border-t border-white/30 dark:border-slate-800 shadow-[0_-10px_40px_rgba(0,0,0,0.05)]">
+        <div class="flex items-center justify-between gap-6">
+            <div class="flex flex-col">
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Total Payable</span>
+                <span class="text-2xl font-black text-teal-800 dark:text-teal-300 tracking-tighter"
+                    id="drawer-cart-total">₹0.00</span>
+            </div>
+            <a href="/cart/checkout/"
+                class="flex-1 h-14 bg-teal-800 hover:bg-teal-700 text-white rounded-2xl font-bold text-sm tracking-widest uppercase flex items-center justify-center gap-2 shadow-xl shadow-teal-900/20 active:scale-95 transition-all no-underline border-0 cursor-pointer">
+                Proceed
+                <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+            </a>
+        </div>
+    </div>
+</aside>
 
 <script>
-let productsCache = [];
+    const state = {
+        products: [],
+        filtered: [],
+        category: "all",
+        search: ""
+    };
 
-function sortProducts(items, mode) {
-	const arr = [...items];
-	if (mode === "price-asc") arr.sort((a, b) => (a.price || 0) - (b.price || 0));
-	if (mode === "price-desc") arr.sort((a, b) => (b.price || 0) - (a.price || 0));
-	if (mode === "name-asc") arr.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
-	if (mode === "name-desc") arr.sort((a, b) => (b.name || "").localeCompare(a.name || ""));
-	return arr;
-}
+    const categoryTabs = ["all", "skin", "body", "hair", "clean beauty", "sale"];
 
-async function loadProducts() {
-	const search = document.getElementById("search").value.trim();
-	const sort = document.getElementById("sort").value;
-	const params = new URLSearchParams({ page: "1", size: "30", search });
-	const msg = document.getElementById("msg");
-	msg.textContent = "";
+    const featuredSlugs = [
+        "algae-bloom-revitalizer",
+        "ocean-mist-body-oil",
+        "the-gift-set",
+        "estee-lauder-call-555-lipstick",
+        "coastal-breeze-cooling-mist",
+        "dead-sea-mud-and-mint-mask",
+        "sea-kelp-vitalizing-shampoo"
+    ];
 
-	try {
-		const res = await fetch("/api/products/?" + params.toString());
-		const data = await res.json();
-		if (!res.ok) {
-			msg.textContent = data.error || "Failed to load products";
-			return;
-		}
-		productsCache = sortProducts(data.products || [], sort);
-		renderProducts();
-	} catch (e) {
-		msg.textContent = "Request failed";
-	}
-}
+    const forcedSlugByName = {
+        "Algae Bloom Revitalizer": "algae-bloom-revitalizer",
+        "Ocean Mist Body Oil": "ocean-mist-body-oil",
+        "The Gift Set": "the-gift-set",
+        "Estee Lauder Pure Color Explicit Slick Shine Lipstick - Call 555": "estee-lauder-call-555-lipstick",
+        "Sea Kelp Vitalizing Shampoo": "sea-kelp-vitalizing-shampoo",
+        "Coastal Breeze Cooling Mist": "coastal-breeze-cooling-mist",
+        "Dead Sea Mud & Mint Mask": "dead-sea-mud-and-mint-mask",
+        "Dead Sea Mud and Mint Mask": "dead-sea-mud-and-mint-mask"
+    };
 
-function renderProducts() {
-	const list = document.getElementById("list");
-	if (!productsCache.length) {
-		list.innerHTML = "<p>No products found.</p>";
-		return;
-	}
+    const dealImageBySlug = {
+        "algae-bloom-revitalizer": "https://images.pexels.com/photos/6621469/pexels-photo-6621469.jpeg?auto=compress&cs=tinysrgb&w=700",
+        "ocean-mist-body-oil": "https://images.pexels.com/photos/3737579/pexels-photo-3737579.jpeg?auto=compress&cs=tinysrgb&w=700",
+        "the-gift-set": "https://images.pexels.com/photos/7796574/pexels-photo-7796574.jpeg?auto=compress&cs=tinysrgb&w=700",
+        "estee-lauder-call-555-lipstick": "https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg?auto=compress&cs=tinysrgb&w=700",
+        "sea-kelp-vitalizing-shampoo": "https://images.pexels.com/photos/3373745/pexels-photo-3373745.jpeg?auto=compress&cs=tinysrgb&w=700",
+        "coastal-breeze-cooling-mist": "https://images.pexels.com/photos/4465122/pexels-photo-4465122.jpeg?auto=compress&cs=tinysrgb&w=700",
+        "dead-sea-mud-and-mint-mask": "https://images.pexels.com/photos/5069606/pexels-photo-5069606.jpeg?auto=compress&cs=tinysrgb&w=700"
+    };
 
-	list.innerHTML = productsCache.map(p => `
-		<article class="product-card">
-			<div class="product-card-body">
-				<div class="product-card-category">${p.category || "-"}</div>
-				<h3 class="product-card-name">${p.name}</h3>
-				<div class="product-card-meta">
-					<div class="price">${Number(p.price || 0).toFixed(2)}</div>
-					<div class="muted">Stock: ${p.stock ?? "-"}</div>
-				</div>
-				<div class="product-card-actions">
-					<button class="btn-primary" type="button" data-add="${p.id}">Add to Cart</button>
-				</div>
-			</div>
-		</article>
-	`).join("");
+    const imagePool = [
+        "https://images.pexels.com/photos/6621469/pexels-photo-6621469.jpeg?auto=compress&cs=tinysrgb&w=700",
+        "https://images.pexels.com/photos/5069433/pexels-photo-5069433.jpeg?auto=compress&cs=tinysrgb&w=700",
+        "https://images.pexels.com/photos/7796574/pexels-photo-7796574.jpeg?auto=compress&cs=tinysrgb&w=700",
+        "https://images.pexels.com/photos/3737579/pexels-photo-3737579.jpeg?auto=compress&cs=tinysrgb&w=700",
+        "https://images.pexels.com/photos/3373726/pexels-photo-3373726.jpeg?auto=compress&cs=tinysrgb&w=700"
+    ];
 
-	list.querySelectorAll("button[data-add]").forEach(btn => {
-		btn.addEventListener("click", () => addToCart(Number(btn.dataset.add)));
-	});
-}
+    const fallbackImg = "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=700&q=80";
 
-async function addToCart(productId) {
-	const token = localStorage.getItem("token");
-	const msg = document.getElementById("msg");
-	if (!token) {
-		msg.textContent = "Login required to add cart items.";
-		return;
-	}
-	try {
-		const res = await fetch("/api/cart/", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				"Authorization": "Bearer " + token
-			},
-			body: JSON.stringify({ product_id: productId, quantity: 1 })
-		});
-		const data = await res.json();
-		msg.textContent = res.ok ? "Added to cart." : (data.error || "Add to cart failed");
-	} catch (e) {
-		msg.textContent = "Request failed";
-	}
-}
+    function slugifyText(value) {
+        return String(value || "")
+            .toLowerCase()
+            .trim()
+            .replace(/[^a-z0-9\s-]/g, "")
+            .replace(/\s+/g, "-")
+            .replace(/-+/g, "-");
+    }
 
-document.getElementById("load-btn").addEventListener("click", loadProducts);
-loadProducts();
+    function resolveProductSlug(product) {
+        if (forcedSlugByName[product.name]) return forcedSlugByName[product.name];
+        return product.slug || slugifyText(product.name);
+    }
+
+    function stableHash(value) {
+        let hash = 0;
+        for (let i = 0; i < value.length; i += 1) {
+            hash = (hash << 5) - hash + value.charCodeAt(i);
+            hash |= 0;
+        }
+        return Math.abs(hash);
+    }
+
+    function inr(value) {
+        return Number(value || 0).toLocaleString("en-IN", {
+            style: "currency",
+            currency: "INR",
+            minimumFractionDigits: 2
+        });
+    }
+
+    function setMessage(text, isError) {
+        const node = document.getElementById("home-message");
+        node.textContent = text || "";
+        node.style.color = isError ? "#9d3e3e" : "#5d848c";
+    }
+
+    function renderCategories() {
+        const nav = document.getElementById("category-nav");
+        nav.innerHTML = categoryTabs.map((tab) => {
+            const active = state.category === tab ? "is-active" : "";
+            return `<button type="button" data-tab="${tab}" class="${active}">${tab}</button>`;
+        }).join("");
+    }
+
+    function productFitsCategory(product) {
+        if (state.category === "all") return true;
+        if (state.category === "sale") return Number(product.price || 0) <= 800;
+        const group = `${product.category || ""} ${product.name || ""}`.toLowerCase();
+        return group.includes(state.category.toLowerCase());
+    }
+
+    function productFitsSearch(product) {
+        if (!state.search) return true;
+        const target = `${product.name || ""} ${product.category || ""}`.toLowerCase();
+        return target.includes(state.search.toLowerCase());
+    }
+
+    function applyFilters() {
+        state.filtered = state.products.filter((p) => productFitsCategory(p) && productFitsSearch(p));
+    }
+
+    function dealCard(product) {
+        const seed = `${product.id || "x"}-${product.name || "item"}`;
+        const slug = resolveProductSlug(product);
+        const imageUrl = product.image || dealImageBySlug[slug] || imagePool[stableHash(seed) % imagePool.length];
+        const price = Number(product.price || 0);
+        const oldPrice = Math.max(price + Math.round(price * 0.22), price + 40);
+        const labels = ["Body Care", "Skin Care", "Hair Care", "Daily Care"];
+        const badge = ["-22%", "-18%", "-15%", "-20%", "-12%"];
+        const label = labels[stableHash(seed + "l") % labels.length];
+        const discount = badge[stableHash(seed + "b") % badge.length];
+
+        return `
+            <article class="deal-card">
+                <a class="deal-link" href="/product/${slug}/">
+                    <div class="deal-media">
+                        <img src="${imageUrl}" alt="${product.name}" loading="lazy" onerror="this.onerror=null;this.src='${fallbackImg}';">
+                        <span class="deal-discount">${discount}</span>
+                    </div>
+                </a>
+                <div class="deal-type">${label}</div>
+                <a class="deal-link" href="/product/${slug}/"><p class="deal-name">${product.name}</p></a>
+                <p class="deal-price">${inr(price)} <span>${inr(oldPrice)}</span></p>
+                <button type="button" data-add="${product.id}">Add to bag</button>
+            </article>
+        `;
+    }
+
+    function renderDeals() {
+        const track = document.getElementById("deals-track");
+        const source = state.filtered.length ? state.filtered : state.products;
+
+        if (!source.length) {
+            track.innerHTML = "";
+            return;
+        }
+
+        const sourceMap = new Map(source.map((item) => [resolveProductSlug(item), item]));
+        const orderedFeatured = featuredSlugs.map((slug) => sourceMap.get(slug)).filter(Boolean);
+        const rest = source.filter((item) => !featuredSlugs.includes(resolveProductSlug(item)));
+        const deals = [...orderedFeatured, ...rest].slice(0, 10);
+        track.innerHTML = deals.map(dealCard).join("");
+    }
+
+    async function updateCartCount() {
+        const token = localStorage.getItem("token");
+        const badge = document.getElementById("cart-count");
+        if (!token) {
+            badge.style.display = "none";
+            return;
+        }
+
+        try {
+            const res = await fetch("/api/cart/", {
+                headers: { "Authorization": "Bearer " + token }
+            });
+            if (!res.ok) {
+                badge.style.display = "none";
+                return;
+            }
+
+            const data = await res.json();
+            const total = (data.items || []).reduce((sum, item) => sum + Number(item.qty || 0), 0);
+            if (total > 0) {
+                badge.textContent = total > 99 ? "99+" : String(total);
+                badge.style.display = "inline-flex";
+            } else {
+                badge.style.display = "none";
+            }
+        } catch (error) {
+            badge.style.display = "none";
+        }
+    }
+
+    async function addToCart(productId) {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            setMessage("Login required before adding to cart.", true);
+            return;
+        }
+
+        try {
+            const res = await fetch("/api/cart/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + token
+                },
+                body: JSON.stringify({ product_id: Number(productId), quantity: 1 })
+            });
+
+            const data = await res.json();
+            if (!res.ok) {
+                setMessage(data.error || "Unable to add this product.", true);
+                return;
+            }
+
+            setMessage("Added to cart.", false);
+            updateCartCount();
+        } catch (error) {
+            setMessage("Network error while updating cart.", true);
+        }
+    }
+
+    async function loadProducts() {
+        try {
+            const params = new URLSearchParams({ page: "1", size: "80", search: state.search });
+            const res = await fetch("/api/products/?" + params.toString());
+            const data = await res.json();
+
+            if (!res.ok) {
+                setMessage(data.error || "Unable to load products.", true);
+                return;
+            }
+
+            state.products = data.products || [];
+            applyFilters();
+            renderDeals();
+
+            if (!state.products.length) {
+                setMessage("No products found in inventory.", true);
+            } else {
+                setMessage("Live catalog synced from backend.", false);
+            }
+        } catch (error) {
+            setMessage("Unable to connect to products API.", true);
+        }
+    }
+
+    function setupCountdown() {
+        const timerNode = document.getElementById("refresh-timer");
+        let seconds = 8 * 60 * 60 + 24 * 60 + 12;
+
+        setInterval(() => {
+            const h = String(Math.floor(seconds / 3600)).padStart(2, "0");
+            const m = String(Math.floor((seconds % 3600) / 60)).padStart(2, "0");
+            const s = String(seconds % 60).padStart(2, "0");
+            timerNode.textContent = `Refreshes in ${h}:${m}:${s}`;
+            seconds = seconds > 0 ? seconds - 1 : 8 * 60 * 60 + 24 * 60 + 12;
+        }, 1000);
+    }
+
+    function setupEvents() {
+        document.getElementById("search-form").addEventListener("submit", (event) => {
+            event.preventDefault();
+            state.search = document.getElementById("search-input").value.trim();
+            loadProducts();
+        });
+
+        document.getElementById("category-nav").addEventListener("click", (event) => {
+            const tab = event.target.closest("button[data-tab]");
+            if (!tab) return;
+            state.category = tab.dataset.tab;
+            renderCategories();
+            applyFilters();
+            renderDeals();
+        });
+
+        document.body.addEventListener("click", (event) => {
+            const addBtn = event.target.closest("button[data-add]");
+            if (addBtn) {
+                addToCart(addBtn.dataset.add);
+                return;
+            }
+
+            if (event.target.id === "deal-prev") {
+                document.getElementById("deals-track").scrollBy({ left: -420, behavior: "smooth" });
+                return;
+            }
+
+            if (event.target.id === "deal-next") {
+                document.getElementById("deals-track").scrollBy({ left: 420, behavior: "smooth" });
+            }
+        });
+    }
+
+    function updateAuthLinks() {
+        const token = localStorage.getItem("token");
+        const loginLink = document.getElementById("link-login");
+        const signupLink = document.getElementById("link-signup");
+        const logoutLink = document.getElementById("link-logout");
+
+        if (token) {
+            if (loginLink) loginLink.style.display = "none";
+            if (signupLink) signupLink.style.display = "none";
+            if (logoutLink) logoutLink.style.display = "inline-block";
+        } else {
+            if (loginLink) loginLink.style.display = "inline-block";
+            if (signupLink) signupLink.style.display = "inline-block";
+            if (logoutLink) logoutLink.style.display = "none";
+        }
+    }
+
+    function handleLogout(e) {
+        e.preventDefault();
+        localStorage.removeItem("token");
+        window.location.reload();
+    }
+
+    function toggleCartDrawer(event) {
+        if (event) event.preventDefault();
+        const drawer = document.getElementById("cart-drawer");
+        const overlay = document.getElementById("cart-drawer-overlay");
+        if (drawer.classList.contains("translate-x-full")) {
+            drawer.classList.remove("translate-x-full");
+            drawer.classList.add("translate-x-0");
+            overlay.classList.remove("hidden");
+            loadDrawerCart();
+        } else {
+            drawer.classList.add("translate-x-full");
+            drawer.classList.remove("translate-x-0");
+            overlay.classList.add("hidden");
+        }
+    }
+
+    async function loadDrawerCart() {
+        const token = localStorage.getItem("token");
+        const msg = document.getElementById("drawer-cart-msg");
+        const authPrompt = document.getElementById("drawer-auth-prompt");
+        msg.textContent = "";
+
+        if (!token) {
+            authPrompt.classList.remove("hidden");
+            document.getElementById("drawer-cart-items").innerHTML = "<p class='text-sm text-slate-500'>Your bag is empty.</p>";
+            document.getElementById("drawer-cart-total").textContent = "₹0.00";
+            document.getElementById("drawer-cart-subtotal").textContent = "₹0.00";
+            document.getElementById("cart-header-title").textContent = "Bag (0 items)";
+            return;
+        } else {
+            authPrompt.classList.add("hidden");
+        }
+
+        try {
+            const res = await fetch("/api/cart/", {
+                headers: { "Authorization": "Bearer " + token }
+            });
+            const data = await res.json();
+            if (!res.ok) {
+                msg.textContent = data.error || "Failed to load cart";
+                return;
+            }
+            renderDrawerCart(data.items || [], data.total || 0);
+        } catch (e) {
+            msg.textContent = "Request failed";
+        }
+    }
+
+    function renderDrawerCart(items, total) {
+        const wrapper = document.getElementById("drawer-cart-items");
+        document.getElementById("cart-header-title").textContent = `Bag (${items.length} items)`;
+
+        if (!items.length) {
+            wrapper.innerHTML = "<p class='text-sm text-slate-500'>Your bag is empty.</p>";
+        } else {
+            wrapper.innerHTML = items.map(item => `
+                <div class="flex gap-4">
+                  <div class="w-20 h-24 rounded-lg overflow-hidden bg-slate-100 shadow-sm flex-shrink-0 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-slate-300 text-4xl">shopping_bag</span>
+                  </div>
+                  <div class="flex-1">
+                    <div class="flex justify-between items-start">
+                      <div>
+                        <h3 class="text-sm font-semibold text-slate-800 dark:text-slate-100">${item.name}</h3>
+                        <p class="text-xs text-slate-500 mt-1">Qty: ${item.qty}</p>
+                      </div>
+                      <button class="text-slate-400 hover:text-red-500 transition-colors border-0 bg-transparent cursor-pointer p-1" onclick="removeDrawerItem(${item.product_id})">
+                        <span class="material-symbols-outlined text-[20px]">delete</span>
+                      </button>
+                    </div>
+                    <div class="mt-4 text-right">
+                      <span class="text-sm font-bold text-teal-800 dark:text-teal-300">₹${Number(item.price).toFixed(2)}</span>
+                    </div>
+                  </div>
+                </div>
+            `).join("");
+        }
+
+        const totalStr = "₹" + Number(total).toFixed(2);
+        document.getElementById("drawer-cart-subtotal").textContent = totalStr;
+        document.getElementById("drawer-cart-total").textContent = totalStr;
+    }
+
+    async function removeDrawerItem(productId) {
+        const token = localStorage.getItem("token");
+        const msg = document.getElementById("drawer-cart-msg");
+        try {
+            const res = await fetch("/api/cart/", {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + token
+                },
+                body: JSON.stringify({ product_id: productId })
+            });
+            const data = await res.json();
+            if (!res.ok) {
+                msg.textContent = data.error || "Remove failed";
+                return;
+            }
+            loadDrawerCart();
+            updateCartCount();
+        } catch (e) {
+            msg.textContent = "Request failed";
+        }
+    }
+
+    renderCategories();
+    setupEvents();
+    setupCountdown();
+    updateCartCount();
+    updateAuthLinks();
+    loadProducts();
 </script>
-{%endblock%}
+{% endblock %}
