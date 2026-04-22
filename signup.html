@@ -1,164 +1,204 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sign Up</title>
 
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Udbhav - Signup</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary-container": "#abfbff",
+                      "surface-tint": "#00696d",
+                      "outline": "#6e7979",
+                      "primary-fixed-dim": "#85d3d7",
+                      "on-surface-variant": "#3e4949",
+                      "on-primary-container": "#1d767a",
+                      "secondary-fixed": "#cce8e9",
+                      "error": "#ba1a1a",
+                      "surface-variant": "#93f2f4",
+                      "surface-bright": "#f4fdfd",
+                      "on-background": "#002020",
+                      "on-secondary-fixed": "#051f20",
+                      "on-primary-fixed": "#002021",
+                      "on-tertiary-fixed": "#071c35",
+                      "surface-dim": "#8be9eb",
+                      "on-tertiary": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "outline-variant": "#bdc9c9",
+                      "on-primary": "#ffffff",
+                      "secondary": "#4a6364",
+                      "surface-container": "#e0fbfc",
+                      "on-secondary-container": "#50696a",
+                      "inverse-on-surface": "#b4feff",
+                      "on-error-container": "#93000a",
+                      "tertiary": "#4d5f7c",
+                      "on-secondary": "#ffffff",
+                      "on-error": "#ffffff",
+                      "on-surface": "#002020",
+                      "primary-fixed": "#a1f0f4",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-fixed-variant": "#004f52",
+                      "secondary-container": "#cce8e9",
+                      "surface-container-highest": "#e6fcfc",
+                      "on-tertiary-container": "#5a6c89",
+                      "surface": "#f4fcfc",
+                      "inverse-surface": "#003738",
+                      "inverse-primary": "#85d3d7",
+                      "secondary-fixed-dim": "#b1cccc",
+                      "on-secondary-fixed-variant": "#324b4c",
+                      "tertiary-fixed-dim": "#b5c7e9",
+                      "primary": "#00696d",
+                      "on-tertiary-fixed-variant": "#354763",
+                      "surface-container-low": "#ecfdfd",
+                      "tertiary-container": "#e6edff",
+                      "surface-container-high": "#e6fcfc",
+                      "background": "#f4fcfc",
+                      "tertiary-fixed": "#d5e3ff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {},
+              "fontFamily": {
+                      "headline": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "body": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "label": [
+                              "Plus Jakarta Sans"
+                      ]
+              }
+      },
+          },
+        }
+      </script>
 <style>
-
-:root{
-    --primary:#00ff9c;
-    --primary-hover:#00cc7a;
-}
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Consolas, monospace;
-}
-
-body{
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:url("https://images.unsplash.com/photo-1518770660439-4636190af475") no-repeat center/cover;
-    position:relative;
-}
-
-/* Blur overlay */
-
-body::before{
-    content:"";
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.75);
-    backdrop-filter:blur(6px);
-}
-
-/* Signup Box */
-
-.signup-box{
-    position:relative;
-    background:rgba(0,0,0,0.6);
-    padding:35px;
-    width:90%;
-    max-width:380px;
-    border-radius:12px;
-    backdrop-filter:blur(12px);
-    box-shadow:0 0 20px rgba(0,255,156,0.4);
-    color:#00ff9c;
-}
-
-.signup-box h2{
-    text-align:center;
-    margin-bottom:20px;
-    text-shadow:0 0 10px #00ff9c;
-}
-
-.input-box{
-    margin-bottom:15px;
-}
-
-.input-box label{
-    font-size:14px;
-}
-
-.input-box input{
-    width:100%;
-    padding:10px;
-    margin-top:5px;
-    border:none;
-    border-radius:5px;
-    background:#111;
-    color:#00ff9c;
-    outline:none;
-}
-
-.input-box input:focus{
-    box-shadow:0 0 8px #00ff9c;
-}
-
-/* Button */
-
-.signup-btn{
-    width:100%;
-    padding:10px;
-    margin-top:10px;
-    border:none;
-    border-radius:5px;
-    background:var(--primary);
-    color:black;
-    font-weight:bold;
-    cursor:pointer;
-    transition:0.3s;
-}
-
-.signup-btn:hover{
-    background:var(--primary-hover);
-    box-shadow:0 0 12px #00ff9c;
-}
-
-.links{
-    margin-top:15px;
-    font-size:14px;
-    text-align:center;
-}
-
-.links a{
-    text-decoration:none;
-    color:#00ff9c;
-}
-
-.links a:hover{
-    text-shadow:0 0 8px #00ff9c;
-}
-
-</style>
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+      </style>
 </head>
-
-<body>
-
-<div class="signup-box">
-
-<h2>Create Account</h2>
-
-<form>
-
-<div class="input-box">
-<label>Full Name</label>
-<input type="text" placeholder="Enter your name" required>
+<body class="bg-surface-container-high font-body text-on-surface min-h-screen flex flex-col antialiased">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-[#f4fcfc]/80 dark:bg-teal-950/80 backdrop-blur-lg shadow-[0px_20px_40px_rgba(0,32,32,0.06)]">
+<div class="flex justify-between items-center w-full px-8 py-4 max-w-[1440px] mx-auto">
+<!-- Brand Logo -->
+<a class="font-['Plus_Jakarta_Sans'] tracking-tight text-3xl font-bold lowercase text-[#00696d] dark:text-cyan-400" href="#">
+                udbhav
+            </a>
+<!-- Navigation Links (Web) -->
+<nav class="hidden md:flex gap-8 items-center">
+<a class="font-['Plus_Jakarta_Sans'] tracking-tight text-[#3e4949] dark:text-cyan-200/70 font-medium hover:text-[#1d767a] dark:hover:text-cyan-100 transition-colors duration-300" href="#">Men</a>
+<a class="font-['Plus_Jakarta_Sans'] tracking-tight text-[#3e4949] dark:text-cyan-200/70 font-medium hover:text-[#1d767a] dark:hover:text-cyan-100 transition-colors duration-300" href="#">Women</a>
+<a class="font-['Plus_Jakarta_Sans'] tracking-tight text-[#3e4949] dark:text-cyan-200/70 font-medium hover:text-[#1d767a] dark:hover:text-cyan-100 transition-colors duration-300" href="#">Kids</a>
+<a class="font-['Plus_Jakarta_Sans'] tracking-tight text-[#3e4949] dark:text-cyan-200/70 font-medium hover:text-[#1d767a] dark:hover:text-cyan-100 transition-colors duration-300" href="#">Home Living</a>
+<a class="font-['Plus_Jakarta_Sans'] tracking-tight text-[#3e4949] dark:text-cyan-200/70 font-medium hover:text-[#1d767a] dark:hover:text-cyan-100 transition-colors duration-300" href="#">Studio</a>
+</nav>
+<!-- Trailing Icons -->
+<div class="flex items-center gap-6 text-cyan-900 dark:text-cyan-100">
+<!-- Search Bar Placeholder for visual balance -->
+<div class="hidden md:flex items-center bg-surface-container-lowest/50 rounded-full px-4 py-2 ring-1 ring-outline-variant/20">
+<span class="material-symbols-outlined text-on-surface-variant text-sm mr-2" data-icon="search">search</span>
+<span class="text-sm text-on-surface-variant/70">Search</span>
 </div>
-
-<div class="input-box">
-<label>Email</label>
-<input type="email" placeholder="Enter your email" required>
+<button class="scale-95 active:scale-90 transition-transform hover:text-[#1d767a] dark:hover:text-cyan-100 transition-colors duration-300">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+</button>
+<button class="scale-95 active:scale-90 transition-transform hover:text-[#1d767a] dark:hover:text-cyan-100 transition-colors duration-300">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+</button>
 </div>
-
-<div class="input-box">
-<label>Password</label>
-<input type="password" placeholder="Create password" required>
 </div>
-
-<div class="input-box">
-<label>Confirm Password</label>
-<input type="password" placeholder="Confirm password" required>
+</header>
+<!-- Main Content -->
+<main class="flex-grow flex items-center justify-center pt-32 pb-24 px-6 relative overflow-hidden">
+<!-- Decorative Luminous Sphere (Atmospheric Asymmetry) -->
+<div class="absolute top-20 left-10 w-96 h-96 bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
+<div class="absolute bottom-10 right-10 w-80 h-80 bg-primary-container/20 rounded-full blur-[80px] pointer-events-none"></div>
+<!-- Signup Card -->
+<div class="w-full max-w-lg bg-surface-container-lowest rounded-[1.5rem] shadow-[0px_20px_40px_rgba(0,32,32,0.06)] relative z-10 overflow-hidden flex flex-col border-0">
+<!-- Promotional Banner -->
+<div class="h-40 w-full relative bg-primary-container">
+<img alt="Promo Banner" class="w-full h-full object-cover opacity-80 mix-blend-overlay" data-alt="abstract soft flowing fabric in vibrant cyan and teal hues with luminous lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZxmr2zjaTKJ1uCuAqmPnMgERwvzWvgaQRIy3Y_YHZ_pyxbE_7wGapZ12hNybi9ZRovYFeEDaYwVnR_-1sucu7gduaPQjV-0NuYdyyYaoLBHnfNu3UgCLCBwMYdCrmukintl86t7IR2VKgimSvizQpNacjvY5lEX3OV2K69gxL02GjlSuNMM-HsbL-jLdn77Y0vKFFLlDKrRA_Uogurd7uT_qRUQ5GB6BWVZkmr1SiMubXyCSyYgLSvPZS6EnAQIjCDLNeumX8WYlP"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest to-transparent"></div>
+<!-- Floating 'U' Anchor -->
+<div class="absolute -bottom-10 left-1/2 transform -translate-x-1/2 w-20 h-20 bg-surface-container-lowest rounded-full shadow-[0px_10px_20px_rgba(0,32,32,0.05)] flex items-center justify-center overflow-hidden">
+<img src="../people.png" alt="Avatar" class="w-full h-full object-contain p-2">
 </div>
-
-<button type="submit" class="signup-btn">Create Account</button>
-
-<div class="links">
-<p>Already have an account? <a href="login.html">Login</a></p>
 </div>
-
+<!-- Form Container -->
+<div class="p-10 pt-14 flex flex-col gap-8">
+<div class="text-center space-y-2">
+<h1 class="font-headline text-3xl font-semibold tracking-tight text-primary">Signup</h1>
+<p class="text-on-surface-variant text-sm">Join us to experience luminous clarity.</p>
+</div>
+<form class="flex flex-col gap-5">
+<!-- Name Input -->
+<div class="space-y-1">
+<label class="block font-label text-xs text-on-surface-variant font-medium ml-2" for="name">Name</label>
+<input class="w-full bg-surface-container-lowest border-0 ring-1 ring-outline-variant/20 rounded-[1.5rem] px-5 py-3.5 text-on-surface focus:ring-2 focus:ring-primary/40 focus:outline-none transition-all placeholder:text-on-surface-variant/40" id="name" placeholder="Enter  your  name" type="text"/>
+</div>
+<!-- Email Input -->
+<div class="space-y-1">
+<label class="block font-label text-xs text-on-surface-variant font-medium ml-2" for="email">Email Address</label>
+<input class="w-full bg-surface-container-lowest border-0 ring-1 ring-outline-variant/20 rounded-[1.5rem] px-5 py-3.5 text-on-surface focus:ring-2 focus:ring-primary/40 focus:outline-none transition-all placeholder:text-on-surface-variant/40" id="email" placeholder="hello@example.com" type="email"/>
+</div>
+<!-- Phone Input -->
+<div class="space-y-1">
+<label class="block font-label text-xs text-on-surface-variant font-medium ml-2" for="phone">Phone Number</label>
+<input class="w-full bg-surface-container-lowest border-0 ring-1 ring-outline-variant/20 rounded-[1.5rem] px-5 py-3.5 text-on-surface focus:ring-2 focus:ring-primary/40 focus:outline-none transition-all placeholder:text-on-surface-variant/40" id="phone" placeholder="+91 | Mobile Number" type="tel"/>
+</div>
+<!-- Checkbox -->
+<div class="flex items-start gap-3 mt-2">
+<div class="flex items-center h-5">
+<input class="w-5 h-5 rounded-sm border-0 ring-1 ring-outline-variant/30 text-primary focus:ring-primary/40 focus:ring-offset-0 bg-surface-container-highest cursor-pointer transition-colors" id="terms" type="checkbox"/>
+</div>
+<label class="text-sm text-on-surface-variant cursor-pointer select-none leading-tight pt-0.5" for="terms">
+                            I agree to the <a class="text-primary font-medium hover:text-on-primary-container transition-colors" href="#">Terms of Use</a> and <a class="text-primary font-medium hover:text-on-primary-container transition-colors" href="#">Privacy Policy</a>.
+                        </label>
+</div>
+<!-- Submit Button -->
+<button class="mt-6 w-full rounded-full bg-gradient-to-br from-primary to-on-primary-container text-on-primary py-4 font-headline font-bold text-[15px] tracking-wide hover:shadow-lg hover:shadow-primary/20 transform hover:-translate-y-0.5 transition-all duration-300" type="button">
+                        CREATE ACCOUNT
+                    </button>
 </form>
-
+<!-- Login Link -->
+<div class="text-center mt-2">
+<p class="text-sm text-on-surface-variant">
+                        Already have an account? 
+                        <a class="text-primary font-semibold hover:text-on-primary-container transition-colors ml-1" href="#"><a href="http://127.0.0.1:5500/login_udbhav_lightened/code.html">Login</a></a>
+                
+</p>
 </div>
-
-</body>
-</html>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 bg-cyan-50/50 dark:bg-teal-900/20 flex flex-col items-center gap-6 px-10 border-t border-cyan-100/20 mt-auto">
+<div class="font-['Plus_Jakarta_Sans'] text-xl font-black text-[#00696d]">
+            udbhav
+        </div>
+<nav class="flex flex-wrap justify-center gap-6">
+<a class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-[#3e4949] dark:text-cyan-200/50 hover:text-cyan-600 transition-opacity opacity-100 hover:opacity-80" href="#">Privacy</a>
+<a class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-[#3e4949] dark:text-cyan-200/50 hover:text-cyan-600 transition-opacity opacity-100 hover:opacity-80" href="#">Terms</a>
+<a class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-[#3e4949] dark:text-cyan-200/50 hover:text-cyan-600 transition-opacity opacity-100 hover:opacity-80" href="#">Shipping</a>
+<a class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-[#3e4949] dark:text-cyan-200/50 hover:text-cyan-600 transition-opacity opacity-100 hover:opacity-80" href="#">Returns</a>
+<a class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-[#3e4949] dark:text-cyan-200/50 hover:text-cyan-600 transition-opacity opacity-100 hover:opacity-80" href="#">Contact</a>
+</nav>
+<p class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-[#00696d] dark:text-cyan-300 mt-4 text-center">
+            © 2024 Udbhav. Luminous Clarity in Digital Origin.
+        </p>
+</footer>
+</body></html>

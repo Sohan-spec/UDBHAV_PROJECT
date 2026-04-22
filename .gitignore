@@ -34,3 +34,5 @@ media/
 .vscode/
 *.swp
 *.swo
+login.html
+signup.html
