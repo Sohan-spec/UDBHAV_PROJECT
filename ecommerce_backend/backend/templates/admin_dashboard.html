@@ -1,9 +1,189 @@
 {%extends "master.html"%}
+{% load static %}
 {%block title%}
 Admin Dashboard
 {%endblock%}
 
+<<<<<<< Updated upstream
 {%block content%}
 <h1> Welcome to Our E-Commerce Website</h1>
 <h2>Admin Dashboard</h2>
+=======
+{% block body_class %}page-admin{% endblock %}
+
+{%block content%}
+<!-- Floating 3D Glass Bubbles in the background -->
+<div class="floating-bubbles">
+	<div class="bubble bubble-1"></div>
+	<div class="bubble bubble-2"></div>
+	<div class="bubble bubble-3"></div>
+	<div class="bubble bubble-4"></div>
+</div>
+
+<main class="page" style="max-width: 1200px; margin: 0 auto; padding: 24px;">
+	<header class="topbar">
+		<a href="/" class="brand" style="display: inline-flex; align-items: center; gap: 8px; font-size: 24px; color: var(--color-reva-orange) !important; font-weight: 700; text-decoration: none; font-family: var(--font-heading);">
+			<img src="{% static 'reva_logo.png' %}" alt="REVA Logo" style="height: 38px; width: auto; object-fit: contain;">
+			UDBHAV
+		</a>
+		<a href="/" style="color: #cbd5e1; text-decoration: none; font-size: 0.9rem; font-weight: 500; padding: 8px 16px; border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-pill); background: rgba(255,255,255,0.02); transition: all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)';" onmouseout="this.style.background='rgba(255,255,255,0.02)';">View Store</a>
+	</header>
+	
+	<section class="section-header-main" style="margin-bottom: 32px;">
+		<h1>Admin Dashboard</h1>
+		<p>Manage products, view order counts, and control system inventory.</p>
+	</section>
+
+	<div class="product-grid">
+		<article class="product-card">
+			<div class="product-card-body">
+				<div class="product-card-category">Orders</div>
+				<h3 id="orders-count">-</h3>
+			</div>
+		</article>
+		<article class="product-card">
+			<div class="product-card-body">
+				<div class="product-card-category">Users</div>
+				<h3 id="users-count">-</h3>
+			</div>
+		</article>
+	</div>
+
+	<!-- Balanced Responsive Layout Grid -->
+	<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 32px; align-items: start; margin-top: 24px;">
+		<!-- Left Column: Add Product Form Card -->
+		<div class="summary-card form-card" style="margin-top: 0;">
+			<h3>Add Product</h3>
+			<form id="add-product-form" enctype="multipart/form-data">
+				<input id="product-name" placeholder="Product name" required>
+				<input id="product-price" type="number" step="0.01" placeholder="Price" required>
+				<input id="product-stock" type="number" placeholder="Stock" value="0">
+				<input id="product-category" list="category-list" placeholder="Product Category" required>
+				<datalist id="category-list"></datalist>
+				
+				<textarea id="product-description" placeholder="Product Description..." rows="3" style="width: 100%; padding: 12px 16px; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; font-family: var(--font-body); resize: vertical; outline: none; margin-top: 4px; background: rgba(255,255,255,0.03); color: #ffffff;"></textarea>
+				
+				<div style="display: flex; flex-direction: column; gap: 6px; margin-top: 4px;">
+					<label style="font-size: 0.8rem; color: #94a3b8; font-weight: 500; padding-left: 8px;">Product Image</label>
+					<input type="file" id="product-image" accept="image/*" style="padding: 10px 16px; font-size: 0.85rem; border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius-pill); cursor: pointer; background: rgba(255,255,255,0.03); color: #ffffff;">
+				</div>
+
+				<input id="product-security-pin" type="password" placeholder="Operations Security PIN" required style="margin-top: 8px;">
+
+				<button class="btn-primary" type="submit" style="margin-top: 12px; height: 50px; font-family: var(--font-heading); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.9rem;">Create Product</button>
+			</form>
+		</div>
+
+		<!-- Right Column: Orders & System Analytics -->
+		<div class="summary-card" style="margin-top: 0;">
+			<h3>Orders Table Layout</h3>
+			<div class="admin-table-wrapper">
+				<table>
+					<thead>
+						<tr><th>Order ID</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th></tr>
+					</thead>
+					<tbody>
+						<tr><td colspan="5" style="text-align: center; color: #94a3b8; padding: 24px;">Layout ready</td></tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<p id="admin-msg" class="muted" style="margin-top: 32px; font-weight: 500; text-align: center;"></p>
+</main>
+
+<script>
+const adminToken = localStorage.getItem("token");
+
+async function loadAdminStats() {
+	const msg = document.getElementById("admin-msg");
+	msg.textContent = "";
+	if (!adminToken) {
+		msg.textContent = "Admin token required.";
+		return;
+	}
+
+	try {
+		const res = await fetch("/api/admin/stats/", {
+			headers: { "Authorization": "Bearer " + adminToken }
+		});
+		const data = await res.json();
+		if (!res.ok) {
+			msg.textContent = data.error || "Failed to fetch stats";
+			return;
+		}
+		document.getElementById("orders-count").textContent = data.orders_count ?? 0;
+		document.getElementById("users-count").textContent = data.users_count ?? 0;
+	} catch (e) {
+		msg.textContent = "Request failed";
+	}
+}
+
+async function loadCategories() {
+	try {
+		const res = await fetch("/api/categories/");
+		const data = await res.json();
+		if (res.ok && data.categories) {
+			const list = document.getElementById("category-list");
+			list.innerHTML = data.categories.map(cat => `<option value="${cat}">`).join("");
+		}
+	} catch (e) {
+		console.error("Failed to load categories", e);
+	}
+}
+
+document.getElementById("add-product-form").addEventListener("submit", async function (e) {
+	e.preventDefault();
+	const msg = document.getElementById("admin-msg");
+	msg.className = "muted";
+	msg.textContent = "";
+
+	if (!adminToken) {
+		msg.textContent = "Admin token required.";
+		msg.style.color = "red";
+		return;
+	}
+
+	const formData = new FormData();
+	formData.append("name", document.getElementById("product-name").value.trim());
+	formData.append("price", document.getElementById("product-price").value);
+	formData.append("stock", Number(document.getElementById("product-stock").value || 0));
+	formData.append("category", document.getElementById("product-category").value.trim());
+	formData.append("description", document.getElementById("product-description").value.trim());
+
+	const imageInput = document.getElementById("product-image");
+	if (imageInput.files && imageInput.files[0]) {
+		formData.append("image", imageInput.files[0]);
+	}
+
+	try {
+		const res = await fetch("/api/products/create/", {
+			method: "POST",
+			headers: {
+				"Authorization": "Bearer " + adminToken,
+				"X-Admin-Pin": document.getElementById("product-security-pin").value.trim()
+			},
+			body: formData
+		});
+		const data = await res.json();
+		if (!res.ok) {
+			msg.textContent = data.error || "Create product failed";
+			msg.style.color = "red";
+			return;
+		}
+		msg.textContent = "Product created successfully! ID: " + data.id;
+		msg.style.color = "green";
+		document.getElementById("add-product-form").reset();
+		loadCategories();
+	} catch (e) {
+		msg.textContent = "Request failed";
+		msg.style.color = "red";
+	}
+});
+
+loadAdminStats();
+loadCategories();
+</script>
+>>>>>>> Stashed changes
 {%endblock%}
