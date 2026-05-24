@@ -26,6 +26,7 @@ urlpatterns=[
     path('cart/',views.cart,name='cart'),
     path('cart/checkout/',views.checkout,name='checkout'),
     path('dashboard/',views.admin_dashboard,name='admin_dashboard'),
+    path('product/<slug>/', views.product_detail, name='product_detail'),
     path('api/register/', api.register, name='api_register'),
     path('api/login/', api.login, name='api_login'),
     path('api/products/', api.get_products, name='api_products'),

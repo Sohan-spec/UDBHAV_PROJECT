@@ -206,7 +206,21 @@ def list_orders(request):
 @admin_required
 def admin_only_stats(request):
     if request.method == 'GET':
-        return JsonResponse({'orders_count': Order.objects.count(), 'users_count': User.objects.count()})
+        orders = Order.objects.select_related('user').prefetch_related('items__product').all().order_by('-created_at')
+        orders_data = []
+        for o in orders:
+            orders_data.append({
+                'id': o.id,
+                'customer': o.user.username,
+                'items': [{'name': i.product.name, 'qty': i.quantity} for i in o.items.all()],
+                'total': float(o.total_price),
+                'status': o.status,
+            })
+        return JsonResponse({
+            'orders_count': Order.objects.count(),
+            'users_count': User.objects.count(),
+            'orders': orders_data
+        })
 
 @csrf_exempt
 @admin_required
