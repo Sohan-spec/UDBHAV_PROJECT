@@ -1,7 +1,5 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-<<<<<<< Updated upstream
-=======
 from .models import Category, Product
 
 
@@ -197,13 +195,9 @@ def admin_required_session(view_func):
         return view_func(request, *args, **kwargs)
     return _wrapped
 
->>>>>>> Stashed changes
 # Create your views here.
 def homepage(request):
     return render(request,'homepage.html')
-
-<<<<<<< Updated upstream
-=======
 
 def product_detail(request, slug):
     from django.utils.text import slugify
@@ -240,8 +234,6 @@ def product_detail(request, slug):
         'item_meta': item,
         'dummy_description': DUMMY_PRODUCT_DESCRIPTION,
     })
-
->>>>>>> Stashed changes
 def login(request):
     return render(request,'login.html')
 

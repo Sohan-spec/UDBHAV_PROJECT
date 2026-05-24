@@ -1,4 +1,4 @@
-from . import views
+from . import views, api
 from django.urls import path
 urlpatterns=[
     path('',views.homepage,name='homepage'),
@@ -26,9 +26,6 @@ urlpatterns=[
     path('cart/',views.cart,name='cart'),
     path('cart/checkout/',views.checkout,name='checkout'),
     path('dashboard/',views.admin_dashboard,name='admin_dashboard'),
-
-<<<<<<< Updated upstream
-=======
     path('api/register/', api.register, name='api_register'),
     path('api/login/', api.login, name='api_login'),
     path('api/products/', api.get_products, name='api_products'),
@@ -39,5 +36,4 @@ urlpatterns=[
     path("api/products/create/", api.create_product,name="api_create_product"),
     path('api/profile/', api.profile, name='api_profile'),
     path('api/categories/', api.get_categories, name='api_categories'),
->>>>>>> Stashed changes
 ]
