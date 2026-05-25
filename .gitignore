@@ -34,3 +34,28 @@ media/
 .vscode/
 *.swp
 *.swo
+
+# Secrets, credentials & certificates
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+*.jks
+*.keystore
+id_rsa
+id_rsa.*
+id_ed25519
+id_ed25519.*
+*.htpasswd
+
+# OS generated files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Database files
+*.sqlite3

@@ -249,8 +249,10 @@ def address(request):
 def checkout(request):
     return render(request,'checkout.html')
 
+# SECURITY FIX: Protect admin dashboard — require authenticated admin session.
+@admin_required_session
 def admin_dashboard(request):
-    return render(request,'admin_dashboard.html')
+    return render(request, 'admin_dashboard.html')
 
 def cart(request):
     return render(request,'cart.html')

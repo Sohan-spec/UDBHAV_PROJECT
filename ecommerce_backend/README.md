@@ -118,7 +118,7 @@ pip install -r requirements.txt
 Create a secure `.env` file in the root folder (use `.env.example` as a reference):
 ```ini
 # Operations security secondary PIN
-ADMIN_SECURITY_PIN=246810
+ADMIN_SECURITY_PIN=your-strong-admin-pin-here
 ```
 
 ### 5. Apply Migrations & Seeding
