@@ -1,792 +1,250 @@
 {% extends "master.html" %}
 {% load static %}
 
-{% block title %}UDBHAV | Home{% endblock %}
+{% block title %}UDBHAV — Considered Novelty & Beauty{% endblock %}
 {% block body_class %}page-home{% endblock %}
 
-{% block page_css %}
-<link rel="stylesheet" href="{% static 'css/anand-style.css' %}">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-    rel="stylesheet" />
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script>
-    tailwind.config = {
-        corePlugins: { preflight: false },
-        darkMode: "class",
-        theme: {
-            extend: {
-                colors: {
-                    teal: {
-                        50: '#FDEBE7',
-                        100: '#FDEBE7',
-                        200: '#FDEBE7',
-                        300: '#FFC107',
-                        400: '#85AF35',
-                        500: '#0096A1',
-                        600: '#0096A1',
-                        700: '#ff6b00',
-                        800: '#ff6b00',
-                        900: '#000000',
-                    }
-                },
-                fontFamily: { sans: ["Aleo", "sans-serif"], serif: ["Prata", "serif"] }
-            },
-        },
-    }
-</script>
-{% endblock %}
-
 {% block content %}
-<div class="home-frame">
+<div class="marquee"><div class="marquee-track"><span>Complimentary shipping on all orders</span><span>Clean actives, ocean-safe</span><span>New: Algae Bloom Revitalizer</span><span>Complimentary shipping on all orders</span><span>Clean actives, ocean-safe</span><span>New: Algae Bloom Revitalizer</span></div></div>
 
-    <div class="main-shell">
-        <header class="topbar">
-            <a href="/" class="brand"><img src="{% static 'reva_logo.png' %}" alt="REVA Logo" style="height: 40px; width: auto; object-fit: contain;">UDBHAV</a>
-
-            <form id="search-form" class="search-wrap" autocomplete="off">
-                <input id="search-input" type="search" placeholder="Search essential beauty...">
-                <button type="submit">Search</button>
-            </form>
-
-            <nav class="quick-links" aria-label="Main links">
-                <a href="/login/" id="link-login">Login</a>
-                <a href="/signup/" id="link-signup">Signup</a>
-                <a href="#" id="link-logout" style="display: none;" onclick="handleLogout(event)">Sign out</a>
-                <a href="#" onclick="toggleCartDrawer(event)">Cart <span id="cart-count" class="cart-count">0</span></a>
-                <a href="/profile/">Profile</a>
-            </nav>
-        </header>
-
-        <div id="category-nav" class="category-nav" aria-label="Categories"></div>
-
-        <div class="offer-marquee">
-            <span>20% off summer sets . sea kelp infused skincare now available . 20% off summer sets . sea kelp infused
-                skincare now available</span>
-        </div>
-
-        <section class="hero-grid">
-            <article class="hero-main">
-                <img src="https://images.pexels.com/photos/5069433/pexels-photo-5069433.jpeg?auto=compress&cs=tinysrgb&w=1300"
-                    alt="Beauty bottle in studio light" loading="lazy"
-                    onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1300&q=80';">
-                <div class="hero-copy">
-                    <p class="hero-kicker">New Arrival</p>
-                    <h1>Algae Bloom Revitalizer</h1>
-                    <p>Infused with deep-sea minerals to restore your natural glow overnight.</p>
-                    <a class="hero-cta" href="/product/algae-bloom-revitalizer/">Shop now</a>
-                </div>
-            </article>
-
-            <div class="hero-side">
-                <article class="promo-card">
-                    <img src="https://images.pexels.com/photos/3737579/pexels-photo-3737579.jpeg?auto=compress&cs=tinysrgb&w=1200"
-                        alt="Ocean mist body oil" loading="lazy"
-                        onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=1200&q=80';">
-                    <div class="promo-content">
-                        <h3>Ocean Mist Body Oil</h3>
-                        <p>Pure hydration from the coast.</p>
-                        <a href="/product/ocean-mist-body-oil/">Explore</a>
-                    </div>
-                </article>
-
-                <article class="promo-card bottom">
-                    <img src="https://images.pexels.com/photos/7796574/pexels-photo-7796574.jpeg?auto=compress&cs=tinysrgb&w=1200"
-                        alt="Gift set circular cream texture" loading="lazy"
-                        onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1556228453-efd1f6f5ff83?auto=format&fit=crop&w=1200&q=80';">
-                    <div class="promo-content">
-                        <h3>The Gift Set</h3>
-                        <p>Perfect bundles for skin-loving routines.</p>
-                        <a href="/product/the-gift-set/">View bundle</a>
-                    </div>
-                </article>
-            </div>
-        </section>
-
-        <section class="summer-banner">
-            <img src="https://images.pexels.com/photos/6663570/pexels-photo-6663570.jpeg?auto=compress&cs=tinysrgb&w=1800"
-                alt="Summer skincare background" loading="lazy"
-                onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1800&q=80';">
-            <div class="summer-copy">
-                <p>Limited edition</p>
-                <h2>Summer <strong>Refresh</strong></h2>
-                <small>Discover our sun-safe essentials designed to protect and nourish through the warmest
-                    months.</small>
-                <a class="hero-cta" href="/product/estee-lauder-call-555-lipstick/">Shop The Collection</a>
-            </div>
-        </section>
-
-        <section>
-            <div class="deals-head">
-                <div>
-                    <h3>Deals <em>of the Day</em></h3>
-                    <p id="refresh-timer">Refreshes in 08:24:12</p>
-                </div>
-                <div class="deal-nav">
-                    <button id="deal-prev" type="button" aria-label="Previous deals">&#8249;</button>
-                    <button id="deal-next" type="button" aria-label="Next deals">&#8250;</button>
-                </div>
-            </div>
-
-            <div id="deals-track" class="deals-track" aria-live="polite"></div>
-            <p id="home-message" class="home-message"></p>
-        </section>
-
-        <section class="logo-row" aria-label="Partner brands">
-            <span>Maybelline</span>
-            <span>Nykaa</span>
-            <div>Dot & Key</div>
-            <div>The Derma Co.</div>
-            <div>Lakmé</div>
-        </section>
-
-        <section class="values">
-            <div class="value-card">
-                <span class="value-icon">✧</span>
-                <h4>Clean Actives</h4>
-                <p>Free from parabens & sulfates.</p>
-            </div>
-            <div class="value-card">
-                <span class="value-icon">≈</span>
-                <h4>Ocean Safe</h4>
-                <p>Reef-friendly formulations.</p>
-            </div>
-            <div class="value-card">
-                <span class="value-icon">♡</span>
-                <h4>Cruelty Free</h4>
-                <p>Never tested on animals.</p>
-            </div>
-            <div class="value-card">
-                <span class="value-icon">↺</span>
-                <h4>Recycled</h4>
-                <p>100% post-consumer packaging.</p>
-            </div>
-        </section>
-    </div>
-</div>
-
-
-<div id="cart-drawer-overlay" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[55] hidden transition-opacity"
-    onclick="toggleCartDrawer(event)"></div>
-
-
-<aside id="cart-drawer"
-    class="fixed inset-y-0 right-0 w-full max-w-[420px] z-[60] bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl md:rounded-l-3xl shadow-2xl flex flex-col border-l border-white/30 overflow-hidden transition-transform transform translate-x-full font-sans">
-
-   
-    <div class="px-6 h-20 flex items-center justify-between border-b border-teal-50 dark:border-slate-800">
-        <div class="flex items-center gap-3">
-            <span class="text-teal-800 dark:text-teal-300 font-bold text-xl tracking-tight"
-                id="cart-header-title">Bag</span>
-        </div>
-        <a href="#" onclick="toggleCartDrawer(event)"
-            class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-teal-50 dark:hover:bg-teal-900/30 transition-all text-slate-600 dark:text-slate-400 text-decoration-none">
-            <span class="material-symbols-outlined">close</span>
-        </a>
-    </div>
-
-    
-    <div class="flex-1 overflow-y-auto px-6 py-4 space-y-6">
-        <p id="drawer-cart-msg" class="text-sm text-red-500 font-bold text-center"></p>
-
-       
-        <div onclick="openGiftModal(event)" style="cursor: pointer;" class="bg-teal-50 dark:bg-teal-900/20 p-4 rounded-xl flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <span
-                    class="material-symbols-outlined text-teal-700 dark:text-teal-400">featured_seasonal_and_gifts</span>
-                <span class="text-sm font-medium text-teal-900 dark:text-teal-100">Pick your gifts</span>
-            </div>
-            <span class="material-symbols-outlined text-teal-600">chevron_right</span>
-        </div>
-
-        
-        <div id="drawer-auth-prompt"
-            class="bg-slate-100 dark:bg-slate-800/50 p-5 rounded-xl border border-white/50 hidden">
-            <p class="text-sm text-slate-600 dark:text-slate-300 mb-3">Login / Register to grab the best offers</p>
-            <a href="/login/"
-                class="text-teal-700 dark:text-teal-400 text-sm font-bold tracking-tight uppercase no-underline">Sign In
-                Now</a>
-        </div>
-
-       
-        <div id="drawer-cart-items" class="space-y-6">
-           
-        </div>
-
-       
-        <div class="space-y-3 pt-4 border-t border-teal-50/50">
-            <h4 class="text-xs font-bold uppercase tracking-widest text-slate-400">Promotions</h4>
-            <div class="relative">
-                <input
-                    class="w-full h-12 bg-white/50 dark:bg-slate-800/50 backdrop-blur-md border border-white/30 dark:border-slate-700 rounded-xl px-4 text-sm focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all outline-none"
-                    placeholder="Apply now and save extra!" type="text" />
-                <button
-                    class="absolute right-2 top-2 h-8 px-4 bg-teal-800 hover:bg-teal-700 text-white rounded-lg text-xs font-bold shadow-lg shadow-teal-900/20 transition-all border-0 cursor-pointer">Apply</button>
+<section class="hero">
+    <div class="hero-split">
+        <div class="hero-copy">
+            <p class="eyebrow hero-eyebrow">New Arrival</p>
+            <h1>A calm ritual for <span class="serif-italic">radiant</span> skin.</h1>
+            <p class="lead hero-lead">Mineral-rich sea algae, harvested responsibly, formulated to restore your natural glow overnight.</p>
+            <div class="hero-cta-row">
+                <a href="/product/algae-bloom-revitalizer/" class="btn btn-primary btn-lg">Shop the Revitalizer</a>
+                <a href="#shop" class="btn btn-ghost">Explore the edit</a>
             </div>
         </div>
-
-        <div class="border-t border-teal-50 dark:border-slate-800 pt-6">
-            <div class="flex items-center justify-between mb-4">
-                <span class="text-sm font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider">Price
-                    Details</span>
-                <span class="material-symbols-outlined text-slate-400">expand_more</span>
-            </div>
-            <div class="space-y-3">
-                <div class="flex justify-between text-sm">
-                    <span class="text-slate-500">Subtotal</span>
-                    <span class="text-slate-800 dark:text-slate-100 font-medium" id="drawer-cart-subtotal">₹0.00</span>
-                </div>
-                <div class="flex justify-between text-sm">
-                    <span class="text-slate-500">Shipping</span>
-                    <span class="text-teal-600 font-bold uppercase text-[10px] tracking-widest">Free</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    
-    <div
-        class="p-6 pb-8 glass-panel border-t border-white/30 dark:border-slate-800 shadow-[0_-10px_40px_rgba(0,0,0,0.05)]">
-        <div class="flex items-center justify-between gap-6">
-            <div class="flex flex-col">
-                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Total Payable</span>
-                <span class="text-2xl font-black text-teal-800 dark:text-teal-300 tracking-tighter"
-                    id="drawer-cart-total">₹0.00</span>
-            </div>
-            <a href="/cart/checkout/"
-                class="flex-1 h-14 bg-teal-800 hover:bg-teal-700 text-white rounded-2xl font-bold text-sm tracking-widest uppercase flex items-center justify-center gap-2 shadow-xl shadow-teal-900/20 active:scale-95 transition-all no-underline border-0 cursor-pointer">
-                Proceed
-                <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+        <div class="hero-media">
+            <img src="https://images.pexels.com/photos/4041392/pexels-photo-4041392.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Algae Bloom Revitalizer" loading="eager" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;">
+            <a href="/product/algae-bloom-revitalizer/" class="hero-tag">
+                <div class="t-name">Algae Bloom Revitalizer</div>
+                <div class="t-price">₹1,299</div>
             </a>
         </div>
     </div>
-</aside>
+</section>
 
-<!-- Gift Picker Modal Dialog -->
-<div id="gift-modal" class="fixed inset-0 z-[100] flex items-center justify-center hidden" style="background: rgba(0,0,0,0.5); backdrop-filter: blur(8px);">
-    <div style="background: #ffffff; width: 90%; max-width: 440px; padding: 24px; border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.15); display: flex; flex-direction: column; gap: 16px; border: 1px solid var(--border-subtle); box-sizing: border-box;">
-        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 12px;">
-            <h3 style="font-family: var(--font-heading); color: var(--color-reva-black); font-size: 1.3rem; margin: 0; display: flex; align-items: center; gap: 8px; font-weight: 700;">
-                <span class="material-symbols-outlined" style="color: var(--color-reva-orange); font-size: 24px;">featured_seasonal_and_gifts</span>
-                Pick Your Free Gift
-            </h3>
-            <button onclick="closeGiftModal()" style="border: 0; background: transparent; cursor: pointer; color: var(--text-muted); display: flex; align-items: center; padding: 4px;">
-                <span class="material-symbols-outlined" style="font-size: 24px;">close</span>
-            </button>
+<section class="section" id="shop">
+    <div class="container">
+        <div class="section-head">
+            <div class="head-left">
+                <p class="eyebrow">The Edit</p>
+                <h2>Curated for your routine</h2>
+                <p class="lead">A considered selection of essentials — each chosen for clean actives and honest results.</p>
+            </div>
+            <a href="/shop/" class="head-link" id="view-all-link">View all</a>
         </div>
-        
-        <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0; font-family: var(--font-body); line-height: 1.5;">Select a premium promotional gift to add to your bag for free! Limit 1 free gift per order.</p>
-        
-        <div id="gift-options-list" style="display: flex; flex-direction: column; gap: 12px; margin-top: 8px;">
-            <!-- Rendered dynamically -->
+        <div class="product-grid" id="product-grid"></div>
+        <p class="muted mt-3" id="home-message"></p>
+    </div>
+</section>
+
+<section class="section-tight" style="background:var(--bg-subtle)">
+    <div class="container">
+        <div class="editorial">
+            <div class="ed-media">
+                <img src="https://images.pexels.com/photos/4041391/pexels-photo-4041391.jpeg?auto=compress&cs=tinysrgb&w=1000" alt="Ocean Mist Body Oil" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;">
+            </div>
+            <div class="ed-copy">
+                <p class="eyebrow">The Story</p>
+                <h2>Hydration, drawn from the coast.</h2>
+                <p class="lead">Our Ocean Mist Body Oil blends marine botanicals with vitamin E — a lightweight finish that seals in moisture without the weight.</p>
+                <a href="/product/ocean-mist-body-oil/" class="btn btn-outline btn-lg">Discover Body Oil</a>
+            </div>
         </div>
     </div>
-</div>
+</section>
 
+<section class="section">
+    <div class="container">
+        <div class="section-head">
+            <div class="head-left">
+                <p class="eyebrow">Curated Deals</p>
+                <h2>A small selection worth discovering</h2>
+                <p class="deals-timer" id="refresh-timer">Refreshes in 08:24:12</p>
+            </div>
+            <div class="deals-nav">
+                <button type="button" id="deal-prev" aria-label="Previous"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
+                <button type="button" id="deal-next" aria-label="Next"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+            </div>
+        </div>
+        <div class="deals-track" id="deals-track" aria-live="polite"></div>
+    </div>
+</section>
+
+<section class="section-tight" style="background:var(--bg-subtle)">
+    <div class="container">
+        <div class="editorial reverse">
+            <div class="ed-media">
+                <img src="https://images.pexels.com/photos/4465829/pexels-photo-4465829.jpeg?auto=compress&cs=tinysrgb&w=1000" alt="The Gift Set" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;">
+            </div>
+            <div class="ed-copy">
+                <p class="eyebrow">Gifting</p>
+                <h2>Curated sets, ready to gift.</h2>
+                <p class="lead">Cleanser, serum, and glow cream in travel-ready sizes — designed for simple routines and effortless gifting.</p>
+                <a href="/product/the-gift-set/" class="btn btn-outline btn-lg">Shop The Gift Set</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="section-head">
+            <div class="head-left">
+                <p class="eyebrow">Our Standards</p>
+                <h2>Formulated with intention</h2>
+            </div>
+        </div>
+        <div class="values">
+            <div class="value"><div class="v-mark">✦</div><h4>Clean Actives</h4><p>Free from parabens & sulfates.</p></div>
+            <div class="value"><div class="v-mark">≈</div><h4>Ocean Safe</h4><p>Reef-friendly formulations.</p></div>
+            <div class="value"><div class="v-mark">♡</div><h4>Cruelty Free</h4><p>Never tested on animals.</p></div>
+            <div class="value"><div class="v-mark">↺</div><h4>Recycled</h4><p>100% post-consumer packaging.</p></div>
+        </div>
+    </div>
+</section>
+
+<section class="section-tight" style="background:var(--color-charcoal-deep);color:#fff;text-align:center">
+    <div class="container container-narrow">
+        <p class="eyebrow" style="color:var(--color-accent)">Begin your ritual</p>
+        <h2 style="color:#fff;margin-top:1rem">A quieter way to shop for beauty.</h2>
+        <p class="lead" style="color:rgba(255,255,255,0.7);margin-top:1rem">Explore the full collection of considered essentials.</p>
+        <a href="#shop" class="btn btn-accent btn-lg mt-3">Shop the collection</a>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+{{ block.super }}
 <script>
-    const state = {
-        products: [],
-        filtered: [],
-        category: "all",
-        search: ""
-    };
-
-    const categoryTabs = ["all", "skin", "body", "hair", "clean beauty", "sale"];
-
-    const featuredSlugs = [
-        "algae-bloom-revitalizer",
-        "ocean-mist-body-oil",
-        "the-gift-set",
-        "estee-lauder-call-555-lipstick",
-        "coastal-breeze-cooling-mist",
-        "dead-sea-mud-and-mint-mask",
-        "sea-kelp-vitalizing-shampoo"
-    ];
-
+(function () {
+    const state = { products: [], filtered: [], category: "all", search: "" };
+    const featuredSlugs = ["algae-bloom-revitalizer","ocean-mist-body-oil","the-gift-set","estee-lauder-call-555-lipstick","coastal-breeze-cooling-mist","dead-sea-mud-and-mint-mask","sea-kelp-vitalizing-shampoo"];
     const forcedSlugByName = {
-        "Algae Bloom Revitalizer": "algae-bloom-revitalizer",
-        "Ocean Mist Body Oil": "ocean-mist-body-oil",
-        "The Gift Set": "the-gift-set",
-        "Estee Lauder Pure Color Explicit Slick Shine Lipstick - Call 555": "estee-lauder-call-555-lipstick",
-        "Sea Kelp Vitalizing Shampoo": "sea-kelp-vitalizing-shampoo",
-        "Coastal Breeze Cooling Mist": "coastal-breeze-cooling-mist",
-        "Dead Sea Mud & Mint Mask": "dead-sea-mud-and-mint-mask",
-        "Dead Sea Mud and Mint Mask": "dead-sea-mud-and-mint-mask"
+        "Algae Bloom Revitalizer":"algae-bloom-revitalizer","Ocean Mist Body Oil":"ocean-mist-body-oil","The Gift Set":"the-gift-set",
+        "Estee Lauder Pure Color Explicit Slick Shine Lipstick - Call 555":"estee-lauder-call-555-lipstick",
+        "Sea Kelp Vitalizing Shampoo":"sea-kelp-vitalizing-shampoo","Coastal Breeze Cooling Mist":"coastal-breeze-cooling-mist",
+        "Dead Sea Mud & Mint Mask":"dead-sea-mud-and-mint-mask","Dead Sea Mud and Mint Mask":"dead-sea-mud-and-mint-mask"
     };
-
     const dealImageBySlug = {
-        "algae-bloom-revitalizer": "https://images.pexels.com/photos/5069433/pexels-photo-5069433.jpeg?auto=compress&cs=tinysrgb&w=700",
-        "ocean-mist-body-oil": "https://images.pexels.com/photos/3737579/pexels-photo-3737579.jpeg?auto=compress&cs=tinysrgb&w=700",
-        "the-gift-set": "https://images.pexels.com/photos/7796574/pexels-photo-7796574.jpeg?auto=compress&cs=tinysrgb&w=700",
-        "estee-lauder-call-555-lipstick": "https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg?auto=compress&cs=tinysrgb&w=700",
-        "sea-kelp-vitalizing-shampoo": "https://images.pexels.com/photos/3373745/pexels-photo-3373745.jpeg?auto=compress&cs=tinysrgb&w=700",
-        "coastal-breeze-cooling-mist": "https://images.pexels.com/photos/6663570/pexels-photo-6663570.jpeg?auto=compress&cs=tinysrgb&w=700",
-        "dead-sea-mud-and-mint-mask": "https://images.pexels.com/photos/6621332/pexels-photo-6621332.jpeg?auto=compress&cs=tinysrgb&w=700"
+        "algae-bloom-revitalizer":"https://images.pexels.com/photos/4041392/pexels-photo-4041392.jpeg?auto=compress&cs=tinysrgb&w=700",
+        "ocean-mist-body-oil":"https://images.pexels.com/photos/4041391/pexels-photo-4041391.jpeg?auto=compress&cs=tinysrgb&w=700",
+        "the-gift-set":"https://images.pexels.com/photos/4465829/pexels-photo-4465829.jpeg?auto=compress&cs=tinysrgb&w=700",
+        "estee-lauder-call-555-lipstick":"https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg?auto=compress&cs=tinysrgb&w=700",
+        "sea-kelp-vitalizing-shampoo":"https://images.pexels.com/photos/4465124/pexels-photo-4465124.jpeg?auto=compress&cs=tinysrgb&w=700",
+        "coastal-breeze-cooling-mist":"https://images.pexels.com/photos/4041390/pexels-photo-4041390.jpeg?auto=compress&cs=tinysrgb&w=700",
+        "dead-sea-mud-and-mint-mask":"https://images.pexels.com/photos/3762873/pexels-photo-3762873.jpeg?auto=compress&cs=tinysrgb&w=700",
+        "reva-glow-cream-sample":"https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=700&q=80",
+        "algae-bloom-serum-vial":"https://images.pexels.com/photos/4041407/pexels-photo-4041407.jpeg?auto=compress&cs=tinysrgb&w=700",
+        "udbhav-keyring":"https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?auto=format&fit=crop&w=700&q=80"
     };
 
-    const imagePool = [
-        "https://images.pexels.com/photos/5069433/pexels-photo-5069433.jpeg?auto=compress&cs=tinysrgb&w=700",
-        "https://images.pexels.com/photos/5069433/pexels-photo-5069433.jpeg?auto=compress&cs=tinysrgb&w=700",
-        "https://images.pexels.com/photos/7796574/pexels-photo-7796574.jpeg?auto=compress&cs=tinysrgb&w=700",
-        "https://images.pexels.com/photos/3737579/pexels-photo-3737579.jpeg?auto=compress&cs=tinysrgb&w=700",
-        "https://images.pexels.com/photos/3373726/pexels-photo-3373726.jpeg?auto=compress&cs=tinysrgb&w=700"
-    ];
+    function resolveSlug(p) { return forcedSlugByName[p.name] || p.slug || UDBHAV.slugify(p.name); }
+    function stableHash(v) { let h=0; for (let i=0;i<v.length;i++){h=(h<<5)-h+v.charCodeAt(i);h|=0;} return Math.abs(h); }
 
-    const fallbackImg = "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=700&q=80";
-
-    function slugifyText(value) {
-        return String(value || "")
-            .toLowerCase()
-            .trim()
-            .replace(/[^a-z0-9\s-]/g, "")
-            .replace(/\s+/g, "-")
-            .replace(/-+/g, "-");
-    }
-
-    function resolveProductSlug(product) {
-        if (forcedSlugByName[product.name]) return forcedSlugByName[product.name];
-        return product.slug || slugifyText(product.name);
-    }
-
-    function stableHash(value) {
-        let hash = 0;
-        for (let i = 0; i < value.length; i += 1) {
-            hash = (hash << 5) - hash + value.charCodeAt(i);
-            hash |= 0;
+    function cardHTML(p, isDeal) {
+        const slug = resolveSlug(p);
+        const img = p.image || dealImageBySlug[slug] || UDBHAV.FALLBACK;
+        const price = Number(p.price || 0);
+        const isFree = price === 0;
+        let priceHTML = isFree ? `<span class="free">Free gift</span>` : UDBHAV.inr(price);
+        if (isDeal && !isFree) {
+            const old = Math.max(price + Math.round(price*0.22), price + 40);
+            priceHTML = `${UDBHAV.inr(price)} <span class="old">${UDBHAV.inr(old)}</span>`;
         }
-        return Math.abs(hash);
-    }
-
-    function inr(value) {
-        return Number(value || 0).toLocaleString("en-IN", {
-            style: "currency",
-            currency: "INR",
-            minimumFractionDigits: 2
-        });
-    }
-
-    function setMessage(text, isError) {
-        const node = document.getElementById("home-message");
-        node.textContent = text || "";
-        node.style.color = isError ? "#9d3e3e" : "#5d848c";
-    }
-
-    function renderCategories() {
-        const nav = document.getElementById("category-nav");
-        nav.innerHTML = categoryTabs.map((tab) => {
-            const active = state.category === tab ? "is-active" : "";
-            return `<button type="button" data-tab="${tab}" class="${active}">${tab}</button>`;
-        }).join("");
-    }
-
-    function productFitsCategory(product) {
-        if (state.category === "all") return true;
-        if (state.category === "sale") return Number(product.price || 0) <= 800;
-        const group = `${product.category || ""} ${product.name || ""}`.toLowerCase();
-        return group.includes(state.category.toLowerCase());
-    }
-
-    function productFitsSearch(product) {
-        if (!state.search) return true;
-        const target = `${product.name || ""} ${product.category || ""}`.toLowerCase();
-        return target.includes(state.search.toLowerCase());
-    }
-
-    function applyFilters() {
-        state.filtered = state.products.filter((p) => productFitsCategory(p) && productFitsSearch(p));
-    }
-
-    function dealCard(product) {
-        const seed = `${product.id || "x"}-${product.name || "item"}`;
-        const slug = resolveProductSlug(product);
-        const imageUrl = product.image || dealImageBySlug[slug] || imagePool[stableHash(seed) % imagePool.length];
-        const price = Number(product.price || 0);
-        const oldPrice = Math.max(price + Math.round(price * 0.22), price + 40);
-        const labels = ["Body Care", "Skin Care", "Hair Care", "Daily Care"];
-        const badge = ["-22%", "-18%", "-15%", "-20%", "-12%"];
-        const label = labels[stableHash(seed + "l") % labels.length];
-        const discount = badge[stableHash(seed + "b") % badge.length];
-
+        const badge = isDeal && !isFree ? `<span class="card-badge sale">Sale</span>` : (isFree ? `<span class="card-badge">Gift</span>` : "");
         return `
-            <article class="deal-card">
-                <a class="deal-link" href="/product/${slug}/">
-                    <div class="deal-media">
-                        <img src="${imageUrl}" alt="${product.name}" loading="lazy" onerror="this.onerror=null;this.src='${fallbackImg}';">
-                        <span class="deal-discount">${discount}</span>
-                    </div>
-                </a>
-                <div class="deal-type">${label}</div>
-                <a class="deal-link" href="/product/${slug}/"><p class="deal-name">${product.name}</p></a>
-                <p class="deal-price">${inr(price)} <span>${inr(oldPrice)}</span></p>
-                <button type="button" data-add="${product.id}">Add to bag</button>
-            </article>
-        `;
+            <article class="card">
+                <div class="card-media">
+                    ${badge}
+                    <a href="/product/${slug}/"><img src="${img}" alt="${p.name}" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;"></a>
+                    <button class="card-add" type="button" data-add="${p.id}">Add to bag</button>
+                </div>
+                <div class="card-info">
+                    <span class="card-cat">${p.category || ""}</span>
+                    <a href="/product/${slug}/" class="card-name">${p.name}</a>
+                    <span class="card-price">${priceHTML}</span>
+                </div>
+            </article>`;
+    }
+
+    function renderGrid() {
+        const grid = document.getElementById("product-grid");
+        const src = state.filtered.length ? state.filtered : state.products;
+        const map = new Map(src.map(i => [resolveSlug(i), i]));
+        const ordered = featuredSlugs.map(s => map.get(s)).filter(Boolean);
+        const rest = src.filter(i => !featuredSlugs.includes(resolveSlug(i)));
+        const list = [...ordered, ...rest].slice(0, 8);
+        grid.innerHTML = list.map(p => cardHTML(p, false)).join("") || `<p class="muted">No products found.</p>`;
     }
 
     function renderDeals() {
         const track = document.getElementById("deals-track");
-        const source = state.filtered.length ? state.filtered : state.products;
-
-        if (!source.length) {
-            track.innerHTML = "";
-            return;
-        }
-
-        const sourceMap = new Map(source.map((item) => [resolveProductSlug(item), item]));
-        const orderedFeatured = featuredSlugs.map((slug) => sourceMap.get(slug)).filter(Boolean);
-        const rest = source.filter((item) => !featuredSlugs.includes(resolveProductSlug(item)));
-        const deals = [...orderedFeatured, ...rest].slice(0, 10);
-        track.innerHTML = deals.map(dealCard).join("");
+        const src = state.filtered.length ? state.filtered : state.products;
+        if (!src.length) { track.innerHTML = ""; return; }
+        const map = new Map(src.map(i => [resolveSlug(i), i]));
+        const ordered = featuredSlugs.map(s => map.get(s)).filter(Boolean);
+        const rest = src.filter(i => !featuredSlugs.includes(resolveSlug(i)));
+        track.innerHTML = [...ordered, ...rest].slice(0, 10).map(p => cardHTML(p, true)).join("");
     }
 
-    async function updateCartCount() {
-        const token = localStorage.getItem("token");
-        const badge = document.getElementById("cart-count");
-        if (!token) {
-            badge.style.display = "none";
-            return;
-        }
-
-        try {
-            const res = await fetch("/api/cart/", {
-                headers: { "Authorization": "Bearer " + token }
-            });
-            if (!res.ok) {
-                badge.style.display = "none";
-                return;
+    function applyFilters() {
+        state.filtered = state.products.filter(p => {
+            if (state.category !== "all" && state.category !== "sale") {
+                const g = `${p.category||""} ${p.name||""}`.toLowerCase();
+                if (!g.includes(state.category)) return false;
             }
-
-            const data = await res.json();
-            const total = (data.items || []).reduce((sum, item) => sum + Number(item.qty || 0), 0);
-            if (total > 0) {
-                badge.textContent = total > 99 ? "99+" : String(total);
-                badge.style.display = "inline-flex";
-            } else {
-                badge.style.display = "none";
+            if (state.category === "sale" && Number(p.price||0) > 800) return false;
+            if (state.search) {
+                const t = `${p.name||""} ${p.category||""}`.toLowerCase();
+                if (!t.includes(state.search.toLowerCase())) return false;
             }
-        } catch (error) {
-            badge.style.display = "none";
-        }
-    }
-
-    async function addToCart(productId) {
-        const token = localStorage.getItem("token");
-        if (!token) {
-            setMessage("Login required before adding to cart.", true);
-            return;
-        }
-
-        try {
-            const res = await fetch("/api/cart/", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": "Bearer " + token
-                },
-                body: JSON.stringify({ product_id: Number(productId), quantity: 1 })
-            });
-
-            const data = await res.json();
-            if (!res.ok) {
-                setMessage(data.error || "Unable to add this product.", true);
-                return;
-            }
-
-            setMessage("Added to cart.", false);
-            updateCartCount();
-        } catch (error) {
-            setMessage("Network error while updating cart.", true);
-        }
+            return true;
+        });
     }
 
     async function loadProducts() {
+        const msg = document.getElementById("home-message");
         try {
-            const params = new URLSearchParams({ page: "1", size: "80", search: state.search });
+            const params = new URLSearchParams({ page: "1", size: "80" });
+            if (state.search) params.set("search", state.search);
             const res = await fetch("/api/products/?" + params.toString());
             const data = await res.json();
-
-            if (!res.ok) {
-                setMessage(data.error || "Unable to load products.", true);
-                return;
-            }
-
+            if (!res.ok) { msg.textContent = data.error || "Unable to load products."; return; }
             state.products = data.products || [];
-            applyFilters();
-            renderDeals();
-
-            if (!state.products.length) {
-                setMessage("No products found in inventory.", true);
-            } else {
-                setMessage("Live catalog synced from backend.", false);
-            }
-        } catch (error) {
-            setMessage("Unable to connect to products API.", true);
-        }
+            applyFilters(); renderGrid(); renderDeals();
+            msg.textContent = state.products.length ? "" : "No products found.";
+        } catch (e) { msg.textContent = "Unable to connect to products API."; }
     }
 
     function setupCountdown() {
-        const timerNode = document.getElementById("refresh-timer");
-        let seconds = 8 * 60 * 60 + 24 * 60 + 12;
-
+        const node = document.getElementById("refresh-timer");
+        let s = 8*3600 + 24*60 + 12;
         setInterval(() => {
-            const h = String(Math.floor(seconds / 3600)).padStart(2, "0");
-            const m = String(Math.floor((seconds % 3600) / 60)).padStart(2, "0");
-            const s = String(seconds % 60).padStart(2, "0");
-            timerNode.textContent = `Refreshes in ${h}:${m}:${s}`;
-            seconds = seconds > 0 ? seconds - 1 : 8 * 60 * 60 + 24 * 60 + 12;
+            const h = String(Math.floor(s/3600)).padStart(2,"0");
+            const m = String(Math.floor((s%3600)/60)).padStart(2,"0");
+            const sec = String(s%60).padStart(2,"0");
+            node.textContent = `Refreshes in ${h}:${m}:${sec}`;
+            s = s > 0 ? s - 1 : 8*3600 + 24*60 + 12;
         }, 1000);
     }
 
-    function setupEvents() {
-        document.getElementById("search-form").addEventListener("submit", (event) => {
-            event.preventDefault();
-            state.search = document.getElementById("search-input").value.trim();
-            loadProducts();
-        });
+    document.body.addEventListener("click", (e) => {
+        const add = e.target.closest("[data-add]");
+        if (add) { e.preventDefault(); UDBHAV.addToCart(add.dataset.add); }
+        if (e.target.id === "deal-prev") document.getElementById("deals-track").scrollBy({ left: -300, behavior: "smooth" });
+        if (e.target.id === "deal-next") document.getElementById("deals-track").scrollBy({ left: 300, behavior: "smooth" });
+    });
 
-        document.getElementById("category-nav").addEventListener("click", (event) => {
-            const tab = event.target.closest("button[data-tab]");
-            if (!tab) return;
-            state.category = tab.dataset.tab;
-            renderCategories();
-            applyFilters();
-            renderDeals();
-        });
-
-        document.body.addEventListener("click", (event) => {
-            const addBtn = event.target.closest("button[data-add]");
-            if (addBtn) {
-                addToCart(addBtn.dataset.add);
-                return;
-            }
-
-            if (event.target.id === "deal-prev") {
-                document.getElementById("deals-track").scrollBy({ left: -420, behavior: "smooth" });
-                return;
-            }
-
-            if (event.target.id === "deal-next") {
-                document.getElementById("deals-track").scrollBy({ left: 420, behavior: "smooth" });
-            }
-        });
-    }
-
-    function updateAuthLinks() {
-        const token = localStorage.getItem("token");
-        const loginLink = document.getElementById("link-login");
-        const signupLink = document.getElementById("link-signup");
-        const logoutLink = document.getElementById("link-logout");
-
-        if (token) {
-            if (loginLink) loginLink.style.display = "none";
-            if (signupLink) signupLink.style.display = "none";
-            if (logoutLink) logoutLink.style.display = "inline-block";
-        } else {
-            if (loginLink) loginLink.style.display = "inline-block";
-            if (signupLink) signupLink.style.display = "inline-block";
-            if (logoutLink) logoutLink.style.display = "none";
-        }
-    }
-
-    function handleLogout(e) {
-        e.preventDefault();
-        localStorage.removeItem("token");
-        window.location.reload();
-    }
-
-    function toggleCartDrawer(event) {
-        if (event) event.preventDefault();
-        const drawer = document.getElementById("cart-drawer");
-        const overlay = document.getElementById("cart-drawer-overlay");
-        if (drawer.classList.contains("translate-x-full")) {
-            drawer.classList.remove("translate-x-full");
-            drawer.classList.add("translate-x-0");
-            overlay.classList.remove("hidden");
-            loadDrawerCart();
-        } else {
-            drawer.classList.add("translate-x-full");
-            drawer.classList.remove("translate-x-0");
-            overlay.classList.add("hidden");
-        }
-    }
-
-    async function loadDrawerCart() {
-        const token = localStorage.getItem("token");
-        const msg = document.getElementById("drawer-cart-msg");
-        const authPrompt = document.getElementById("drawer-auth-prompt");
-        msg.textContent = "";
-
-        if (!token) {
-            authPrompt.classList.remove("hidden");
-            document.getElementById("drawer-cart-items").innerHTML = "<p class='text-sm text-slate-500'>Your bag is empty.</p>";
-            document.getElementById("drawer-cart-total").textContent = "₹0.00";
-            document.getElementById("drawer-cart-subtotal").textContent = "₹0.00";
-            document.getElementById("cart-header-title").textContent = "Bag (0 items)";
-            return;
-        } else {
-            authPrompt.classList.add("hidden");
-        }
-
-        try {
-            const res = await fetch("/api/cart/", {
-                headers: { "Authorization": "Bearer " + token }
-            });
-            const data = await res.json();
-            if (!res.ok) {
-                msg.textContent = data.error || "Failed to load cart";
-                return;
-            }
-            renderDrawerCart(data.items || [], data.total || 0);
-        } catch (e) {
-            msg.textContent = "Request failed";
-        }
-    }
-
-    function renderDrawerCart(items, total) {
-        const wrapper = document.getElementById("drawer-cart-items");
-        document.getElementById("cart-header-title").textContent = `Bag (${items.length} items)`;
-
-        if (!items.length) {
-            wrapper.innerHTML = "<p class='text-sm text-slate-500'>Your bag is empty.</p>";
-        } else {
-            wrapper.innerHTML = items.map(item => `
-                <div class="flex gap-4">
-                  <div class="w-20 h-24 rounded-lg overflow-hidden bg-slate-100 shadow-sm flex-shrink-0 flex items-center justify-center">
-                    <span class="material-symbols-outlined text-slate-300 text-4xl">shopping_bag</span>
-                  </div>
-                  <div class="flex-1">
-                    <div class="flex justify-between items-start">
-                      <div>
-                        <h3 class="text-sm font-semibold text-slate-800 dark:text-slate-100">${item.name}</h3>
-                        <p class="text-xs text-slate-500 mt-1">Qty: ${item.qty}</p>
-                      </div>
-                      <button class="text-slate-400 hover:text-red-500 transition-colors border-0 bg-transparent cursor-pointer p-1" onclick="removeDrawerItem(${item.product_id})">
-                        <span class="material-symbols-outlined text-[20px]">delete</span>
-                      </button>
-                    </div>
-                    <div class="mt-4 text-right">
-                      <span class="text-sm font-bold text-teal-800 dark:text-teal-300">₹${Number(item.price).toFixed(2)}</span>
-                    </div>
-                  </div>
-                </div>
-            `).join("");
-        }
-
-        const totalStr = "₹" + Number(total).toFixed(2);
-        document.getElementById("drawer-cart-subtotal").textContent = totalStr;
-        document.getElementById("drawer-cart-total").textContent = totalStr;
-    }
-
-    async function removeDrawerItem(productId) {
-        const token = localStorage.getItem("token");
-        const msg = document.getElementById("drawer-cart-msg");
-        try {
-            const res = await fetch("/api/cart/", {
-                method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": "Bearer " + token
-                },
-                body: JSON.stringify({ product_id: productId })
-            });
-            const data = await res.json();
-            if (!res.ok) {
-                msg.textContent = data.error || "Remove failed";
-                return;
-            }
-            loadDrawerCart();
-            updateCartCount();
-        } catch (e) {
-            msg.textContent = "Request failed";
-        }
-    }
-
-    async function openGiftModal(event) {
-        if (event) event.preventDefault();
-        const modal = document.getElementById("gift-modal");
-        modal.classList.remove("hidden");
-        
-        const list = document.getElementById("gift-options-list");
-        list.innerHTML = "<p style='text-align: center; color: var(--text-muted); font-size: 0.9rem; font-family: var(--font-body);'>Loading gifts...</p>";
-        
-        try {
-            const res = await fetch("/api/products/?size=100");
-            const data = await res.json();
-            
-            if (!res.ok) {
-                list.innerHTML = "<p style='color: red; font-size: 0.9rem; font-family: var(--font-body);'>Failed to load options.</p>";
-                return;
-            }
-            
-            const gifts = (data.products || []).filter(p => p.category.toLowerCase() === "gifts" || p.price === 0);
-            
-            if (!gifts.length) {
-                list.innerHTML = "<p style='text-align: center; color: var(--text-muted); font-size: 0.9rem; font-family: var(--font-body);'>No promotional gifts currently active.</p>";
-                return;
-            }
-            
-            list.innerHTML = gifts.map(g => `
-                <div style="display: flex; align-items: center; gap: 12px; padding: 12px; border: 1px solid var(--border-subtle); border-radius: 16px; background: var(--bg-page); box-sizing: border-box;">
-                    <img src="${g.image || 'https://images.pexels.com/photos/7796574/pexels-photo-7796574.jpeg?auto=compress&cs=tinysrgb&w=200'}" style="width: 50px; height: 50px; border-radius: 8px; object-fit: cover; border: 1px solid var(--border-subtle); flex-shrink: 0;">
-                    <div style="flex-grow: 1; min-width: 0;">
-                        <h4 style="font-size: 0.85rem; font-family: var(--font-heading); margin: 0; color: var(--color-reva-black); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${g.name}</h4>
-                        <span style="font-size: 0.75rem; color: var(--color-reva-orange); font-weight: 700; font-family: var(--font-body);">FREE (₹0.00)</span>
-                    </div>
-                    <button class="btn-primary" onclick="addGiftToBag(${g.id})" style="padding: 6px 12px; font-size: 0.75rem; font-family: var(--font-heading); font-weight: 600; flex-shrink: 0;">Claim</button>
-                </div>
-            `).join("");
-            
-        } catch (e) {
-            list.innerHTML = "<p style='color: red; font-size: 0.9rem; font-family: var(--font-body);'>Network error loading gifts.</p>";
-        }
-    }
-
-    window.openGiftModal = openGiftModal;
-
-    function closeGiftModal() {
-        document.getElementById("gift-modal").classList.add("hidden");
-    }
-
-    window.closeGiftModal = closeGiftModal;
-
-    async function addGiftToBag(productId) {
-        const token = localStorage.getItem("token");
-        if (!token) {
-            alert("Please log in before claiming your promotional gift!");
-            window.location.href = "/login/";
-            return;
-        }
-
-        try {
-            const res = await fetch("/api/cart/", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": "Bearer " + token
-                },
-                body: JSON.stringify({ product_id: Number(productId), quantity: 1 })
-            });
-
-            if (res.ok) {
-                alert("Promotional gift successfully added to your bag!");
-                closeGiftModal();
-                updateCartCount();
-                loadDrawerCart();
-            } else {
-                const data = await res.json();
-                alert(data.error || "Failed to add gift.");
-            }
-        } catch (error) {
-            alert("Error connecting to cart server.");
-        }
-    }
-
-    window.addGiftToBag = addGiftToBag;
-
-    renderCategories();
-    setupEvents();
+    const q = new URLSearchParams(location.search).get("search");
+    if (q) state.search = q;
     setupCountdown();
-    updateCartCount();
-    updateAuthLinks();
     loadProducts();
+})();
 </script>
 {% endblock %}

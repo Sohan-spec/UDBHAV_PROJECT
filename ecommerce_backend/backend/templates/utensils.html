@@ -1,25 +1,33 @@
-{%extends "master.html"%}
-{%block title%}
-Utensils
-{%endblock%}
+{% extends "master.html" %}
+{% load static %}
+{% block title %}Utensils | UDBHAV{% endblock %}
+{% block body_class %}page-leaf{% endblock %}
 
-{%block content%}
-<h1>Utensils:</h1>
-<ul>
-    <li>
-        <h2>Spoons</h2>
-        <img src="https://images.unsplash.com/photo-1619367300942-634bf2339af6?w=200&h=200&fit=crop" alt="Spoons" width="200" height="200">
-        <p>Price: ₹299 (set of 6)</p>
-    </li>
-    <li>
-        <h2>Plates</h2>
-        <img src="https://images.unsplash.com/photo-1664337872259-12b178e34be8?w=200&h=200&fit=crop" alt="Plates" width="200" height="200">
-        <p>Price: ₹499 (set of 6)</p>
-    </li>
-    <li>
-        <h2>Forks</h2>
-        <img src="https://images.unsplash.com/photo-1690983321736-755af87b3f38?w=200&h=200&fit=crop" alt="Forks" width="200" height="200">
-        <p>Price: ₹249 (set of 6)</p>
-    </li>
-</ul>
-{%endblock%}
+{% block content %}
+<section class="cat-hero">
+    <div class="container">
+        <p class="crumb"><a href="/">Home</a> / <a href="/household/">Household</a> / <a href="/household/kitchen/">Kitchen</a> / Utensils</p>
+        <p class="eyebrow">Utensils</p>
+        <h1>Utensils</h1>
+        <p class="lead">Set the table, considered.</p>
+    </div>
+</section>
+<section class="section-tight" style="padding-top:0">
+    <div class="container">
+        <div class="product-grid">
+            <article class="card">
+                <div class="card-media"><img src="https://images.unsplash.com/photo-1619367300942-634bf2339af6?w=600&h=750&fit=crop" alt="Spoons" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;"></div>
+                <div class="card-info"><span class="card-cat">Set of 6</span><span class="card-name">Spoons</span><span class="card-price">₹299</span></div>
+            </article>
+            <article class="card">
+                <div class="card-media"><img src="https://images.unsplash.com/photo-1664337872259-12b178e34be8?w=600&h=750&fit=crop" alt="Plates" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;"></div>
+                <div class="card-info"><span class="card-cat">Set of 6</span><span class="card-name">Plates</span><span class="card-price">₹499</span></div>
+            </article>
+            <article class="card">
+                <div class="card-media"><img src="https://images.unsplash.com/photo-1690983321736-755af87b3f38?w=600&h=750&fit=crop" alt="Forks" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;"></div>
+                <div class="card-info"><span class="card-cat">Set of 6</span><span class="card-name">Forks</span><span class="card-price">₹249</span></div>
+            </article>
+        </div>
+    </div>
+</section>
+{% endblock %}

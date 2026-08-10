@@ -1,20 +1,29 @@
-{%extends "master.html"%}
-{%block title%}
-Asus
-{%endblock%}
+{% extends "master.html" %}
+{% load static %}
+{% block title %}Asus | UDBHAV{% endblock %}
+{% block body_class %}page-leaf{% endblock %}
 
-{%block content%}
-<h1>Asus Laptops:</h1>
-<ul>
-    <li>
-        <h2>ROG Zephyrus</h2>
-        <img src="https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?w=200&h=200&fit=crop" alt="ROG Zephyrus" width="200" height="200">
-        <p>Price: ₹1,49,999</p>
-    </li>
-    <li>
-        <h2>ZenBook</h2>
-        <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=200&h=200&fit=crop" alt="ZenBook" width="200" height="200">
-        <p>Price: ₹89,999</p>
-    </li>
-</ul>
-{%endblock%}
+{% block content %}
+<section class="cat-hero">
+    <div class="container">
+        <p class="crumb"><a href="/">Home</a> / <a href="/electronics/">Electronics</a> / <a href="/electronics/laptops/">Laptops</a> / Asus</p>
+        <p class="eyebrow">Asus</p>
+        <h1>Asus laptops</h1>
+        <p class="lead">Power and precision, for work and play.</p>
+    </div>
+</section>
+<section class="section-tight" style="padding-top:0">
+    <div class="container">
+        <div class="product-grid">
+            <article class="card">
+                <div class="card-media"><img src="https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?w=600&h=750&fit=crop" alt="ROG Zephyrus" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;"></div>
+                <div class="card-info"><span class="card-cat">Laptop</span><span class="card-name">ROG Zephyrus</span><span class="card-price">₹1,49,999</span></div>
+            </article>
+            <article class="card">
+                <div class="card-media"><img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&h=750&fit=crop" alt="ZenBook" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;"></div>
+                <div class="card-info"><span class="card-cat">Laptop</span><span class="card-name">ZenBook</span><span class="card-price">₹89,999</span></div>
+            </article>
+        </div>
+    </div>
+</section>
+{% endblock %}

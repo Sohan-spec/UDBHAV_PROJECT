@@ -1,109 +1,60 @@
-{%extends "master.html"%}
+{% extends "master.html" %}
 {% load static %}
-{%block title%}
-Beds Catalog - REVA Store
-{%endblock%}
+{% block title %}Beds | UDBHAV{% endblock %}
+{% block body_class %}page-leaf{% endblock %}
 
-{% block page_css %}
-<link rel="stylesheet" href="{% static 'css/anand-style.css' %}">
+{% block content %}
+<section class="cat-hero">
+    <div class="container">
+        <p class="crumb"><a href="/">Home</a> / <a href="/household/">Household</a> / <a href="/household/furniture/">Furniture</a> / Beds</p>
+        <p class="eyebrow">Beds</p>
+        <h1>Beds</h1>
+        <p class="lead">Premium comfort, handpicked for the home.</p>
+    </div>
+</section>
+<section class="section-tight" style="padding-top:0">
+    <div class="container">
+        <div class="product-grid" id="category-grid"></div>
+        <p class="muted mt-3" id="grid-msg" style="text-align:center"></p>
+    </div>
+</section>
 {% endblock %}
 
-{%block content%}
-<main class="page">
-    <header class="topbar" style="margin-bottom: 24px;">
-        <a href="/" class="brand">
-            <img src="{% static 'reva_logo.png' %}" alt="REVA Logo" style="height: 40px; width: auto; object-fit: contain;">
-            UDBHAV
-        </a>
-    </header>
-    <section class="section-header-main" style="margin-bottom: 24px;">
-        <h1 style="color: var(--color-reva-orange); font-family: var(--font-heading); margin: 0;">Beds Collection</h1>
-        <p class="muted">Premium comfort handpicked for REVA University's Novelty Store.</p>
-    </section>
-
-    <div class="product-grid" id="category-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px;">
-        <!-- Dynamically loaded -->
-    </div>
-    
-    <p id="grid-msg" style="text-align: center; color: var(--text-muted); margin-top: 32px; font-weight: 500;"></p>
-</main>
-
+{% block scripts %}
+{{ block.super }}
 <script>
-async function loadCategoryProducts() {
+(async function () {
     const grid = document.getElementById("category-grid");
     const msg = document.getElementById("grid-msg");
-    grid.innerHTML = "";
-    msg.textContent = "Syncing from catalog...";
-    
+    msg.textContent = "Syncing from catalogue…";
     try {
         const res = await fetch("/api/products/?size=100");
         const data = await res.json();
-        
-        if (!res.ok) {
-            msg.textContent = "Failed to load products.";
-            return;
-        }
-        
-        const bedsProducts = (data.products || []).filter(p => {
-            const cat = p.category.toLowerCase();
-            const name = p.name.toLowerCase();
-            return cat.includes("bed") || name.includes("bed");
+        if (!res.ok) { msg.textContent = "Failed to load products."; return; }
+        const beds = (data.products || []).filter(p => {
+            const c = (p.category || "").toLowerCase(), n = (p.name || "").toLowerCase();
+            return c.includes("bed") || n.includes("bed");
         });
-        
-        if (!bedsProducts.length) {
-            msg.textContent = "No beds found in the live catalog. Add some from the Admin Dashboard!";
-            return;
-        }
-        
+        if (!beds.length) { msg.textContent = "No beds in the live catalogue yet."; return; }
         msg.textContent = "";
-        grid.innerHTML = bedsProducts.map(p => `
-            <article class="product-card" style="background: var(--color-reva-white); border: 1px solid var(--border-subtle); border-radius: var(--radius-card); overflow: hidden; display: flex; flex-direction: column; box-shadow: var(--shadow-soft);">
-                <a href="/product/${p.slug}/" style="display: block; position: relative; aspect-ratio: 4/3; overflow: hidden; border-bottom: 1px solid var(--border-subtle);">
-                    <img src="${p.image || 'https://images.unsplash.com/photo-1648634158203-199accfd7afc?w=400&h=300&fit=crop'}" alt="${p.name}" style="width: 100%; height: 100%; object-fit: cover; transition: transform var(--transition-medium);">
-                </a>
-                <div style="padding: 16px; display: flex; flex-direction: column; flex-grow: 1; gap: 8px;">
-                    <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-reva-persian-green); font-weight: 700;">${p.category}</span>
-                    <h3 style="font-size: 1.1rem; color: var(--color-reva-black); font-family: var(--font-heading); margin: 0; line-height: 1.3;"><a href="/product/${p.slug}/" style="color: inherit; text-decoration: none;">${p.name}</a></h3>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 12px;">
-                        <span style="font-size: 1.25rem; font-weight: 700; color: var(--color-reva-orange); font-family: var(--font-heading);">₹${p.price.toLocaleString("en-IN")}</span>
-                        <button class="btn-primary" onclick="addBedToCart(${p.id})" style="padding: 8px 16px; font-size: 0.8rem; font-family: var(--font-heading); font-weight: 600;">Add</button>
-                    </div>
+        grid.innerHTML = beds.map(p => `
+            <article class="card">
+                <div class="card-media">
+                    <a href="/product/${p.slug}/"><img src="${p.image || UDBHAV.FALLBACK}" alt="${p.name}" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;"></a>
+                    <button class="card-add" type="button" data-add="${p.id}">Add to bag</button>
                 </div>
-            </article>
-        `).join("");
-    } catch (e) {
-        msg.textContent = "Failed to load products.";
-    }
-}
+                <div class="card-info">
+                    <span class="card-cat">${p.category || ""}</span>
+                    <a href="/product/${p.slug}/" class="card-name">${p.name}</a>
+                    <span class="card-price">${UDBHAV.inr(p.price)}</span>
+                </div>
+            </article>`).join("");
+    } catch (e) { msg.textContent = "Failed to load products."; }
+})();
 
-async function addBedToCart(productId) {
-    const token = localStorage.getItem("token");
-    if (!token) {
-        alert("Please log in before adding items to your cart!");
-        window.location.href = "/login/";
-        return;
-    }
-
-    try {
-        const res = await fetch("/api/cart/", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + token
-            },
-            body: JSON.stringify({ product_id: Number(productId), quantity: 1 })
-        });
-        if (res.ok) {
-            alert("Added to bag!");
-        } else {
-            const data = await res.json();
-            alert(data.error || "Failed to add item.");
-        }
-    } catch (error) {
-        alert("Failed to connect to cart server.");
-    }
-}
-
-loadCategoryProducts();
+document.body.addEventListener("click", (e) => {
+    const add = e.target.closest("[data-add]");
+    if (add) { e.preventDefault(); UDBHAV.addToCart(add.dataset.add); }
+});
 </script>
-{%endblock%}
+{% endblock %}

@@ -1,0 +1,201 @@
+{% extends "master.html" %}
+{% load static %}
+
+{% block title %}Shop All | UDBHAV{% endblock %}
+{% block body_class %}page-shop{% endblock %}
+
+{% block content %}
+<section class="cat-hero">
+    <div class="container">
+        <p class="crumb"><a href="/">Home</a> / Shop</p>
+        <p class="eyebrow">Catalogue</p>
+        <h1>All products</h1>
+        <p class="lead">The full UDBHAV edit — every essential in one place.</p>
+    </div>
+</section>
+
+<section class="section-tight" style="padding-top:0">
+    <div class="container">
+        <div class="toolbar">
+            <div class="filters" id="shop-filters" role="tablist" aria-label="Filter by category"></div>
+            <div class="sort">
+                <label for="shop-sort" class="muted" style="margin-right:0.5rem">Sort</label>
+                <select id="shop-sort" class="select" style="width:auto;padding:0.5rem 2rem 0.5rem 1rem;border-radius:var(--radius-pill)">
+                    <option value="featured">Featured</option>
+                    <option value="price-asc">Price: low to high</option>
+                    <option value="price-desc">Price: high to low</option>
+                    <option value="name">Name A–Z</option>
+                </select>
+            </div>
+        </div>
+        <p class="muted mb-3" id="shop-count" style="font-size:var(--fs-small)"></p>
+        <div class="product-grid" id="shop-grid"></div>
+        <p class="muted mt-3" id="shop-msg" style="text-align:center"></p>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+{{ block.super }}
+<script>
+(function () {
+    const featuredSlugs = [
+        "algae-bloom-revitalizer", "ocean-mist-body-oil", "the-gift-set",
+        "estee-lauder-call-555-lipstick", "coastal-breeze-cooling-mist",
+        "dead-sea-mud-and-mint-mask", "sea-kelp-vitalizing-shampoo"
+    ];
+    const forcedSlugByName = {
+        "Algae Bloom Revitalizer": "algae-bloom-revitalizer",
+        "Ocean Mist Body Oil": "ocean-mist-body-oil",
+        "The Gift Set": "the-gift-set",
+        "Estee Lauder Pure Color Explicit Slick Shine Lipstick - Call 555": "estee-lauder-call-555-lipstick",
+        "Sea Kelp Vitalizing Shampoo": "sea-kelp-vitalizing-shampoo",
+        "Coastal Breeze Cooling Mist": "coastal-breeze-cooling-mist",
+        "Dead Sea Mud & Mint Mask": "dead-sea-mud-and-mint-mask",
+        "Dead Sea Mud and Mint Mask": "dead-sea-mud-and-mint-mask"
+    };
+
+    const params = new URLSearchParams(location.search);
+    const state = {
+        products: [],
+        category: params.get("category") || "all",
+        search: params.get("search") || "",
+        sort: params.get("sort") || "featured"
+    };
+
+    function resolveSlug(p) {
+        return forcedSlugByName[p.name] || p.slug || UDBHAV.slugify(p.name);
+    }
+
+    function cardHTML(p) {
+        const slug = resolveSlug(p);
+        const price = Number(p.price || 0);
+        const isFree = price === 0;
+        const priceHTML = isFree ? `<span class="free">Free gift</span>` : UDBHAV.inr(price);
+        const badge = isFree ? `<span class="card-badge">Gift</span>` : "";
+        return `
+            <article class="card fade-in">
+                <div class="card-media">
+                    ${badge}
+                    <a href="/product/${slug}/"><img src="${p.image || UDBHAV.FALLBACK}" alt="${p.name}" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;"></a>
+                    <button class="card-add" type="button" data-add="${p.id}">Add to bag</button>
+                </div>
+                <div class="card-info">
+                    <span class="card-cat">${p.category || ""}</span>
+                    <a href="/product/${slug}/" class="card-name">${p.name}</a>
+                    <span class="card-price">${priceHTML}</span>
+                </div>
+            </article>`;
+    }
+
+    function getFiltered() {
+        let list = state.products.slice();
+        if (state.search) {
+            const tokens = state.search.toLowerCase().trim().split(/\s+/).filter(Boolean);
+            list = list.filter(p => {
+                const hay = `${p.name || ""} ${p.category || ""} ${p.description || ""}`.toLowerCase();
+                return tokens.every(t => hay.includes(t));
+            });
+        }
+        if (state.category && state.category !== "all") {
+            list = list.filter(p => (p.category || "").toLowerCase() === state.category.toLowerCase());
+        }
+        if (state.sort === "price-asc") list.sort((a, b) => Number(a.price) - Number(b.price));
+        else if (state.sort === "price-desc") list.sort((a, b) => Number(b.price) - Number(a.price));
+        else if (state.sort === "name") list.sort((a, b) => String(a.name).localeCompare(String(b.name)));
+        else {
+            const map = new Map(list.map(p => [resolveSlug(p), p]));
+            const ordered = featuredSlugs.map(s => map.get(s)).filter(Boolean);
+            const rest = list.filter(p => !featuredSlugs.includes(resolveSlug(p)));
+            list = [...ordered, ...rest];
+        }
+        return list;
+    }
+
+    function renderFilters(categories) {
+        const wrap = document.getElementById("shop-filters");
+        const chips = ["all", ...categories];
+        wrap.innerHTML = chips.map(cat => {
+            const label = cat === "all" ? "All" : cat;
+            const active = state.category.toLowerCase() === cat.toLowerCase() ? "is-active" : "";
+            return `<button type="button" class="chip ${active}" data-cat="${cat}">${label}</button>`;
+        }).join("");
+    }
+
+    function render() {
+        const list = getFiltered();
+        const grid = document.getElementById("shop-grid");
+        const count = document.getElementById("shop-count");
+        const msg = document.getElementById("shop-msg");
+        if (!list.length) {
+            grid.innerHTML = "";
+            count.textContent = "";
+            msg.textContent = state.search
+                ? `No products match “${state.search}”.`
+                : "No products in this category yet.";
+            return;
+        }
+        msg.textContent = "";
+        const searchNote = state.search ? ` matching “${state.search}”` : "";
+        count.textContent = `${list.length} product${list.length === 1 ? "" : "s"}${searchNote}`;
+        grid.innerHTML = list.map(cardHTML).join("");
+    }
+
+    function syncUrl() {
+        const q = new URLSearchParams();
+        if (state.category && state.category !== "all") q.set("category", state.category);
+        if (state.search) q.set("search", state.search);
+        if (state.sort && state.sort !== "featured") q.set("sort", state.sort);
+        const qs = q.toString();
+        history.replaceState(null, "", qs ? `/shop/?${qs}` : "/shop/");
+    }
+
+    async function load() {
+        const msg = document.getElementById("shop-msg");
+        msg.textContent = "Loading catalogue…";
+        try {
+            const [prodRes, catRes] = await Promise.all([
+                fetch("/api/products/?page=1&size=200"),
+                fetch("/api/categories/")
+            ]);
+            const prodData = await prodRes.json();
+            const catData = await catRes.json();
+            if (!prodRes.ok) { msg.textContent = prodData.error || "Unable to load products."; return; }
+            state.products = prodData.products || [];
+            const categories = (catData.categories || []).filter(Boolean).sort((a, b) => a.localeCompare(b));
+            renderFilters(categories);
+            render();
+            if (state.search) {
+                const input = document.getElementById("search-input");
+                if (input) input.value = state.search;
+            }
+        } catch (e) {
+            msg.textContent = "Unable to connect to products API.";
+        }
+    }
+
+    document.getElementById("shop-filters").addEventListener("click", (e) => {
+        const chip = e.target.closest("[data-cat]");
+        if (!chip) return;
+        state.category = chip.dataset.cat;
+        document.querySelectorAll("#shop-filters .chip").forEach(c => c.classList.toggle("is-active", c === chip));
+        syncUrl();
+        render();
+    });
+
+    document.getElementById("shop-sort").value = state.sort;
+    document.getElementById("shop-sort").addEventListener("change", (e) => {
+        state.sort = e.target.value;
+        syncUrl();
+        render();
+    });
+
+    document.body.addEventListener("click", (e) => {
+        const add = e.target.closest("[data-add]");
+        if (add) { e.preventDefault(); UDBHAV.addToCart(add.dataset.add); }
+    });
+
+    load();
+})();
+</script>
+{% endblock %}

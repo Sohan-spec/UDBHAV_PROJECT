@@ -1,321 +1,85 @@
-{%extends "master.html"%}
+{% extends "master.html" %}
 {% load static %}
-{% block page_css %}
-<link rel="stylesheet" href="{% static 'css/anand-style.css' %}">
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-<script>
-  tailwind.config = {
-    darkMode: "class",
-    theme: {
-      extend: {
-        colors: {
-            teal: {
-                50: '#FDEBE7',
-                100: '#FDEBE7',
-                300: '#FFC107',
-                400: '#85AF35',
-                500: '#0096A1',
-                600: '#0096A1',
-                700: '#ff6b00',
-                800: '#ff6b00',
-                900: '#000000',
-            }
-        },
-        fontFamily: {
-          sans: ["Aleo", "sans-serif"],
-        }
-      },
-    },
-  }
-</script>
-{% endblock %}
 
-{% block body_class %}bg-slate-50 antialiased overflow-hidden{% endblock %}
+{% block title %}Bag | UDBHAV{% endblock %}
+{% block body_class %}page-cart{% endblock %}
 
 {% block content %}
-<!-- Background image simulation for the context of the drawer -->
-<div class="fixed inset-0 z-0">
-    <img src="https://images.pexels.com/photos/5069433/pexels-photo-5069433.jpeg?auto=compress&cs=tinysrgb&w=1300" class="w-full h-full object-cover opacity-30" alt="bg">
-</div>
-
-<!-- Backdrop Overlay -->
-<div class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[55]"></div>
-
-<!-- NavigationDrawer (Mobile Cart Sidebar) -->
-<aside class="fixed inset-y-0 right-0 w-full max-w-[420px] z-[60] bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl md:rounded-l-3xl shadow-2xl flex flex-col border-l border-white/30 overflow-hidden transition-transform transform translate-x-0">
-  
-  <!-- Header -->
-  <div class="px-6 h-20 flex items-center justify-between border-b border-teal-50 dark:border-slate-800">
-    <div class="flex items-center gap-3">
-      <span class="text-teal-800 dark:text-teal-300 font-bold text-xl tracking-tight" id="cart-header-title">Bag</span>
-    </div>
-    <a href="/" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-teal-50 dark:hover:bg-teal-900/30 transition-all text-slate-600 dark:text-slate-400 text-decoration-none">
-      <span class="material-symbols-outlined" data-icon="close">close</span>
-    </a>
-  </div>
-
-  <!-- Scrollable Content Area -->
-  <div class="flex-1 overflow-y-auto px-6 py-4 space-y-6">
-    <p id="cart-msg" class="text-sm text-red-500 font-bold text-center"></p>
-
-    <!-- Promo Banner -->
-    <div onclick="openGiftModal(event)" style="cursor: pointer;" class="bg-teal-50 dark:bg-teal-900/20 p-4 rounded-xl flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <span class="material-symbols-outlined text-teal-700 dark:text-teal-400" data-icon="featured_seasonal">featured_seasonal_and_gifts</span>
-        <span class="text-sm font-medium text-teal-900 dark:text-teal-100">Pick your gifts</span>
-      </div>
-      <span class="material-symbols-outlined text-teal-600">chevron_right</span>
-    </div>
-
-    <!-- Auth Prompt (hidden if logged in) -->
-    <div id="auth-prompt" class="bg-slate-100 dark:bg-slate-800/50 p-5 rounded-xl border border-white/50 hidden">
-      <p class="text-sm text-slate-600 dark:text-slate-300 mb-3">Login / Register to grab the best offers</p>
-      <a href="/login/" class="text-teal-700 dark:text-teal-400 text-sm font-bold tracking-tight uppercase no-underline">Sign In Now</a>
-    </div>
-
-    <!-- Product List -->
-    <div id="cart-items" class="space-y-6">
-      <!-- Items dynamically populated via JS -->
-    </div>
-
-    <!-- Coupons Section -->
-    <div class="space-y-3 pt-4 border-t border-teal-50/50">
-      <h4 class="text-xs font-bold uppercase tracking-widest text-slate-400">Promotions</h4>
-      <div class="relative">
-        <input class="w-full h-12 bg-white/50 dark:bg-slate-800/50 backdrop-blur-md border border-white/30 dark:border-slate-700 rounded-xl px-4 text-sm focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all outline-none" placeholder="Apply now and save extra!" type="text"/>
-        <button class="absolute right-2 top-2 h-8 px-4 bg-teal-800 hover:bg-teal-700 text-white rounded-lg text-xs font-bold shadow-lg shadow-teal-900/20 transition-all border-0">Apply</button>
-      </div>
-    </div>
-
-    <!-- Price Details Accordion -->
-    <div class="border-t border-teal-50 dark:border-slate-800 pt-6">
-      <div class="flex items-center justify-between mb-4">
-        <span class="text-sm font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider">Price Details</span>
-        <span class="material-symbols-outlined text-slate-400">expand_more</span>
-      </div>
-      <div class="space-y-3">
-        <div class="flex justify-between text-sm">
-          <span class="text-slate-500">Subtotal</span>
-          <span class="text-slate-800 dark:text-slate-100 font-medium" id="cart-subtotal">₹0.00</span>
+<section class="section">
+    <div class="container container-narrow">
+        <div class="section-head">
+            <div class="head-left">
+                <p class="eyebrow">Shopping Bag</p>
+                <h2>Your bag</h2>
+            </div>
+            <a href="/" class="head-link">Continue shopping</a>
         </div>
-        <div class="flex justify-between text-sm">
-          <span class="text-slate-500">Shipping</span>
-          <span class="text-teal-600 font-bold uppercase text-[10px] tracking-widest">Free</span>
-        </div>
-      </div>
+        <p class="form-msg error" id="cart-msg"></p>
+        <div id="cart-items"></div>
     </div>
-  </div>
+</section>
+{% endblock %}
 
-  <!-- Sticky Footer -->
-  <div class="p-6 pb-8 glass-panel border-t border-white/30 dark:border-slate-800 shadow-[0_-10px_40px_rgba(0,0,0,0.05)]">
-    <div class="flex items-center justify-between gap-6">
-      <div class="flex flex-col">
-        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Total Payable</span>
-        <span class="text-2xl font-black text-teal-800 dark:text-teal-300 tracking-tighter" id="cart-total">₹0.00</span>
-      </div>
-      <a href="/cart/checkout/" class="flex-1 h-14 bg-teal-800 hover:bg-teal-700 text-white rounded-2xl font-bold text-sm tracking-widest uppercase flex items-center justify-center gap-2 shadow-xl shadow-teal-900/20 active:scale-95 transition-all no-underline border-0">
-        Proceed
-        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-      </a>
-    </div>
-  </div>
-</aside>
-
-<!-- Gift Picker Modal Dialog -->
-<div id="gift-modal" class="fixed inset-0 z-[100] flex items-center justify-center hidden" style="background: rgba(0,0,0,0.5); backdrop-filter: blur(8px);">
-    <div style="background: #ffffff; width: 90%; max-width: 440px; padding: 24px; border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.15); display: flex; flex-direction: column; gap: 16px; border: 1px solid var(--border-subtle); box-sizing: border-box;">
-        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 12px;">
-            <h3 style="font-family: var(--font-heading); color: var(--color-reva-black); font-size: 1.3rem; margin: 0; display: flex; align-items: center; gap: 8px; font-weight: 700;">
-                <span class="material-symbols-outlined" style="color: var(--color-reva-orange); font-size: 24px;">featured_seasonal_and_gifts</span>
-                Pick Your Free Gift
-            </h3>
-            <button onclick="closeGiftModal()" style="border: 0; background: transparent; cursor: pointer; color: var(--text-muted); display: flex; align-items: center; padding: 4px;">
-                <span class="material-symbols-outlined" style="font-size: 24px;">close</span>
-            </button>
-        </div>
-        
-        <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0; font-family: var(--font-body); line-height: 1.5;">Select a premium promotional gift to add to your bag for free! Limit 1 free gift per order.</p>
-        
-        <div id="gift-options-list" style="display: flex; flex-direction: column; gap: 12px; margin-top: 8px;">
-            <!-- Rendered dynamically -->
-        </div>
-    </div>
-</div>
-
+{% block scripts %}
+{{ block.super }}
 <script>
-const token = localStorage.getItem("token");
+(function () {
+    const token = UDBHAV.token();
 
-async function loadCart() {
-    const msg = document.getElementById("cart-msg");
-    const authPrompt = document.getElementById("auth-prompt");
-    msg.textContent = "";
-
-    if (!token) {
-        authPrompt.classList.remove("hidden");
-        document.getElementById("cart-items").innerHTML = "<p class='text-sm text-slate-500'>Your bag is empty.</p>";
-        document.getElementById("cart-total").textContent = "₹0.00";
-        document.getElementById("cart-subtotal").textContent = "₹0.00";
-        document.getElementById("cart-header-title").textContent = "Bag (0 items)";
-        return;
-    }
-
-    try {
-        const res = await fetch("/api/cart/", {
-            headers: { "Authorization": "Bearer " + token }
-        });
-        const data = await res.json();
-        if (!res.ok) {
-            msg.textContent = data.error || "Failed to load cart";
+    async function loadCart() {
+        const msg = document.getElementById("cart-msg");
+        const wrap = document.getElementById("cart-items");
+        msg.textContent = "";
+        if (!token) {
+            wrap.innerHTML = `<div class="cart-empty"><p>Please sign in to view your bag.</p><a href="/login/" class="btn btn-primary mt-2" style="display:inline-flex">Sign in</a></div>`;
             return;
         }
-        renderCart(data.items || [], data.total || 0);
-    } catch (e) {
-        msg.textContent = "Request failed";
-    }
-}
-
-function renderCart(items, total) {
-    const wrapper = document.getElementById("cart-items");
-    document.getElementById("cart-header-title").textContent = `Bag (${items.length} items)`;
-    
-    if (!items.length) {
-        wrapper.innerHTML = "<p class='text-sm text-slate-500'>Your bag is empty.</p>";
-    } else {
-        wrapper.innerHTML = items.map(item => `
-            <div class="flex gap-4">
-              <div class="w-20 h-24 rounded-lg overflow-hidden bg-slate-100 shadow-sm flex-shrink-0 flex items-center justify-center">
-                <span class="material-symbols-outlined text-slate-300 text-4xl">shopping_bag</span>
-              </div>
-              <div class="flex-1">
-                <div class="flex justify-between items-start">
-                  <div>
-                    <h3 class="text-sm font-semibold text-slate-800 dark:text-slate-100">${item.name}</h3>
-                    <p class="text-xs text-slate-500 mt-1">Qty: ${item.qty}</p>
-                  </div>
-                  <button class="text-slate-400 hover:text-red-500 transition-colors border-0 bg-transparent cursor-pointer p-1" data-remove="${item.product_id}">
-                    <span class="material-symbols-outlined text-[20px]">delete</span>
-                  </button>
-                </div>
-                <div class="mt-4 text-right">
-                  <span class="text-sm font-bold text-teal-800 dark:text-teal-300">₹${Number(item.price).toFixed(2)}</span>
-                </div>
-              </div>
-            </div>
-        `).join("");
-
-        wrapper.querySelectorAll("button[data-remove]").forEach(btn => {
-            btn.addEventListener("click", () => removeItem(Number(btn.dataset.remove)));
-        });
-    }
-    
-    const totalStr = "₹" + Number(total).toFixed(2);
-    document.getElementById("cart-subtotal").textContent = totalStr;
-    document.getElementById("cart-total").textContent = totalStr;
-}
-
-async function removeItem(productId) {
-    const msg = document.getElementById("cart-msg");
-    try {
-        const res = await fetch("/api/cart/", {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + token
-            },
-            body: JSON.stringify({ product_id: productId })
-        });
-        const data = await res.json();
-        if (!res.ok) {
-            msg.textContent = data.error || "Remove failed";
-            return;
-        }
-        loadCart();
-    } catch (e) {
-        msg.textContent = "Request failed";
-    }
-}
-
-async function openGiftModal(event) {
-    if (event) event.preventDefault();
-    const modal = document.getElementById("gift-modal");
-    modal.classList.remove("hidden");
-    
-    const list = document.getElementById("gift-options-list");
-    list.innerHTML = "<p style='text-align: center; color: var(--text-muted); font-size: 0.9rem; font-family: var(--font-body);'>Loading gifts...</p>";
-    
-    try {
-        const res = await fetch("/api/products/?size=100");
-        const data = await res.json();
-        
-        if (!res.ok) {
-            list.innerHTML = "<p style='color: red; font-size: 0.9rem; font-family: var(--font-body);'>Failed to load options.</p>";
-            return;
-        }
-        
-        const gifts = (data.products || []).filter(p => p.category.toLowerCase() === "gifts" || p.price === 0);
-        
-        if (!gifts.length) {
-            list.innerHTML = "<p style='text-align: center; color: var(--text-muted); font-size: 0.9rem; font-family: var(--font-body);'>No promotional gifts currently active.</p>";
-            return;
-        }
-        
-        list.innerHTML = gifts.map(g => `
-            <div style="display: flex; align-items: center; gap: 12px; padding: 12px; border: 1px solid var(--border-subtle); border-radius: 16px; background: var(--bg-page); box-sizing: border-box;">
-                <img src="${g.image || 'https://images.pexels.com/photos/7796574/pexels-photo-7796574.jpeg?auto=compress&cs=tinysrgb&w=200'}" style="width: 50px; height: 50px; border-radius: 8px; object-fit: cover; border: 1px solid var(--border-subtle); flex-shrink: 0;">
-                <div style="flex-grow: 1; min-width: 0;">
-                    <h4 style="font-size: 0.85rem; font-family: var(--font-heading); margin: 0; color: var(--color-reva-black); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${g.name}</h4>
-                    <span style="font-size: 0.75rem; color: var(--color-reva-orange); font-weight: 700; font-family: var(--font-body);">FREE (₹0.00)</span>
-                </div>
-                <button class="btn-primary" onclick="addGiftToBag(${g.id})" style="padding: 6px 12px; font-size: 0.75rem; font-family: var(--font-heading); font-weight: 600; flex-shrink: 0;">Claim</button>
-            </div>
-        `).join("");
-        
-    } catch (e) {
-        list.innerHTML = "<p style='color: red; font-size: 0.9rem; font-family: var(--font-body);'>Network error loading gifts.</p>";
-    }
-}
-
-window.openGiftModal = openGiftModal;
-
-function closeGiftModal() {
-    document.getElementById("gift-modal").classList.add("hidden");
-}
-
-window.closeGiftModal = closeGiftModal;
-
-async function addGiftToBag(productId) {
-    if (!token) {
-        alert("Please log in before claiming your promotional gift!");
-        window.location.href = "/login/";
-        return;
-    }
-
-    try {
-        const res = await fetch("/api/cart/", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + token
-            },
-            body: JSON.stringify({ product_id: Number(productId), quantity: 1 })
-        });
-
-        if (res.ok) {
-            alert("Promotional gift successfully added to your bag!");
-            closeGiftModal();
-            loadCart();
-        } else {
+        try {
+            const res = await fetch("/api/cart/", { headers: { "Authorization": "Bearer " + token } });
             const data = await res.json();
-            alert(data.error || "Failed to add gift.");
-        }
-    } catch (error) {
-        alert("Error connecting to cart server.");
+            if (!res.ok) { msg.textContent = data.error || "Failed to load bag"; return; }
+            renderCart(data.items || [], data.total || 0);
+        } catch (e) { msg.textContent = "Request failed"; }
     }
-}
 
-window.addGiftToBag = addGiftToBag;
+    function renderCart(items, total) {
+        const wrap = document.getElementById("cart-items");
+        if (!items.length) {
+            wrap.innerHTML = `<div class="cart-empty"><p>Your bag is empty.</p><a href="/" class="btn btn-primary mt-2" style="display:inline-flex">Shop the collection</a></div>`;
+            return;
+        }
+        wrap.innerHTML = items.map(i => `
+            <div class="cart-item" style="border-bottom:1px solid var(--color-line);padding:1.25rem 0">
+                <div class="cart-item-media"><span style="color:var(--color-line-strong)">·</span></div>
+                <div class="cart-item-body">
+                    <div class="cart-item-name">${i.name}</div>
+                    <div class="cart-item-meta">Qty ${i.qty}</div>
+                    <div class="cart-item-row">
+                        <span class="cart-item-price">${UDBHAV.inr(i.price)}</span>
+                        <button class="cart-item-remove" data-remove="${i.product_id}">Remove</button>
+                    </div>
+                </div>
+            </div>`).join("") + `
+            <div class="cart-total" style="margin-top:2rem;border-top:1px solid var(--color-line);padding-top:1.5rem">
+                <span>Total</span><span>${UDBHAV.inr(total)}</span>
+            </div>
+            <a href="/cart/checkout/" class="btn btn-primary btn-lg btn-block mt-3">Proceed to checkout</a>`;
 
-loadCart();
+        wrap.querySelectorAll("[data-remove]").forEach(b => b.addEventListener("click", () => removeItem(Number(b.dataset.remove))));
+    }
+
+    async function removeItem(pid) {
+        try {
+            await fetch("/api/cart/", {
+                method: "DELETE",
+                headers: { "Content-Type": "application/json", "Authorization": "Bearer " + token },
+                body: JSON.stringify({ product_id: pid })
+            });
+            loadCart(); UDBHAV.updateCartCount();
+        } catch (e) { UDBHAV.showToast("Remove failed", true); }
+    }
+
+    loadCart();
+})();
 </script>
 {% endblock %}

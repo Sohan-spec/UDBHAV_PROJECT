@@ -1,12 +1,31 @@
-{%extends "master.html"%}
-{%block title%}
-laptops
-{%endblock%}
+{% extends "master.html" %}
+{% load static %}
+{% block title %}Laptops | UDBHAV{% endblock %}
+{% block body_class %}page-category{% endblock %}
 
-{%block content%}
-<h1>Laptops:</h1>
-<ul>
-    <h2><li><a href="asus/">Asus</a></li></h2>
-    <h2><li><a href="macbook/">Macbook</a></li></h2>
-</ul>
-{%endblock%}
+{% block content %}
+<section class="cat-hero">
+    <div class="container">
+        <p class="crumb"><a href="/">Home</a> / <a href="/electronics/">Electronics</a> / Laptops</p>
+        <p class="eyebrow">Category</p>
+        <h1>Laptops</h1>
+        <p class="lead">Machines built for focus.</p>
+    </div>
+</section>
+<section class="section-tight" style="padding-top:0">
+    <div class="container">
+        <div class="cat-tiles">
+            <a href="/electronics/laptops/asus/" class="cat-tile">
+                <img src="https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&w=800&q=80" alt="Asus" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;">
+                <div class="ct-veil"></div>
+                <div class="ct-label"><div class="ct-name">Asus</div><div class="ct-sub">ROG & ZenBook</div></div>
+            </a>
+            <a href="/electronics/laptops/macbook/" class="cat-tile">
+                <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80" alt="MacBook" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;">
+                <div class="ct-veil"></div>
+                <div class="ct-label"><div class="ct-name">MacBook</div><div class="ct-sub">Pro & Air</div></div>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

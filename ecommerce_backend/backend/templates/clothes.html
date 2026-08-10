@@ -1,12 +1,31 @@
-{%extends "master.html"%}
-{%block title%}
-Clothes
-{%endblock%}
+{% extends "master.html" %}
+{% load static %}
+{% block title %}Clothes | UDBHAV{% endblock %}
+{% block body_class %}page-category{% endblock %}
 
-{%block content%}
-<h1>Clothing:</h1>
-<ul>
-    <h2><li><a href="tshirts/">Tshirts</a></li></h2>
-    <h2><li><a href="pants/">Pants</a></li></h2>
-</ul>
-{%endblock%}
+{% block content %}
+<section class="cat-hero">
+    <div class="container">
+        <p class="crumb"><a href="/">Home</a> / Clothes</p>
+        <p class="eyebrow">Category</p>
+        <h1>Clothes</h1>
+        <p class="lead">Wardrobe foundations, made to last.</p>
+    </div>
+</section>
+<section class="section-tight" style="padding-top:0">
+    <div class="container">
+        <div class="cat-tiles">
+            <a href="/clothes/tshirts/" class="cat-tile">
+                <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80" alt="T-Shirts" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;">
+                <div class="ct-veil"></div>
+                <div class="ct-label"><div class="ct-name">T-Shirts</div><div class="ct-sub">Everyday staples</div></div>
+            </a>
+            <a href="/clothes/pants/" class="cat-tile">
+                <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=800&q=80" alt="Pants" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;">
+                <div class="ct-veil"></div>
+                <div class="ct-label"><div class="ct-name">Pants</div><div class="ct-sub">Jeans & chinos</div></div>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

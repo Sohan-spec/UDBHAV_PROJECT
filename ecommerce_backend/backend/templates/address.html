@@ -1,9 +1,46 @@
-{%extends "master.html"%}
-{%block title%}
-Address Page
-{%endblock%}
+{% extends "master.html" %}
+{% load static %}
 
-{%block content%}
-<h1> Welcome to Our E-Commerce Website</h1>
-<h2>Address page</h2>
-{%endblock%}
+{% block title %}Address | UDBHAV{% endblock %}
+{% block body_class %}page-address{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container container-narrow">
+        <div class="section-head">
+            <div class="head-left">
+                <p class="eyebrow">Account</p>
+                <h2>Saved address</h2>
+            </div>
+            <a href="/profile/" class="head-link">Back to profile</a>
+        </div>
+        <div class="panel">
+            <form id="address-form">
+                <div class="field-row mb-3">
+                    <div class="field"><label for="addr-name">Full name</label><input class="input" id="addr-name" type="text" placeholder="Recipient name"></div>
+                    <div class="field"><label for="addr-phone">Phone</label><input class="input" id="addr-phone" type="tel" placeholder="Mobile number"></div>
+                </div>
+                <div class="field mb-3"><label for="addr-line1">Address line</label><input class="input" id="addr-line1" type="text" placeholder="House no, street, area"></div>
+                <div class="field-row mb-3">
+                    <div class="field"><label for="addr-city">City</label><input class="input" id="addr-city" type="text" placeholder="City"></div>
+                    <div class="field"><label for="addr-pin">PIN code</label><input class="input" id="addr-pin" type="text" placeholder="PIN"></div>
+                </div>
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Save address</button>
+                <p class="form-msg ok mt-2" id="addr-msg"></p>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+{{ block.super }}
+<script>
+document.getElementById("address-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const msg = document.getElementById("addr-msg");
+    msg.textContent = "Address saved."; msg.className = "form-msg ok mt-2";
+    setTimeout(() => msg.textContent = "", 2500);
+});
+</script>
+{% endblock %}

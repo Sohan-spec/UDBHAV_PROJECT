@@ -1,134 +1,61 @@
+{% extends "master.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Login - Udbhav</title>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script>
-	tailwind.config = {
-		darkMode: "class",
-		theme: {
-			extend: {
-				colors: {
-					"primary-container": "#FDEBE7",
-					"on-surface-variant": "#333333",
-					"on-primary-container": "#ff6b00",
-					"surface-container": "#FDEBE7",
-					"outline-variant": "#cccccc",
-					"surface-container-lowest": "#ffffff",
-					"surface-container-high": "#FDEBE7",
-					"surface": "#ffffff",
-					"on-surface": "#000000",
-					"primary": "#ff6b00",
-					"on-primary": "#ffffff"
-				},
-				borderRadius: {
-					DEFAULT: "0.25rem",
-					lg: "0.5rem",
-					xl: "0.75rem",
-					full: "9999px"
-				},
-				fontFamily: {
-					headline: ["Prata", "serif"],
-					body: ["Aleo", "sans-serif"],
-					label: ["Aleo", "sans-serif"]
-				}
-			}
-		}
-	};
-</script>
-</head>
-<body class="bg-surface font-body text-on-surface antialiased min-h-screen flex flex-col overflow-x-hidden relative">
-<div class="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-br from-surface-container-lowest/40 to-transparent blur-3xl pointer-events-none"></div>
-<div class="absolute bottom-[-20%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-tl from-surface-container-high/60 to-transparent blur-3xl pointer-events-none"></div>
 
-<nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-lg shadow-[0px_20px_40px_rgba(0,32,32,0.06)]">
-	<div class="flex justify-between items-center w-full px-8 py-4 max-w-[1440px] mx-auto">
-		<a class="text-3xl font-bold uppercase text-[#ff6b00] hover:text-[#e85f00] flex items-center gap-2 no-underline" href="/">
-			<img src="{% static 'reva_logo.png' %}" alt="REVA Logo" style="height: 40px; width: auto; object-fit: contain;">
-			UDBHAV
-		</a>
-		<a class="text-slate-600 font-medium hover:text-[#ff6b00] transition-colors duration-300 no-underline" href="/signup/">Create account</a>
-	</div>
-</nav>
+{% block title %}Sign in | UDBHAV{% endblock %}
+{% block body_class %}page-auth{% endblock %}
 
-<main class="flex-1 flex items-center justify-center pt-32 pb-24 px-4 relative z-10">
-	<div class="w-full max-w-[420px] bg-surface-container-lowest rounded-xl shadow-[0px_20px_40px_rgba(0,32,32,0.06)] overflow-hidden flex flex-col relative">
-		<div class="w-full h-48 relative bg-surface-container-high overflow-hidden">
-			<div class="absolute inset-0 bg-gradient-to-b from-transparent to-surface-container-lowest/90"></div>
-			<div class="absolute bottom-4 left-8">
-				<span class="text-primary font-headline font-bold tracking-widest text-xs uppercase opacity-80">Welcome to</span>
-				<h2 class="text-3xl font-bold uppercase text-[#ff6b00] leading-none mt-1">Udbhav</h2>
-			</div>
-		</div>
+{% block content %}
+<section class="auth">
+    <div class="auth-media">
+        <img src="https://images.pexels.com/photos/6621332/pexels-photo-6621332.jpeg?auto=compress&cs=tinysrgb&w=1000" alt="" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;">
+        <div class="am-veil"></div>
+        <div class="am-quote">A considered ritual begins here.</div>
+    </div>
+    <div class="auth-form">
+        <div class="auth-inner">
+            <p class="eyebrow">Welcome back</p>
+            <h1>Sign in</h1>
+            <p class="lead">Access your bag, orders, and saved essentials.</p>
+            <form id="login-form">
+                <div class="field">
+                    <label for="username">Username</label>
+                    <input class="input" id="username" type="text" placeholder="Enter username" required>
+                </div>
+                <div class="field">
+                    <label for="password">Password</label>
+                    <input class="input" id="password" type="password" placeholder="Enter password" required>
+                </div>
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Continue</button>
+                <p class="form-msg" id="login-msg"></p>
+            </form>
+            <p class="auth-alt">No account? <a href="/signup/">Create one</a></p>
+        </div>
+    </div>
+</section>
+{% endblock %}
 
-		<div class="px-8 pt-8 pb-10">
-			<h1 class="text-[1.5rem] font-headline font-semibold text-on-surface mb-8 tracking-tight">Login</h1>
-			<form class="flex flex-col gap-5" id="login-form">
-				<div class="flex flex-col gap-2">
-					<label class="text-sm font-medium text-on-surface-variant" for="username">Username</label>
-					<input class="w-full h-14 bg-surface-container-lowest border border-outline-variant/30 rounded-xl px-4 text-on-surface placeholder:text-on-surface-variant/50 focus:border-primary/40 focus:ring-2 focus:ring-primary/10" id="username" placeholder="Enter username" required type="text"/>
-				</div>
-
-				<div class="flex flex-col gap-2">
-					<label class="text-sm font-medium text-on-surface-variant" for="password">Password</label>
-					<input class="w-full h-14 bg-surface-container-lowest border border-outline-variant/30 rounded-xl px-4 text-on-surface placeholder:text-on-surface-variant/50 focus:border-primary/40 focus:ring-2 focus:ring-primary/10" id="password" placeholder="Enter password" required type="password"/>
-				</div>
-
-				<button class="w-full h-14 rounded-full bg-gradient-to-br from-primary to-on-primary-container text-on-primary text-sm font-headline font-bold uppercase tracking-wide mt-2 shadow-[0px_8px_16px_rgba(0,105,109,0.2)] hover:shadow-[0px_12px_24px_rgba(0,105,109,0.25)] hover:-translate-y-0.5 transition-all duration-300" type="submit">
-					Continue
-				</button>
-				<p class="text-center text-sm text-on-surface-variant">No account? <a class="text-primary font-semibold hover:text-on-primary-container" href="/signup/">Sign up</a></p>
-				<p class="text-center text-sm text-red-700 min-h-5" id="login-msg"></p>
-			</form>
-		</div>
-	</div>
-</main>
-
-<footer class="w-full py-10 bg-surface flex flex-col items-center gap-4 px-10 border-t border-cyan-100/20 relative z-10">
-	<div class="text-xl font-black text-[#ff6b00] flex items-center gap-2">
-		<img src="{% static 'reva_logo.png' %}" alt="REVA Logo" style="height: 32px; width: auto; object-fit: contain;">
-		UDBHAV
-	</div>
-</footer>
-
+{% block scripts %}
+{{ block.super }}
 <script>
 document.getElementById("login-form").addEventListener("submit", async function (e) {
-	e.preventDefault();
-	const msg = document.getElementById("login-msg");
-	msg.textContent = "";
-
-	const payload = {
-		username: document.getElementById("username").value.trim(),
-		password: document.getElementById("password").value
-	};
-
-	try {
-		const res = await fetch("/api/login/", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(payload)
-		});
-		const data = await res.json();
-
-		if (!res.ok) {
-			msg.textContent = data.error || "Login failed";
-			return;
-		}
-
-		localStorage.setItem("token", data.token);
-		localStorage.setItem("role", data.role || "user");
-		window.location.href = data.role === "admin" ? "/dashboard/" : "/";
-	} catch (_err) {
-		msg.textContent = "Request failed.";
-	}
+    e.preventDefault();
+    const msg = document.getElementById("login-msg");
+    msg.textContent = ""; msg.className = "form-msg";
+    try {
+        const res = await fetch("/api/login/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                username: document.getElementById("username").value.trim(),
+                password: document.getElementById("password").value
+            })
+        });
+        const data = await res.json();
+        if (!res.ok) { msg.textContent = data.error || "Login failed"; msg.classList.add("error"); return; }
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("role", data.role || "user");
+        window.location.href = data.role === "admin" ? "/dashboard/" : "/";
+    } catch (err) { msg.textContent = "Request failed."; msg.classList.add("error"); }
 });
 </script>
-</body>
-</html>
+{% endblock %}

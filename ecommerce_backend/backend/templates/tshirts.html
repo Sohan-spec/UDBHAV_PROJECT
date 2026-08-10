@@ -1,20 +1,29 @@
-{%extends "master.html"%}
-{%block title%}
-T-Shirts
-{%endblock%}
+{% extends "master.html" %}
+{% load static %}
+{% block title %}T-Shirts | UDBHAV{% endblock %}
+{% block body_class %}page-leaf{% endblock %}
 
-{%block content%}
-<h1>T-Shirts:</h1>
-<ul>
-    <li>
-        <h2>Polo T-Shirt</h2>
-        <img src="https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?w=200&h=200&fit=crop" alt="Polo T-Shirt" width="200" height="200">
-        <p>Price: ₹999</p>
-    </li>
-    <li>
-        <h2>Casual Graphic T-Shirt</h2>
-        <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=200&h=200&fit=crop" alt="Casual Graphic T-Shirt" width="200" height="200">
-        <p>Price: ₹799</p>
-    </li>
-</ul>
-{%endblock%}
+{% block content %}
+<section class="cat-hero">
+    <div class="container">
+        <p class="crumb"><a href="/">Home</a> / <a href="/clothes/">Clothes</a> / T-Shirts</p>
+        <p class="eyebrow">T-Shirts</p>
+        <h1>T-Shirts</h1>
+        <p class="lead">Everyday staples, cut for comfort.</p>
+    </div>
+</section>
+<section class="section-tight" style="padding-top:0">
+    <div class="container">
+        <div class="product-grid">
+            <article class="card">
+                <div class="card-media"><img src="https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?w=600&h=750&fit=crop" alt="Polo T-Shirt" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;"></div>
+                <div class="card-info"><span class="card-cat">Top</span><span class="card-name">Polo T-Shirt</span><span class="card-price">₹999</span></div>
+            </article>
+            <article class="card">
+                <div class="card-media"><img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=750&fit=crop" alt="Casual Graphic T-Shirt" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;"></div>
+                <div class="card-info"><span class="card-cat">Top</span><span class="card-name">Casual Graphic T-Shirt</span><span class="card-price">₹799</span></div>
+            </article>
+        </div>
+    </div>
+</section>
+{% endblock %}
