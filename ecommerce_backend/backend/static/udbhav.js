@@ -1,4 +1,4 @@
-/* UDBHAV shared frontend module — auth, cart, search, menu, toast */
+/* UDBHAV shared frontend module  auth, cart, search, menu, toast */
 window.UDBHAV = (function () {
     const FALLBACK = "https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=800&q=80";
     const token = () => localStorage.getItem("token");
@@ -220,7 +220,7 @@ window.UDBHAV = (function () {
 
         if (!matches.length) {
             wrap.innerHTML = `<div class="search-empty">No products match “${escapeHtml(query)}”.</div>`;
-            if (hint) hint.textContent = "Try another word — we match names and categories.";
+            if (hint) hint.textContent = "Try another word  we match names and categories.";
             return;
         }
 
