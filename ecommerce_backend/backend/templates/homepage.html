@@ -1,0 +1,250 @@
+{% extends "master.html" %}
+{% load static %}
+
+{% block title %}UDBHAV — Considered Novelty & Beauty{% endblock %}
+{% block body_class %}page-home{% endblock %}
+
+{% block content %}
+<div class="marquee"><div class="marquee-track"><span>Complimentary shipping on all orders</span><span>Clean actives, ocean-safe</span><span>New: Algae Bloom Revitalizer</span><span>Complimentary shipping on all orders</span><span>Clean actives, ocean-safe</span><span>New: Algae Bloom Revitalizer</span></div></div>
+
+<section class="hero">
+    <div class="hero-split">
+        <div class="hero-copy">
+            <p class="eyebrow hero-eyebrow">New Arrival</p>
+            <h1>A calm ritual for <span class="serif-italic">radiant</span> skin.</h1>
+            <p class="lead hero-lead">Mineral-rich sea algae, harvested responsibly, formulated to restore your natural glow overnight.</p>
+            <div class="hero-cta-row">
+                <a href="/product/algae-bloom-revitalizer/" class="btn btn-primary btn-lg">Shop the Revitalizer</a>
+                <a href="#shop" class="btn btn-ghost">Explore the edit</a>
+            </div>
+        </div>
+        <div class="hero-media">
+            <img src="https://images.pexels.com/photos/4041392/pexels-photo-4041392.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Algae Bloom Revitalizer" loading="eager" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;">
+            <a href="/product/algae-bloom-revitalizer/" class="hero-tag">
+                <div class="t-name">Algae Bloom Revitalizer</div>
+                <div class="t-price">₹1,299</div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="shop">
+    <div class="container">
+        <div class="section-head">
+            <div class="head-left">
+                <p class="eyebrow">The Edit</p>
+                <h2>Curated for your routine</h2>
+                <p class="lead">A considered selection of essentials — each chosen for clean actives and honest results.</p>
+            </div>
+            <a href="/shop/" class="head-link" id="view-all-link">View all</a>
+        </div>
+        <div class="product-grid" id="product-grid"></div>
+        <p class="muted mt-3" id="home-message"></p>
+    </div>
+</section>
+
+<section class="section-tight" style="background:var(--bg-subtle)">
+    <div class="container">
+        <div class="editorial">
+            <div class="ed-media">
+                <img src="https://images.pexels.com/photos/4041391/pexels-photo-4041391.jpeg?auto=compress&cs=tinysrgb&w=1000" alt="Ocean Mist Body Oil" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;">
+            </div>
+            <div class="ed-copy">
+                <p class="eyebrow">The Story</p>
+                <h2>Hydration, drawn from the coast.</h2>
+                <p class="lead">Our Ocean Mist Body Oil blends marine botanicals with vitamin E — a lightweight finish that seals in moisture without the weight.</p>
+                <a href="/product/ocean-mist-body-oil/" class="btn btn-outline btn-lg">Discover Body Oil</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="section-head">
+            <div class="head-left">
+                <p class="eyebrow">Curated Deals</p>
+                <h2>A small selection worth discovering</h2>
+                <p class="deals-timer" id="refresh-timer">Refreshes in 08:24:12</p>
+            </div>
+            <div class="deals-nav">
+                <button type="button" id="deal-prev" aria-label="Previous"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
+                <button type="button" id="deal-next" aria-label="Next"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+            </div>
+        </div>
+        <div class="deals-track" id="deals-track" aria-live="polite"></div>
+    </div>
+</section>
+
+<section class="section-tight" style="background:var(--bg-subtle)">
+    <div class="container">
+        <div class="editorial reverse">
+            <div class="ed-media">
+                <img src="https://images.pexels.com/photos/4465829/pexels-photo-4465829.jpeg?auto=compress&cs=tinysrgb&w=1000" alt="The Gift Set" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;">
+            </div>
+            <div class="ed-copy">
+                <p class="eyebrow">Gifting</p>
+                <h2>Curated sets, ready to gift.</h2>
+                <p class="lead">Cleanser, serum, and glow cream in travel-ready sizes — designed for simple routines and effortless gifting.</p>
+                <a href="/product/the-gift-set/" class="btn btn-outline btn-lg">Shop The Gift Set</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="section-head">
+            <div class="head-left">
+                <p class="eyebrow">Our Standards</p>
+                <h2>Formulated with intention</h2>
+            </div>
+        </div>
+        <div class="values">
+            <div class="value"><div class="v-mark">✦</div><h4>Clean Actives</h4><p>Free from parabens & sulfates.</p></div>
+            <div class="value"><div class="v-mark">≈</div><h4>Ocean Safe</h4><p>Reef-friendly formulations.</p></div>
+            <div class="value"><div class="v-mark">♡</div><h4>Cruelty Free</h4><p>Never tested on animals.</p></div>
+            <div class="value"><div class="v-mark">↺</div><h4>Recycled</h4><p>100% post-consumer packaging.</p></div>
+        </div>
+    </div>
+</section>
+
+<section class="section-tight" style="background:var(--color-charcoal-deep);color:#fff;text-align:center">
+    <div class="container container-narrow">
+        <p class="eyebrow" style="color:var(--color-accent)">Begin your ritual</p>
+        <h2 style="color:#fff;margin-top:1rem">A quieter way to shop for beauty.</h2>
+        <p class="lead" style="color:rgba(255,255,255,0.7);margin-top:1rem">Explore the full collection of considered essentials.</p>
+        <a href="#shop" class="btn btn-accent btn-lg mt-3">Shop the collection</a>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+{{ block.super }}
+<script>
+(function () {
+    const state = { products: [], filtered: [], category: "all", search: "" };
+    const featuredSlugs = ["algae-bloom-revitalizer","ocean-mist-body-oil","the-gift-set","estee-lauder-call-555-lipstick","coastal-breeze-cooling-mist","dead-sea-mud-and-mint-mask","sea-kelp-vitalizing-shampoo"];
+    const forcedSlugByName = {
+        "Algae Bloom Revitalizer":"algae-bloom-revitalizer","Ocean Mist Body Oil":"ocean-mist-body-oil","The Gift Set":"the-gift-set",
+        "Estee Lauder Pure Color Explicit Slick Shine Lipstick - Call 555":"estee-lauder-call-555-lipstick",
+        "Sea Kelp Vitalizing Shampoo":"sea-kelp-vitalizing-shampoo","Coastal Breeze Cooling Mist":"coastal-breeze-cooling-mist",
+        "Dead Sea Mud & Mint Mask":"dead-sea-mud-and-mint-mask","Dead Sea Mud and Mint Mask":"dead-sea-mud-and-mint-mask"
+    };
+    const dealImageBySlug = {
+        "algae-bloom-revitalizer":"https://images.pexels.com/photos/4041392/pexels-photo-4041392.jpeg?auto=compress&cs=tinysrgb&w=700",
+        "ocean-mist-body-oil":"https://images.pexels.com/photos/4041391/pexels-photo-4041391.jpeg?auto=compress&cs=tinysrgb&w=700",
+        "the-gift-set":"https://images.pexels.com/photos/4465829/pexels-photo-4465829.jpeg?auto=compress&cs=tinysrgb&w=700",
+        "estee-lauder-call-555-lipstick":"https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg?auto=compress&cs=tinysrgb&w=700",
+        "sea-kelp-vitalizing-shampoo":"https://images.pexels.com/photos/4465124/pexels-photo-4465124.jpeg?auto=compress&cs=tinysrgb&w=700",
+        "coastal-breeze-cooling-mist":"https://images.pexels.com/photos/4041390/pexels-photo-4041390.jpeg?auto=compress&cs=tinysrgb&w=700",
+        "dead-sea-mud-and-mint-mask":"https://images.pexels.com/photos/3762873/pexels-photo-3762873.jpeg?auto=compress&cs=tinysrgb&w=700",
+        "reva-glow-cream-sample":"https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=700&q=80",
+        "algae-bloom-serum-vial":"https://images.pexels.com/photos/4041407/pexels-photo-4041407.jpeg?auto=compress&cs=tinysrgb&w=700",
+        "udbhav-keyring":"https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?auto=format&fit=crop&w=700&q=80"
+    };
+
+    function resolveSlug(p) { return forcedSlugByName[p.name] || p.slug || UDBHAV.slugify(p.name); }
+    function stableHash(v) { let h=0; for (let i=0;i<v.length;i++){h=(h<<5)-h+v.charCodeAt(i);h|=0;} return Math.abs(h); }
+
+    function cardHTML(p, isDeal) {
+        const slug = resolveSlug(p);
+        const img = p.image || dealImageBySlug[slug] || UDBHAV.FALLBACK;
+        const price = Number(p.price || 0);
+        const isFree = price === 0;
+        let priceHTML = isFree ? `<span class="free">Free gift</span>` : UDBHAV.inr(price);
+        if (isDeal && !isFree) {
+            const old = Math.max(price + Math.round(price*0.22), price + 40);
+            priceHTML = `${UDBHAV.inr(price)} <span class="old">${UDBHAV.inr(old)}</span>`;
+        }
+        const badge = isDeal && !isFree ? `<span class="card-badge sale">Sale</span>` : (isFree ? `<span class="card-badge">Gift</span>` : "");
+        return `
+            <article class="card">
+                <div class="card-media">
+                    ${badge}
+                    <a href="/product/${slug}/"><img src="${img}" alt="${p.name}" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;"></a>
+                    <button class="card-add" type="button" data-add="${p.id}">Add to bag</button>
+                </div>
+                <div class="card-info">
+                    <span class="card-cat">${p.category || ""}</span>
+                    <a href="/product/${slug}/" class="card-name">${p.name}</a>
+                    <span class="card-price">${priceHTML}</span>
+                </div>
+            </article>`;
+    }
+
+    function renderGrid() {
+        const grid = document.getElementById("product-grid");
+        const src = state.filtered.length ? state.filtered : state.products;
+        const map = new Map(src.map(i => [resolveSlug(i), i]));
+        const ordered = featuredSlugs.map(s => map.get(s)).filter(Boolean);
+        const rest = src.filter(i => !featuredSlugs.includes(resolveSlug(i)));
+        const list = [...ordered, ...rest].slice(0, 8);
+        grid.innerHTML = list.map(p => cardHTML(p, false)).join("") || `<p class="muted">No products found.</p>`;
+    }
+
+    function renderDeals() {
+        const track = document.getElementById("deals-track");
+        const src = state.filtered.length ? state.filtered : state.products;
+        if (!src.length) { track.innerHTML = ""; return; }
+        const map = new Map(src.map(i => [resolveSlug(i), i]));
+        const ordered = featuredSlugs.map(s => map.get(s)).filter(Boolean);
+        const rest = src.filter(i => !featuredSlugs.includes(resolveSlug(i)));
+        track.innerHTML = [...ordered, ...rest].slice(0, 10).map(p => cardHTML(p, true)).join("");
+    }
+
+    function applyFilters() {
+        state.filtered = state.products.filter(p => {
+            if (state.category !== "all" && state.category !== "sale") {
+                const g = `${p.category||""} ${p.name||""}`.toLowerCase();
+                if (!g.includes(state.category)) return false;
+            }
+            if (state.category === "sale" && Number(p.price||0) > 800) return false;
+            if (state.search) {
+                const t = `${p.name||""} ${p.category||""}`.toLowerCase();
+                if (!t.includes(state.search.toLowerCase())) return false;
+            }
+            return true;
+        });
+    }
+
+    async function loadProducts() {
+        const msg = document.getElementById("home-message");
+        try {
+            const params = new URLSearchParams({ page: "1", size: "80" });
+            if (state.search) params.set("search", state.search);
+            const res = await fetch("/api/products/?" + params.toString());
+            const data = await res.json();
+            if (!res.ok) { msg.textContent = data.error || "Unable to load products."; return; }
+            state.products = data.products || [];
+            applyFilters(); renderGrid(); renderDeals();
+            msg.textContent = state.products.length ? "" : "No products found.";
+        } catch (e) { msg.textContent = "Unable to connect to products API."; }
+    }
+
+    function setupCountdown() {
+        const node = document.getElementById("refresh-timer");
+        let s = 8*3600 + 24*60 + 12;
+        setInterval(() => {
+            const h = String(Math.floor(s/3600)).padStart(2,"0");
+            const m = String(Math.floor((s%3600)/60)).padStart(2,"0");
+            const sec = String(s%60).padStart(2,"0");
+            node.textContent = `Refreshes in ${h}:${m}:${sec}`;
+            s = s > 0 ? s - 1 : 8*3600 + 24*60 + 12;
+        }, 1000);
+    }
+
+    document.body.addEventListener("click", (e) => {
+        const add = e.target.closest("[data-add]");
+        if (add) { e.preventDefault(); UDBHAV.addToCart(add.dataset.add); }
+        if (e.target.id === "deal-prev") document.getElementById("deals-track").scrollBy({ left: -300, behavior: "smooth" });
+        if (e.target.id === "deal-next") document.getElementById("deals-track").scrollBy({ left: 300, behavior: "smooth" });
+    });
+
+    const q = new URLSearchParams(location.search).get("search");
+    if (q) state.search = q;
+    setupCountdown();
+    loadProducts();
+})();
+</script>
+{% endblock %}

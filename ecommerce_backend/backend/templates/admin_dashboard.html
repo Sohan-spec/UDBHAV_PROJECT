@@ -1,0 +1,128 @@
+{% extends "master.html" %}
+{% load static %}
+
+{% block title %}Admin Dashboard | UDBHAV{% endblock %}
+{% block body_class %}page-admin{% endblock %}
+
+{% block content %}
+<section class="admin">
+    <div class="container">
+        <div class="admin-head">
+            <div>
+                <p class="eyebrow">Operations</p>
+                <h1>Admin dashboard</h1>
+                <p>Manage products, view orders, and control inventory.</p>
+            </div>
+            <a href="/" class="btn btn-outline">View store</a>
+        </div>
+
+        <div class="stat-grid">
+            <div class="stat"><div class="s-label">Orders</div><div class="s-value" id="orders-count">—</div></div>
+            <div class="stat"><div class="s-label">Customers</div><div class="s-value" id="users-count">—</div></div>
+            <div class="stat"><div class="s-label">Products</div><div class="s-value" id="products-count">—</div></div>
+        </div>
+
+        <div class="admin-grid">
+            <div class="admin-card">
+                <h3>Add product</h3>
+                <form id="add-product-form" enctype="multipart/form-data">
+                    <div class="field"><label for="product-name">Name</label><input class="input" id="product-name" placeholder="Product name" required></div>
+                    <div class="field-row">
+                        <div class="field"><label for="product-price">Price (₹)</label><input class="input" id="product-price" type="number" step="0.01" placeholder="0.00" required></div>
+                        <div class="field"><label for="product-stock">Stock</label><input class="input" id="product-stock" type="number" value="0"></div>
+                    </div>
+                    <div class="field"><label for="product-category">Category</label><input class="input" id="product-category" list="category-list" placeholder="Category" required><datalist id="category-list"></datalist></div>
+                    <div class="field"><label for="product-description">Description</label><textarea class="textarea" id="product-description" rows="3" placeholder="Description"></textarea></div>
+                    <div class="field"><label for="product-image">Image</label><input class="input" id="product-image" type="file" accept="image/*"></div>
+                    <div class="field"><label for="product-security-pin">Operations PIN</label><input class="input" id="product-security-pin" type="password" placeholder="Security PIN" required></div>
+                    <button class="btn btn-primary btn-block" type="submit">Create product</button>
+                </form>
+                <p class="form-msg mt-2" id="admin-msg"></p>
+            </div>
+
+            <div class="admin-card">
+                <h3>Recent orders</h3>
+                <div style="overflow-x:auto">
+                    <table class="admin-table">
+                        <thead><tr><th>Order</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th></tr></thead>
+                        <tbody><tr><td colspan="5" class="empty">Loading…</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+{{ block.super }}
+<script>
+(function () {
+    const token = UDBHAV.token();
+
+    async function loadStats() {
+        const msg = document.getElementById("admin-msg");
+        if (!token) { msg.textContent = "Admin token required."; return; }
+        try {
+            const res = await fetch("/api/admin/stats/", { headers: { "Authorization": "Bearer " + token } });
+            const d = await res.json();
+            if (!res.ok) { msg.textContent = d.error || "Failed to fetch stats"; return; }
+            document.getElementById("orders-count").textContent = d.orders_count ?? 0;
+            document.getElementById("users-count").textContent = d.users_count ?? 0;
+            const tbody = document.querySelector(".admin-table tbody");
+            if (d.orders && d.orders.length) {
+                tbody.innerHTML = d.orders.map(o => {
+                    const items = o.items.map(i => `${i.name} (x${i.qty})`).join(", ");
+                    return `<tr><td>#UB-${o.id}</td><td style="font-weight:500">${o.customer}</td><td>${items}</td><td style="color:var(--color-accent);font-weight:600">${UDBHAV.inr(o.total)}</td><td><span class="status-badge">${o.status}</span></td></tr>`;
+                }).join("");
+            } else { tbody.innerHTML = '<tr><td colspan="5" class="empty">No orders yet.</td></tr>'; }
+        } catch (e) { document.getElementById("admin-msg").textContent = "Request failed"; }
+    }
+
+    async function loadProductCount() {
+        try {
+            const res = await fetch("/api/products/?size=1");
+            const d = await res.json();
+            document.getElementById("products-count").textContent = d.total ?? 0;
+        } catch (e) {}
+    }
+
+    async function loadCategories() {
+        try {
+            const res = await fetch("/api/categories/");
+            const d = await res.json();
+            if (d.categories) document.getElementById("category-list").innerHTML = d.categories.map(c => `<option value="${c}">`).join("");
+        } catch (e) {}
+    }
+
+    document.getElementById("add-product-form").addEventListener("submit", async function (e) {
+        e.preventDefault();
+        const msg = document.getElementById("admin-msg");
+        msg.textContent = ""; msg.className = "form-msg mt-2";
+        if (!token) { msg.textContent = "Admin token required."; msg.classList.add("error"); return; }
+        const fd = new FormData();
+        fd.append("name", document.getElementById("product-name").value.trim());
+        fd.append("price", document.getElementById("product-price").value);
+        fd.append("stock", Number(document.getElementById("product-stock").value || 0));
+        fd.append("category", document.getElementById("product-category").value.trim());
+        fd.append("description", document.getElementById("product-description").value.trim());
+        const img = document.getElementById("product-image");
+        if (img.files && img.files[0]) fd.append("image", img.files[0]);
+        try {
+            const res = await fetch("/api/products/create/", {
+                method: "POST",
+                headers: { "Authorization": "Bearer " + token, "X-Admin-Pin": document.getElementById("product-security-pin").value.trim() },
+                body: fd
+            });
+            const d = await res.json();
+            if (!res.ok) { msg.textContent = d.error || "Create failed"; msg.classList.add("error"); return; }
+            msg.textContent = "Product created (ID " + d.id + ")"; msg.classList.add("ok");
+            document.getElementById("add-product-form").reset();
+            loadProductCount(); loadCategories();
+        } catch (e) { msg.textContent = "Request failed"; msg.classList.add("error"); }
+    });
+
+    loadStats(); loadProductCount(); loadCategories();
+})();
+</script>
+{% endblock %}

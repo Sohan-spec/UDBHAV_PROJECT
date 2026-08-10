@@ -1,0 +1,133 @@
+{% extends "master.html" %}
+{% load static %}
+
+{% block title %}Checkout | UDBHAV{% endblock %}
+{% block body_class %}page-checkout{% endblock %}
+
+{% block content %}
+<section class="checkout">
+    <div class="container">
+        <div class="section-head">
+            <div class="head-left">
+                <p class="eyebrow">Checkout</p>
+                <h2>Complete your order</h2>
+                <p class="lead">A calm, secure end to your ritual.</p>
+            </div>
+        </div>
+
+        <div class="checkout-grid">
+            <div>
+                <h3 style="font-family:var(--font-body);font-weight:600;font-size:1.0625rem;margin-bottom:1rem">Payment method</h3>
+                <label class="pay-option is-selected">
+                    <input type="radio" name="payment" value="upi" checked>
+                    <div><div class="po-title">UPI</div><div class="po-sub">Google Pay, PhonePe, or any UPI app</div></div>
+                </label>
+                <label class="pay-option">
+                    <input type="radio" name="payment" value="cod">
+                    <div><div class="po-title">Cash on Delivery</div><div class="po-sub">Pay when your order arrives</div></div>
+                </label>
+
+                <h3 style="font-family:var(--font-body);font-weight:600;font-size:1.0625rem;margin:2.5rem 0 1rem">Delivery</h3>
+                <div class="panel" style="display:flex;align-items:center;gap:1rem">
+                    <svg viewBox="0 0 24 24" style="width:22px;height:22px;color:var(--color-accent);fill:none;stroke:currentColor;stroke-width:1.5"><path d="M3 7h11l3 4h4v6h-2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
+                    <div>
+                        <div style="font-size:var(--fs-eyebrow);letter-spacing:0.14em;text-transform:uppercase;color:var(--color-text-muted)">Estimated delivery</div>
+                        <div style="font-weight:500;margin-top:0.2rem" id="delivery-date">…</div>
+                    </div>
+                </div>
+            </div>
+
+            <aside class="summary">
+                <h3>Order summary</h3>
+                <p class="form-msg error" id="checkout-msg"></p>
+                <div id="checkout-items"></div>
+                <div class="s-line"><span class="muted">Subtotal</span><span id="checkout-subtotal">₹0.00</span></div>
+                <div class="s-line"><span class="muted">Shipping</span><span class="text-accent">Free</span></div>
+                <div class="s-total"><span>Total</span><span id="checkout-total">₹0.00</span></div>
+                <button id="place-order" class="btn btn-primary btn-lg btn-block">Place order</button>
+                <p class="muted mt-2" style="text-align:center;font-size:0.75rem">Secure encrypted checkout</p>
+            </aside>
+        </div>
+    </div>
+</section>
+
+<div class="modal-overlay" id="success-modal">
+    <div class="modal" style="max-width:400px;text-align:center">
+        <div style="width:64px;height:64px;border-radius:50%;background:var(--color-accent-soft);color:var(--color-accent);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem">
+            <svg viewBox="0 0 24 24" style="width:32px;height:32px;fill:none;stroke:currentColor;stroke-width:2"><path d="m5 12 5 5 9-11"/></svg>
+        </div>
+        <h3 style="font-family:var(--font-display);font-size:1.75rem">Order placed</h3>
+        <p class="muted mt-2">Thank you. We're redirecting you home.</p>
+        <div class="spin mt-3" style="margin-inline:auto"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ block.super }}
+<script>
+(function () {
+    const token = UDBHAV.token();
+
+    function setDeliveryDate() {
+        const d = new Date();
+        d.setDate(d.getDate() + 7);
+        document.getElementById("delivery-date").textContent = d.toLocaleDateString("en-US", { weekday: "long", month: "short", day: "numeric" });
+    }
+    setDeliveryDate();
+
+    document.querySelectorAll("input[name='payment']").forEach(r => r.addEventListener("change", () => {
+        document.querySelectorAll(".pay-option").forEach(o => o.classList.remove("is-selected"));
+        r.closest(".pay-option").classList.add("is-selected");
+    }));
+
+    async function loadCheckout() {
+        const msg = document.getElementById("checkout-msg");
+        if (!token) { msg.textContent = "Login required."; return; }
+        try {
+            const res = await fetch("/api/cart/", { headers: { "Authorization": "Bearer " + token } });
+            const data = await res.json();
+            if (!res.ok) { msg.textContent = data.error || "Failed to load"; return; }
+            renderItems(data.items || [], data.total || 0);
+        } catch (e) { msg.textContent = "Request failed"; }
+    }
+
+    function renderItems(items, total) {
+        const wrap = document.getElementById("checkout-items");
+        if (!items.length) { wrap.innerHTML = "<p class='muted'>Your bag is empty.</p>"; }
+        else {
+            wrap.innerHTML = items.map(i => `
+                <div class="s-item">
+                    <div class="s-media"><span style="color:var(--color-line-strong)">·</span></div>
+                    <div><div class="s-name">${i.name}</div><div class="s-qty">Qty ${i.qty}</div></div>
+                    <div class="s-price">${UDBHAV.inr(i.price)}</div>
+                </div>`).join("");
+        }
+        const t = UDBHAV.inr(total);
+        document.getElementById("checkout-subtotal").textContent = t;
+        document.getElementById("checkout-total").textContent = t;
+    }
+
+    document.getElementById("place-order").addEventListener("click", async function () {
+        const msg = document.getElementById("checkout-msg");
+        msg.textContent = "";
+        if (!token) { msg.textContent = "Login required."; return; }
+        const pay = document.querySelector("input[name='payment']:checked");
+        this.disabled = true; this.textContent = "Processing…";
+        try {
+            const res = await fetch("/api/orders/create/", {
+                method: "POST",
+                headers: { "Content-Type": "application/json", "Authorization": "Bearer " + token },
+                body: JSON.stringify({ payment_method: pay ? pay.value : "upi" })
+            });
+            const data = await res.json();
+            if (!res.ok) { msg.textContent = data.error || "Order failed"; this.disabled = false; this.textContent = "Place order"; return; }
+            document.getElementById("success-modal").classList.add("is-open");
+            setTimeout(() => location.href = "/", 2400);
+        } catch (e) { msg.textContent = "Request failed"; this.disabled = false; this.textContent = "Place order"; }
+    });
+
+    loadCheckout();
+})();
+</script>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "master.html" %}
+{% load static %}
+{% block title %}Samsung | UDBHAV{% endblock %}
+{% block body_class %}page-leaf{% endblock %}
+
+{% block content %}
+<section class="cat-hero">
+    <div class="container">
+        <p class="crumb"><a href="/">Home</a> / <a href="/electronics/">Electronics</a> / <a href="/electronics/phones/">Smartphones</a> / Samsung</p>
+        <p class="eyebrow">Samsung</p>
+        <h1>Galaxy</h1>
+        <p class="lead">Samsung's flagship Galaxy lineup.</p>
+    </div>
+</section>
+<section class="section-tight" style="padding-top:0">
+    <div class="container">
+        <div class="product-grid">
+            <article class="card">
+                <div class="card-media"><img src="https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=600&h=750&fit=crop" alt="Galaxy S24" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;"></div>
+                <div class="card-info"><span class="card-cat">Smartphone</span><span class="card-name">Galaxy S24</span><span class="card-price">₹74,999</span></div>
+            </article>
+            <article class="card">
+                <div class="card-media"><img src="https://images.unsplash.com/photo-1678911820864-e2c567c655d7?w=600&h=750&fit=crop" alt="Galaxy S23" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;"></div>
+                <div class="card-info"><span class="card-cat">Smartphone</span><span class="card-name">Galaxy S23</span><span class="card-price">₹54,999</span></div>
+            </article>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "master.html" %}
+{% load static %}
+{% block title %}Kitchen | UDBHAV{% endblock %}
+{% block body_class %}page-category{% endblock %}
+
+{% block content %}
+<section class="cat-hero">
+    <div class="container">
+        <p class="crumb"><a href="/">Home</a> / <a href="/household/">Household</a> / Kitchen</p>
+        <p class="eyebrow">Category</p>
+        <h1>Kitchen</h1>
+        <p class="lead">Tools and staples for the everyday table.</p>
+    </div>
+</section>
+<section class="section-tight" style="padding-top:0">
+    <div class="container">
+        <div class="cat-tiles">
+            <a href="/household/kitchen/utensils/" class="cat-tile">
+                <img src="https://images.unsplash.com/photo-1619367300942-634bf2339af6?auto=format&fit=crop&w=800&q=80" alt="Utensils" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;">
+                <div class="ct-veil"></div>
+                <div class="ct-label"><div class="ct-name">Utensils</div><div class="ct-sub">Spoons, plates, forks</div></div>
+            </a>
+            <a href="/household/kitchen/groceries/" class="cat-tile">
+                <img src="https://images.unsplash.com/photo-1542838132-92c53300691b?auto=format&fit=crop&w=800&q=80" alt="Groceries" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;">
+                <div class="ct-veil"></div>
+                <div class="ct-label"><div class="ct-name">Groceries</div><div class="ct-sub">Rice, wheat, vegetables</div></div>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

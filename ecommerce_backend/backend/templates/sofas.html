@@ -1,0 +1,29 @@
+{% extends "master.html" %}
+{% load static %}
+{% block title %}Sofas | UDBHAV{% endblock %}
+{% block body_class %}page-leaf{% endblock %}
+
+{% block content %}
+<section class="cat-hero">
+    <div class="container">
+        <p class="crumb"><a href="/">Home</a> / <a href="/household/">Household</a> / <a href="/household/furniture/">Furniture</a> / Sofas</p>
+        <p class="eyebrow">Sofas</p>
+        <h1>Sofas</h1>
+        <p class="lead">Comfort that holds its line.</p>
+    </div>
+</section>
+<section class="section-tight" style="padding-top:0">
+    <div class="container">
+        <div class="product-grid">
+            <article class="card">
+                <div class="card-media"><img src="https://images.unsplash.com/photo-1601000785676-f9b0ade234d3?w=600&h=750&fit=crop" alt="3-Seater Recliner" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;"></div>
+                <div class="card-info"><span class="card-cat">Sofa</span><span class="card-name">3-Seater Recliner</span><span class="card-price">₹55,999</span></div>
+            </article>
+            <article class="card">
+                <div class="card-media"><img src="https://images.unsplash.com/photo-1680503397667-3877494708a1?w=600&h=750&fit=crop" alt="L-Shaped Sofa" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;"></div>
+                <div class="card-info"><span class="card-cat">Sofa</span><span class="card-name">L-Shaped Sofa</span><span class="card-price">₹42,999</span></div>
+            </article>
+        </div>
+    </div>
+</section>
+{% endblock %}

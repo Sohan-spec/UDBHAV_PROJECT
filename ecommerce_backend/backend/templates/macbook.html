@@ -1,0 +1,29 @@
+{% extends "master.html" %}
+{% load static %}
+{% block title %}MacBook | UDBHAV{% endblock %}
+{% block body_class %}page-leaf{% endblock %}
+
+{% block content %}
+<section class="cat-hero">
+    <div class="container">
+        <p class="crumb"><a href="/">Home</a> / <a href="/electronics/">Electronics</a> / <a href="/electronics/laptops/">Laptops</a> / MacBook</p>
+        <p class="eyebrow">MacBook</p>
+        <h1>MacBook</h1>
+        <p class="lead">Apple silicon, refined aluminium.</p>
+    </div>
+</section>
+<section class="section-tight" style="padding-top:0">
+    <div class="container">
+        <div class="product-grid">
+            <article class="card">
+                <div class="card-media"><img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&h=750&fit=crop" alt="MacBook Pro" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;"></div>
+                <div class="card-info"><span class="card-cat">Laptop</span><span class="card-name">MacBook Pro</span><span class="card-price">₹1,99,999</span></div>
+            </article>
+            <article class="card">
+                <div class="card-media"><img src="https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=600&h=750&fit=crop" alt="MacBook Air" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;"></div>
+                <div class="card-info"><span class="card-cat">Laptop</span><span class="card-name">MacBook Air</span><span class="card-price">₹1,14,999</span></div>
+            </article>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,150 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#FFFFFF">
+    {% block page_css %}
+    <link rel="stylesheet" href="{% static 'css/anand-style.css' %}">
+    {% endblock %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="{% static 'reva_logo.png' %}">
+    <title>{% block title %}UDBHAV{% endblock %}</title>
+</head>
+<body class="{% block body_class %}{% endblock %}">
+
+{% block top %}
+<header class="nav">
+    <div class="nav-inner">
+        <a href="/" class="nav-brand">
+            <img src="{% static 'reva_logo.png' %}" alt="UDBHAV">
+            <span class="brand-mark">UDBHAV</span>
+        </a>
+        <nav class="nav-links">
+            <a href="/shop/" class="nav-link">Shop</a>
+            <a href="/electronics/" class="nav-link">Electronics</a>
+            <a href="/household/" class="nav-link">Household</a>
+            <a href="/clothes/" class="nav-link">Clothes</a>
+        </nav>
+        <div class="nav-actions">
+            <button class="nav-icon" type="button" onclick="UDBHAV.search.open()" aria-label="Search">
+                <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            </button>
+            <a href="/profile/" class="nav-icon nav-account" aria-label="Account">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+            </a>
+            <button class="nav-icon" type="button" onclick="UDBHAV.cart.open()" aria-label="Bag">
+                <svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+                <span class="nav-bag-count" id="nav-bag-count">0</span>
+            </button>
+            <button class="nav-icon nav-toggle" type="button" onclick="UDBHAV.menu.open()" aria-label="Menu">
+                <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+            </button>
+        </div>
+    </div>
+</header>
+
+<div class="mobile-menu" id="mobile-menu">
+    <div class="mobile-menu-head">
+        <a href="/" class="nav-brand"><img src="{% static 'reva_logo.png' %}" alt="UDBHAV"><span class="brand-mark">UDBHAV</span></a>
+        <button class="nav-icon" type="button" onclick="UDBHAV.menu.close()" aria-label="Close">
+            <svg viewBox="0 0 24 24" style="fill:none;stroke:currentColor;stroke-width:1.5"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+    </div>
+    <nav>
+        <a href="/shop/" onclick="UDBHAV.menu.close()">Shop</a>
+        <a href="/electronics/" onclick="UDBHAV.menu.close()">Electronics</a>
+        <a href="/household/" onclick="UDBHAV.menu.close()">Household</a>
+        <a href="/clothes/" onclick="UDBHAV.menu.close()">Clothes</a>
+        <a href="/profile/" onclick="UDBHAV.menu.close()">Account</a>
+    </nav>
+    <div class="mobile-foot">
+        <a href="/login/" id="mm-login">Login</a>
+        <a href="/signup/" id="mm-signup">Sign up</a>
+        <a href="#" id="mm-logout" onclick="UDBHAV.auth.logout(event)" style="display:none">Sign out</a>
+    </div>
+</div>
+
+<div class="search-overlay" id="search-overlay" onclick="if(event.target===this)UDBHAV.search.close()">
+    <div class="search-inner">
+        <form class="search-bar" id="search-form" onsubmit="UDBHAV.search.submit(event)">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input type="text" id="search-input" placeholder="Search products…" autocomplete="off" spellcheck="false" aria-autocomplete="list" aria-controls="search-results" role="combobox" aria-expanded="false">
+            <button type="button" class="search-close" onclick="UDBHAV.search.close()">Close</button>
+        </form>
+        <p class="search-hint" id="search-hint">Start typing to search the catalogue.</p>
+        <div class="search-results" id="search-results" role="listbox" aria-live="polite"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}{% endblock %}
+
+{% block footer %}
+<footer class="footer">
+    <div class="container">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <a href="/" class="nav-brand"><img src="{% static 'reva_logo.png' %}" alt="UDBHAV"><span class="brand-mark">UDBHAV</span></a>
+                <p>Considered novelty & beauty essentials — crafted with clean actives and a calm point of view.</p>
+            </div>
+            <div class="footer-col">
+                <h5>Shop</h5>
+                <a href="/shop/">All products</a>
+                <a href="/electronics/">Electronics</a>
+                <a href="/household/">Household</a>
+                <a href="/clothes/">Clothes</a>
+            </div>
+            <div class="footer-col">
+                <h5>Account</h5>
+                <a href="/login/">Sign in</a>
+                <a href="/signup/">Create account</a>
+                <a href="/profile/">My profile</a>
+                <a href="/cart/">Bag</a>
+            </div>
+            <div class="footer-col">
+                <h5>Help</h5>
+                <a href="/cart/checkout/">Checkout</a>
+                <a href="/profile/">Orders</a>
+                <a href="/dashboard/" id="foot-admin">Admin</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 UDBHAV. All rights reserved.</span>
+            <span>REVA University · Novelty Store</span>
+        </div>
+    </div>
+</footer>
+{% endblock %}
+
+{% block drawers %}
+<div class="drawer-overlay" id="drawer-overlay" onclick="UDBHAV.cart.close()"></div>
+<aside class="cart-drawer" id="cart-drawer" aria-label="Shopping bag">
+    <div class="cart-head">
+        <h3 id="cart-drawer-title">Bag</h3>
+        <button class="cart-close" type="button" onclick="UDBHAV.cart.close()" aria-label="Close bag">
+            <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+    </div>
+    <div class="cart-body">
+        <p class="cart-msg" id="cart-drawer-msg"></p>
+        <div id="cart-drawer-items"></div>
+    </div>
+    <div class="cart-foot">
+        <div class="cart-line"><span class="muted">Subtotal</span><span id="cart-drawer-subtotal">₹0.00</span></div>
+        <div class="cart-line"><span class="muted">Shipping</span><span class="text-accent">Complimentary</span></div>
+        <div class="cart-total"><span>Total</span><span id="cart-drawer-total">₹0.00</span></div>
+        <a href="/cart/checkout/" class="btn btn-primary btn-block btn-lg">Checkout</a>
+    </div>
+</aside>
+<div class="toast" id="toast"></div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'udbhav.js' %}"></script>
+{% endblock %}
+</body>
+</html>

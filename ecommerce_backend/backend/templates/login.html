@@ -1,0 +1,61 @@
+{% extends "master.html" %}
+{% load static %}
+
+{% block title %}Sign in | UDBHAV{% endblock %}
+{% block body_class %}page-auth{% endblock %}
+
+{% block content %}
+<section class="auth">
+    <div class="auth-media">
+        <img src="https://images.pexels.com/photos/6621332/pexels-photo-6621332.jpeg?auto=compress&cs=tinysrgb&w=1000" alt="" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;">
+        <div class="am-veil"></div>
+        <div class="am-quote">A considered ritual begins here.</div>
+    </div>
+    <div class="auth-form">
+        <div class="auth-inner">
+            <p class="eyebrow">Welcome back</p>
+            <h1>Sign in</h1>
+            <p class="lead">Access your bag, orders, and saved essentials.</p>
+            <form id="login-form">
+                <div class="field">
+                    <label for="username">Username</label>
+                    <input class="input" id="username" type="text" placeholder="Enter username" required>
+                </div>
+                <div class="field">
+                    <label for="password">Password</label>
+                    <input class="input" id="password" type="password" placeholder="Enter password" required>
+                </div>
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Continue</button>
+                <p class="form-msg" id="login-msg"></p>
+            </form>
+            <p class="auth-alt">No account? <a href="/signup/">Create one</a></p>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+{{ block.super }}
+<script>
+document.getElementById("login-form").addEventListener("submit", async function (e) {
+    e.preventDefault();
+    const msg = document.getElementById("login-msg");
+    msg.textContent = ""; msg.className = "form-msg";
+    try {
+        const res = await fetch("/api/login/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                username: document.getElementById("username").value.trim(),
+                password: document.getElementById("password").value
+            })
+        });
+        const data = await res.json();
+        if (!res.ok) { msg.textContent = data.error || "Login failed"; msg.classList.add("error"); return; }
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("role", data.role || "user");
+        window.location.href = data.role === "admin" ? "/dashboard/" : "/";
+    } catch (err) { msg.textContent = "Request failed."; msg.classList.add("error"); }
+});
+</script>
+{% endblock %}

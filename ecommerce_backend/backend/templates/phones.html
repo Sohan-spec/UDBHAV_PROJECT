@@ -1,0 +1,31 @@
+{% extends "master.html" %}
+{% load static %}
+{% block title %}Smartphones | UDBHAV{% endblock %}
+{% block body_class %}page-category{% endblock %}
+
+{% block content %}
+<section class="cat-hero">
+    <div class="container">
+        <p class="crumb"><a href="/">Home</a> / <a href="/electronics/">Electronics</a> / Smartphones</p>
+        <p class="eyebrow">Category</p>
+        <h1>Smartphones</h1>
+        <p class="lead">Flagship devices, chosen for clarity and craft.</p>
+    </div>
+</section>
+<section class="section-tight" style="padding-top:0">
+    <div class="container">
+        <div class="cat-tiles">
+            <a href="/electronics/phones/apple/" class="cat-tile">
+                <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=800&q=80" alt="Apple" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;">
+                <div class="ct-veil"></div>
+                <div class="ct-label"><div class="ct-name">Apple</div><div class="ct-sub">iPhone</div></div>
+            </a>
+            <a href="/electronics/phones/samsung/" class="cat-tile">
+                <img src="https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?auto=format&fit=crop&w=800&q=80" alt="Samsung" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;">
+                <div class="ct-veil"></div>
+                <div class="ct-label"><div class="ct-name">Samsung</div><div class="ct-sub">Galaxy</div></div>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

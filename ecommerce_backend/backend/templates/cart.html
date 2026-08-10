@@ -1,0 +1,85 @@
+{% extends "master.html" %}
+{% load static %}
+
+{% block title %}Bag | UDBHAV{% endblock %}
+{% block body_class %}page-cart{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container container-narrow">
+        <div class="section-head">
+            <div class="head-left">
+                <p class="eyebrow">Shopping Bag</p>
+                <h2>Your bag</h2>
+            </div>
+            <a href="/" class="head-link">Continue shopping</a>
+        </div>
+        <p class="form-msg error" id="cart-msg"></p>
+        <div id="cart-items"></div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+{{ block.super }}
+<script>
+(function () {
+    const token = UDBHAV.token();
+
+    async function loadCart() {
+        const msg = document.getElementById("cart-msg");
+        const wrap = document.getElementById("cart-items");
+        msg.textContent = "";
+        if (!token) {
+            wrap.innerHTML = `<div class="cart-empty"><p>Please sign in to view your bag.</p><a href="/login/" class="btn btn-primary mt-2" style="display:inline-flex">Sign in</a></div>`;
+            return;
+        }
+        try {
+            const res = await fetch("/api/cart/", { headers: { "Authorization": "Bearer " + token } });
+            const data = await res.json();
+            if (!res.ok) { msg.textContent = data.error || "Failed to load bag"; return; }
+            renderCart(data.items || [], data.total || 0);
+        } catch (e) { msg.textContent = "Request failed"; }
+    }
+
+    function renderCart(items, total) {
+        const wrap = document.getElementById("cart-items");
+        if (!items.length) {
+            wrap.innerHTML = `<div class="cart-empty"><p>Your bag is empty.</p><a href="/" class="btn btn-primary mt-2" style="display:inline-flex">Shop the collection</a></div>`;
+            return;
+        }
+        wrap.innerHTML = items.map(i => `
+            <div class="cart-item" style="border-bottom:1px solid var(--color-line);padding:1.25rem 0">
+                <div class="cart-item-media"><span style="color:var(--color-line-strong)">·</span></div>
+                <div class="cart-item-body">
+                    <div class="cart-item-name">${i.name}</div>
+                    <div class="cart-item-meta">Qty ${i.qty}</div>
+                    <div class="cart-item-row">
+                        <span class="cart-item-price">${UDBHAV.inr(i.price)}</span>
+                        <button class="cart-item-remove" data-remove="${i.product_id}">Remove</button>
+                    </div>
+                </div>
+            </div>`).join("") + `
+            <div class="cart-total" style="margin-top:2rem;border-top:1px solid var(--color-line);padding-top:1.5rem">
+                <span>Total</span><span>${UDBHAV.inr(total)}</span>
+            </div>
+            <a href="/cart/checkout/" class="btn btn-primary btn-lg btn-block mt-3">Proceed to checkout</a>`;
+
+        wrap.querySelectorAll("[data-remove]").forEach(b => b.addEventListener("click", () => removeItem(Number(b.dataset.remove))));
+    }
+
+    async function removeItem(pid) {
+        try {
+            await fetch("/api/cart/", {
+                method: "DELETE",
+                headers: { "Content-Type": "application/json", "Authorization": "Bearer " + token },
+                body: JSON.stringify({ product_id: pid })
+            });
+            loadCart(); UDBHAV.updateCartCount();
+        } catch (e) { UDBHAV.showToast("Remove failed", true); }
+    }
+
+    loadCart();
+})();
+</script>
+{% endblock %}

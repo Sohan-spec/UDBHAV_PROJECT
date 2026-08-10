@@ -1,0 +1,121 @@
+{% extends "master.html" %}
+{% load static %}
+
+{% block title %}My Profile | UDBHAV{% endblock %}
+{% block body_class %}page-profile{% endblock %}
+
+{% block content %}
+<section class="profile">
+    <div class="container">
+        <div class="profile-card">
+            <div class="pc-head">
+                <p class="eyebrow">Account</p>
+                <h1>My profile</h1>
+                <p>Manage your settings and track your orders.</p>
+            </div>
+
+            <div class="panel">
+                <p class="form-msg ok mb-3" id="profile-msg"></p>
+                <form id="profile-form">
+                    <div class="field mb-3">
+                        <label for="profile-username">Username</label>
+                        <input class="input" id="profile-username" type="text" placeholder="Username">
+                    </div>
+                    <div class="field-row mb-3">
+                        <div class="field">
+                            <label for="profile-password">New password</label>
+                            <input class="input" id="profile-password" type="password" placeholder="Leave blank to keep">
+                        </div>
+                        <div class="field" id="confirm-password-container">
+                            <label for="profile-confirm-password">Confirm password</label>
+                            <input class="input" id="profile-confirm-password" type="password" placeholder="Confirm">
+                        </div>
+                    </div>
+                    <div class="field mb-4">
+                        <label for="profile-mobile">Mobile number</label>
+                        <input class="input" id="profile-mobile" type="tel" placeholder="Mobile number">
+                    </div>
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">Save changes</button>
+                </form>
+
+                <details class="orders-list" id="orders-details">
+                    <summary><span>My orders</span><span class="muted" style="font-size:var(--fs-small)">View</span></summary>
+                    <div id="orders-list"><div class="muted mt-3" style="font-size:var(--fs-small)">Loading orders…</div></div>
+                </details>
+
+                <div class="mt-4" style="text-align:center">
+                    <button class="btn btn-outline" id="sign-out-btn">Sign out</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+{{ block.super }}
+<script>
+(function () {
+    const token = UDBHAV.token();
+    if (!token) { location.href = "/"; return; }
+
+    async function loadProfile() {
+        try {
+            const res = await fetch("/api/profile/", { headers: { "Authorization": "Bearer " + token } });
+            if (res.ok) {
+                const d = await res.json();
+                document.getElementById("profile-username").value = d.username || "";
+                document.getElementById("profile-mobile").value = d.mobile || "";
+            }
+        } catch (e) {}
+    }
+
+    document.getElementById("profile-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const msg = document.getElementById("profile-msg");
+        msg.textContent = ""; msg.className = "form-msg ok mb-3";
+        const password = document.getElementById("profile-password").value;
+        const confirm = document.getElementById("profile-confirm-password").value;
+        if (password && password !== confirm) { msg.textContent = "Passwords do not match."; msg.classList.add("error"); return; }
+        try {
+            const res = await fetch("/api/profile/", {
+                method: "POST",
+                headers: { "Content-Type": "application/json", "Authorization": "Bearer " + token },
+                body: JSON.stringify({
+                    username: document.getElementById("profile-username").value,
+                    password: password || undefined,
+                    mobile: document.getElementById("profile-mobile").value
+                })
+            });
+            const d = await res.json();
+            if (res.ok) { msg.textContent = "Profile updated."; document.getElementById("profile-password").value = ""; document.getElementById("profile-confirm-password").value = ""; }
+            else { msg.textContent = d.error || "Update failed"; msg.classList.add("error"); }
+        } catch (e) { msg.textContent = "Request failed"; msg.classList.add("error"); }
+    });
+
+    document.getElementById("sign-out-btn").addEventListener("click", () => UDBHAV.auth.logout());
+
+    async function loadOrders() {
+        const wrap = document.getElementById("orders-list");
+        try {
+            const res = await fetch("/api/orders/", { headers: { "Authorization": "Bearer " + token } });
+            const d = await res.json();
+            if (!res.ok) { wrap.innerHTML = "<div class='muted mt-3'>Failed to load orders.</div>"; return; }
+            const orders = d.orders || [];
+            if (!orders.length) { wrap.innerHTML = "<div class='muted mt-3'>No orders yet.</div>"; return; }
+            wrap.innerHTML = orders.map(o => {
+                const items = o.items.map(i => `${i.name} (x${i.qty})`).join(", ");
+                const dd = new Date(o.date); dd.setDate(dd.getDate() + 7);
+                return `<div class="order-row"><div><div class="o-items">${items}</div><div class="o-meta">Order #UB-${o.id} · arrives ${dd.toLocaleDateString("en-US",{month:"short",day:"numeric"})}</div></div><div style="font-weight:600">${UDBHAV.inr(o.total)}</div></div>`;
+            }).join("");
+        } catch (e) { wrap.innerHTML = "<div class='muted mt-3'>Error fetching orders.</div>"; }
+    }
+
+    document.getElementById("orders-details").addEventListener("toggle", function () {
+        if (this.open && !this.dataset.loaded) { loadOrders(); this.dataset.loaded = "true"; }
+    });
+
+    loadProfile();
+})();
+</script>
+{% endblock %}

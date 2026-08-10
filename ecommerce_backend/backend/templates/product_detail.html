@@ -1,0 +1,79 @@
+{% extends "master.html" %}
+{% load static %}
+
+{% block title %}{{ product.name }} | UDBHAV{% endblock %}
+{% block body_class %}page-product-detail{% endblock %}
+
+{% block content %}
+<section class="pdp">
+    <div class="container">
+        <div class="pdp-grid">
+            <div class="pdp-gallery">
+                <div class="pdp-thumbs" id="thumbs-wrap">
+                    {% for img in item_meta.gallery %}
+                    <button type="button" class="pdp-thumb{% if forloop.first %} is-active{% endif %}" data-thumb="{{ img }}">
+                        <img src="{{ img }}" alt="{{ product.name }} thumbnail {{ forloop.counter }}" loading="lazy">
+                    </button>
+                    {% endfor %}
+                </div>
+                <div class="pdp-main">
+                    <img id="hero-image" src="{{ item_meta.image }}" alt="{{ product.name }}" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;">
+                </div>
+            </div>
+
+            <div class="pdp-info">
+                <p class="crumb"><a href="/">Home</a> / <a href="/">{{ item_meta.category }}</a> / {{ product.name }}</p>
+                <p class="pdp-cat">{{ item_meta.category }}</p>
+                <h1>{{ product.name }}</h1>
+                <div class="pdp-rating"><span class="stars">★★★★☆</span> 4.6 · 36 ratings</div>
+                <p class="pdp-price">₹{{ product.price|floatformat:0 }}</p>
+                <p class="pdp-tax">Inclusive of all taxes</p>
+                <p class="pdp-desc">{{ item_meta.description }}</p>
+
+                <div class="pdp-actions">
+                    <div class="pdp-qty">
+                        <button type="button" id="qty-minus" aria-label="Decrease">−</button>
+                        <span id="qty-val">1</span>
+                        <button type="button" id="qty-plus" aria-label="Increase">+</button>
+                    </div>
+                    <button id="add-to-cart" class="btn btn-primary btn-lg" type="button" data-product="{{ product.id }}" style="flex:1">Add to bag</button>
+                </div>
+                <p id="product-feedback" class="pdp-feedback"></p>
+
+                <div class="pdp-trust">
+                    <span class="t-item"><svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.5 8 8 11 4.5-3 8-6 8-11V5l-8-3Z"/></svg> 100% genuine</span>
+                    <span class="t-item"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 1 18 0 9 9 0 0 1-18 0Z"/><path d="m9 12 2 2 4-4"/></svg> Easy returns</span>
+                    <span class="t-item"><svg viewBox="0 0 24 24"><path d="M3 7h13l2 4h3v5h-3"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg> Sold by UDBHAV</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+{{ block.super }}
+<script>
+(function () {
+    let qty = 1;
+    const val = document.getElementById("qty-val");
+    document.getElementById("qty-minus").addEventListener("click", () => { if (qty > 1) { qty--; val.textContent = qty; } });
+    document.getElementById("qty-plus").addEventListener("click", () => { if (qty < 99) { qty++; val.textContent = qty; } });
+
+    document.getElementById("thumbs-wrap").addEventListener("click", (e) => {
+        const thumb = e.target.closest("button[data-thumb]");
+        if (!thumb) return;
+        document.getElementById("hero-image").src = thumb.dataset.thumb;
+        document.querySelectorAll("#thumbs-wrap .pdp-thumb").forEach(n => n.classList.remove("is-active"));
+        thumb.classList.add("is-active");
+    });
+
+    document.getElementById("add-to-cart").addEventListener("click", async (e) => {
+        const ok = await UDBHAV.addToCart(e.currentTarget.dataset.product, qty);
+        const fb = document.getElementById("product-feedback");
+        fb.textContent = ok ? "Added to bag." : "";
+        if (ok) UDBHAV.cart.open();
+    });
+})();
+</script>
+{% endblock %}

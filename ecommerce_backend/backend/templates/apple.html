@@ -1,0 +1,29 @@
+{% extends "master.html" %}
+{% load static %}
+{% block title %}Apple | UDBHAV{% endblock %}
+{% block body_class %}page-leaf{% endblock %}
+
+{% block content %}
+<section class="cat-hero">
+    <div class="container">
+        <p class="crumb"><a href="/">Home</a> / <a href="/electronics/">Electronics</a> / <a href="/electronics/phones/">Smartphones</a> / Apple</p>
+        <p class="eyebrow">Apple</p>
+        <h1>iPhone</h1>
+        <p class="lead">Flagship Apple smartphones, in studio light.</p>
+    </div>
+</section>
+<section class="section-tight" style="padding-top:0">
+    <div class="container">
+        <div class="product-grid">
+            <article class="card">
+                <div class="card-media"><img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=600&h=750&fit=crop" alt="iPhone 15" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;"></div>
+                <div class="card-info"><span class="card-cat">Smartphone</span><span class="card-name">iPhone 15</span><span class="card-price">₹79,999</span></div>
+            </article>
+            <article class="card">
+                <div class="card-media"><img src="https://images.unsplash.com/photo-1678685888221-cda773a3dcdb?w=600&h=750&fit=crop" alt="iPhone 14" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;"></div>
+                <div class="card-info"><span class="card-cat">Smartphone</span><span class="card-name">iPhone 14</span><span class="card-price">₹59,999</span></div>
+            </article>
+        </div>
+    </div>
+</section>
+{% endblock %}

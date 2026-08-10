@@ -1,0 +1,33 @@
+{% extends "master.html" %}
+{% load static %}
+{% block title %}Groceries | UDBHAV{% endblock %}
+{% block body_class %}page-leaf{% endblock %}
+
+{% block content %}
+<section class="cat-hero">
+    <div class="container">
+        <p class="crumb"><a href="/">Home</a> / <a href="/household/">Household</a> / <a href="/household/kitchen/">Kitchen</a> / Groceries</p>
+        <p class="eyebrow">Groceries</p>
+        <h1>Groceries</h1>
+        <p class="lead">Pantry staples, fresh and honest.</p>
+    </div>
+</section>
+<section class="section-tight" style="padding-top:0">
+    <div class="container">
+        <div class="product-grid">
+            <article class="card">
+                <div class="card-media"><img src="https://images.unsplash.com/photo-1714040292680-5a9ea419b6b5?w=600&h=750&fit=crop" alt="Rice" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;"></div>
+                <div class="card-info"><span class="card-cat">Per kg</span><span class="card-name">Rice</span><span class="card-price">₹199</span></div>
+            </article>
+            <article class="card">
+                <div class="card-media"><img src="https://images.unsplash.com/photo-1609130825188-a66b4aef2278?w=600&h=750&fit=crop" alt="Wheat" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;"></div>
+                <div class="card-info"><span class="card-cat">Per kg</span><span class="card-name">Wheat</span><span class="card-price">₹149</span></div>
+            </article>
+            <article class="card">
+                <div class="card-media"><img src="https://images.unsplash.com/photo-1610636996379-4d184e2ef20a?w=600&h=750&fit=crop" alt="Vegetables" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;"></div>
+                <div class="card-info"><span class="card-cat">Per kg</span><span class="card-name">Vegetables</span><span class="card-price">₹99</span></div>
+            </article>
+        </div>
+    </div>
+</section>
+{% endblock %}
