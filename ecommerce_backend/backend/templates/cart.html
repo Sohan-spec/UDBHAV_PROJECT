@@ -50,7 +50,7 @@
         }
         wrap.innerHTML = items.map(i => `
             <div class="cart-item" style="border-bottom:1px solid var(--color-line);padding:1.25rem 0">
-                <div class="cart-item-media"><span style="color:var(--color-line-strong)">·</span></div>
+                <div class="cart-item-media"><img src="${i.image || UDBHAV.FALLBACK}" alt="${i.name}" style="width:64px;height:64px;object-fit:cover;border-radius:6px" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;"></div>
                 <div class="cart-item-body">
                     <div class="cart-item-name">${i.name}</div>
                     <div class="cart-item-meta">Qty ${i.qty}</div>

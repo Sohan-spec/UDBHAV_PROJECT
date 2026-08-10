@@ -14,16 +14,47 @@
 </section>
 <section class="section-tight" style="padding-top:0">
     <div class="container">
-        <div class="product-grid">
-            <article class="card">
-                <div class="card-media"><img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=600&h=750&fit=crop" alt="iPhone 15" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;"></div>
-                <div class="card-info"><span class="card-cat">Smartphone</span><span class="card-name">iPhone 15</span><span class="card-price">₹79,999</span></div>
-            </article>
-            <article class="card">
-                <div class="card-media"><img src="https://images.unsplash.com/photo-1678685888221-cda773a3dcdb?w=600&h=750&fit=crop" alt="iPhone 14" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;"></div>
-                <div class="card-info"><span class="card-cat">Smartphone</span><span class="card-name">iPhone 14</span><span class="card-price">₹59,999</span></div>
-            </article>
-        </div>
+        <div class="product-grid" id="category-grid"></div>
+        <p class="muted mt-3" id="grid-msg" style="text-align:center"></p>
     </div>
 </section>
+{% endblock %}
+
+{% block scripts %}
+{{ block.super }}
+<script>
+(async function () {
+    const grid = document.getElementById("category-grid");
+    const msg = document.getElementById("grid-msg");
+    msg.textContent = "Syncing from catalogue…";
+    try {
+        const res = await fetch("/api/products/?size=200");
+        const data = await res.json();
+        if (!res.ok) { msg.textContent = "Failed to load products."; return; }
+        const items = (data.products || []).filter(p => {
+            const c = (p.category || "").toLowerCase(), n = (p.name || "").toLowerCase();
+            return c.includes("smartphone") && (n.includes("iphone"));
+        });
+        if (!items.length) { msg.textContent = "No Apple products in the live catalogue yet."; return; }
+        msg.textContent = "";
+        grid.innerHTML = items.map(p => `
+            <article class="card">
+                <div class="card-media">
+                    <a href="/product/${p.slug}/"><img src="${p.image || UDBHAV.FALLBACK}" alt="${p.name}" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;"></a>
+                    <button class="card-add" type="button" data-add="${p.id}">Add to bag</button>
+                </div>
+                <div class="card-info">
+                    <span class="card-cat">${p.category || ""}</span>
+                    <a href="/product/${p.slug}/" class="card-name">${p.name}</a>
+                    <span class="card-price">${UDBHAV.inr(p.price)}</span>
+                </div>
+            </article>`).join("");
+    } catch (e) { msg.textContent = "Failed to load products."; }
+})();
+
+document.body.addEventListener("click", (e) => {
+    const add = e.target.closest("[data-add]");
+    if (add) { e.preventDefault(); UDBHAV.addToCart(add.dataset.add); }
+});
+</script>
 {% endblock %}

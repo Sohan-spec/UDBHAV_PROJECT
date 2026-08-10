@@ -98,7 +98,7 @@
         else {
             wrap.innerHTML = items.map(i => `
                 <div class="s-item">
-                    <div class="s-media"><span style="color:var(--color-line-strong)">·</span></div>
+                    <div class="s-media"><img src="${i.image || UDBHAV.FALLBACK}" alt="${i.name}" style="width:48px;height:48px;object-fit:cover;border-radius:6px" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;"></div>
                     <div><div class="s-name">${i.name}</div><div class="s-qty">Qty ${i.qty}</div></div>
                     <div class="s-price">${UDBHAV.inr(i.price)}</div>
                 </div>`).join("");

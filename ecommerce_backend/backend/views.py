@@ -156,17 +156,279 @@ FEATURED_PRODUCT_CATALOG = [
             "https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?auto=format&fit=crop&w=1200&q=80",
         ],
     },
+    # ── Electronics: Smartphones ──────────────────────────────────────────────
+    {
+        "slug": "iphone-15",
+        "name": "iPhone 15",
+        "category": "Smartphones",
+        "price": 79999,
+        "stock": 25,
+        "description": "Apple iPhone 15 with A16 Bionic chip, 48MP camera system, Dynamic Island, and all-day battery life. Premium build with ceramic shield front.",
+        "image": "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=1200&h=1500&fit=crop",
+        "gallery": [
+            "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=1200&h=1500&fit=crop",
+            "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?auto=format&fit=crop&w=1200&q=80",
+        ],
+    },
+    {
+        "slug": "iphone-14",
+        "name": "iPhone 14",
+        "category": "Smartphones",
+        "price": 59999,
+        "stock": 30,
+        "description": "Apple iPhone 14 featuring A15 Bionic chip, advanced dual-camera system, Crash Detection, and Emergency SOS via satellite.",
+        "image": "https://images.unsplash.com/photo-1678685888221-cda773a3dcdb?w=1200&h=1500&fit=crop",
+        "gallery": [
+            "https://images.unsplash.com/photo-1678685888221-cda773a3dcdb?w=1200&h=1500&fit=crop",
+            "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?auto=format&fit=crop&w=1200&q=80",
+        ],
+    },
+    {
+        "slug": "galaxy-s24",
+        "name": "Galaxy S24",
+        "category": "Smartphones",
+        "price": 74999,
+        "stock": 22,
+        "description": "Samsung Galaxy S24 with Galaxy AI, Snapdragon 8 Gen 3, 50MP adaptive camera, and a stunning Dynamic AMOLED 2X display.",
+        "image": "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=1200&h=1500&fit=crop",
+        "gallery": [
+            "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=1200&h=1500&fit=crop",
+            "https://images.unsplash.com/photo-1585060544812-6b45742d762f?auto=format&fit=crop&w=1200&q=80",
+        ],
+    },
+    {
+        "slug": "galaxy-s23",
+        "name": "Galaxy S23",
+        "category": "Smartphones",
+        "price": 54999,
+        "stock": 28,
+        "description": "Samsung Galaxy S23 powered by Snapdragon 8 Gen 2, with Nightography camera, eco-conscious design, and all-day battery.",
+        "image": "https://images.unsplash.com/photo-1678911820864-e2c567c655d7?w=1200&h=1500&fit=crop",
+        "gallery": [
+            "https://images.unsplash.com/photo-1678911820864-e2c567c655d7?w=1200&h=1500&fit=crop",
+            "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=1200&q=80",
+        ],
+    },
+    # ── Electronics: Laptops ──────────────────────────────────────────────────
+    {
+        "slug": "rog-zephyrus",
+        "name": "ROG Zephyrus",
+        "category": "Laptops",
+        "price": 149999,
+        "stock": 12,
+        "description": "Asus ROG Zephyrus gaming laptop with AMD Ryzen 9, RTX 4070, 16-inch QHD+ 240Hz display, and ultra-slim magnesium-alloy chassis.",
+        "image": "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?w=1200&h=1500&fit=crop",
+        "gallery": [
+            "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?w=1200&h=1500&fit=crop",
+            "https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&w=1200&q=80",
+        ],
+    },
+    {
+        "slug": "zenbook",
+        "name": "ZenBook",
+        "category": "Laptops",
+        "price": 89999,
+        "stock": 18,
+        "description": "Asus ZenBook ultra-portable laptop with Intel Core Ultra, OLED display, NumberPad 2.0, and ErgoLift hinge for effortless productivity.",
+        "image": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=1200&h=1500&fit=crop",
+        "gallery": [
+            "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=1200&h=1500&fit=crop",
+            "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=1200&q=80",
+        ],
+    },
+    {
+        "slug": "macbook-pro",
+        "name": "MacBook Pro",
+        "category": "Laptops",
+        "price": 199999,
+        "stock": 10,
+        "description": "Apple MacBook Pro with M3 Pro chip, Liquid Retina XDR display, up to 22 hours battery life, and pro-level performance for demanding workflows.",
+        "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=1200&h=1500&fit=crop",
+        "gallery": [
+            "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=1200&h=1500&fit=crop",
+            "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=1200&q=80",
+        ],
+    },
+    {
+        "slug": "macbook-air",
+        "name": "MacBook Air",
+        "category": "Laptops",
+        "price": 114999,
+        "stock": 15,
+        "description": "Apple MacBook Air with M2 chip, 13.6-inch Liquid Retina display, fanless design, MagSafe charging, and up to 18 hours battery life.",
+        "image": "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=1200&h=1500&fit=crop",
+        "gallery": [
+            "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=1200&h=1500&fit=crop",
+            "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=1200&q=80",
+        ],
+    },
+    # ── Clothes: T-Shirts ─────────────────────────────────────────────────────
+    {
+        "slug": "polo-t-shirt",
+        "name": "Polo T-Shirt",
+        "category": "T-Shirts",
+        "price": 999,
+        "stock": 80,
+        "description": "Classic cotton polo tee with a relaxed fit, ribbed collar, and two-button placket. Perfect for layering or wearing solo.",
+        "image": "https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?w=1200&h=1500&fit=crop",
+        "gallery": [
+            "https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?w=1200&h=1500&fit=crop",
+            "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1200&q=80",
+        ],
+    },
+    {
+        "slug": "casual-graphic-t-shirt",
+        "name": "Casual Graphic T-Shirt",
+        "category": "T-Shirts",
+        "price": 799,
+        "stock": 100,
+        "description": "Soft-washed graphic tee with bold print, crew neck, and a boxy unisex fit. Pre-shrunk 100% ring-spun cotton.",
+        "image": "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=1200&h=1500&fit=crop",
+        "gallery": [
+            "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=1200&h=1500&fit=crop",
+            "https://images.unsplash.com/photo-1562157873-818bc0726f68?auto=format&fit=crop&w=1200&q=80",
+        ],
+    },
+    # ── Clothes: Pants ────────────────────────────────────────────────────────
+    {
+        "slug": "jeans",
+        "name": "Jeans",
+        "category": "Pants",
+        "price": 1499,
+        "stock": 60,
+        "description": "Selvedge-style denim jeans with a slim straight fit, five-pocket construction, and a sturdy brass button fly.",
+        "image": "https://images.unsplash.com/photo-1542272604-787c3835535d?w=1200&h=1500&fit=crop",
+        "gallery": [
+            "https://images.unsplash.com/photo-1542272604-787c3835535d?w=1200&h=1500&fit=crop",
+            "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=1200&q=80",
+        ],
+    },
+    {
+        "slug": "chinos",
+        "name": "Chinos",
+        "category": "Pants",
+        "price": 1299,
+        "stock": 55,
+        "description": "Tailored chinos in brushed cotton twill with a mid-rise waist, tapered leg, and hidden-stretch comfort for all-day wear.",
+        "image": "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=1200&h=1500&fit=crop",
+        "gallery": [
+            "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=1200&h=1500&fit=crop",
+            "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=1200&q=80",
+        ],
+    },
+    # ── Household: Furniture — Sofas ──────────────────────────────────────────
+    {
+        "slug": "3-seater-recliner",
+        "name": "3-Seater Recliner",
+        "category": "Sofas",
+        "price": 55999,
+        "stock": 8,
+        "description": "Three-seater recliner sofa in premium leatherette with adjustable headrests, cup holders, and soft-close footrests.",
+        "image": "https://images.unsplash.com/photo-1601000785676-f9b0ade234d3?w=1200&h=1500&fit=crop",
+        "gallery": [
+            "https://images.unsplash.com/photo-1601000785676-f9b0ade234d3?w=1200&h=1500&fit=crop",
+            "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1200&q=80",
+        ],
+    },
+    {
+        "slug": "l-shaped-sofa",
+        "name": "L-Shaped Sofa",
+        "category": "Sofas",
+        "price": 42999,
+        "stock": 10,
+        "description": "Modern L-shaped sectional sofa with high-density foam cushions, solid wood frame, and stain-resistant upholstery.",
+        "image": "https://images.unsplash.com/photo-1680503397667-3877494708a1?w=1200&h=1500&fit=crop",
+        "gallery": [
+            "https://images.unsplash.com/photo-1680503397667-3877494708a1?w=1200&h=1500&fit=crop",
+            "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=1200&q=80",
+        ],
+    },
+    # ── Household: Kitchen — Utensils ─────────────────────────────────────────
+    {
+        "slug": "spoons",
+        "name": "Spoons",
+        "category": "Utensils",
+        "price": 299,
+        "stock": 150,
+        "description": "Set of 6 stainless-steel tablespoons with mirror-polished finish and ergonomic handles. Dishwasher safe.",
+        "image": "https://images.unsplash.com/photo-1619367300942-634bf2339af6?w=1200&h=1500&fit=crop",
+        "gallery": [
+            "https://images.unsplash.com/photo-1619367300942-634bf2339af6?w=1200&h=1500&fit=crop",
+        ],
+    },
+    {
+        "slug": "plates",
+        "name": "Plates",
+        "category": "Utensils",
+        "price": 499,
+        "stock": 120,
+        "description": "Set of 6 ceramic dinner plates with chip-resistant glaze and minimalist design. Microwave and dishwasher safe.",
+        "image": "https://images.unsplash.com/photo-1664337872259-12b178e34be8?w=1200&h=1500&fit=crop",
+        "gallery": [
+            "https://images.unsplash.com/photo-1664337872259-12b178e34be8?w=1200&h=1500&fit=crop",
+        ],
+    },
+    {
+        "slug": "forks",
+        "name": "Forks",
+        "category": "Utensils",
+        "price": 249,
+        "stock": 150,
+        "description": "Set of 6 stainless-steel dinner forks with balanced weight and polished tines. Rust-resistant and dishwasher safe.",
+        "image": "https://images.unsplash.com/photo-1690983321736-755af87b3f38?w=1200&h=1500&fit=crop",
+        "gallery": [
+            "https://images.unsplash.com/photo-1690983321736-755af87b3f38?w=1200&h=1500&fit=crop",
+        ],
+    },
+    # ── Household: Kitchen — Groceries ────────────────────────────────────────
+    {
+        "slug": "rice",
+        "name": "Rice",
+        "category": "Groceries",
+        "price": 199,
+        "stock": 200,
+        "description": "Premium long-grain basmati rice, aged for extra aroma and fluffiness. Sourced directly from farms. Per kg.",
+        "image": "https://images.unsplash.com/photo-1714040292680-5a9ea419b6b5?w=1200&h=1500&fit=crop",
+        "gallery": [
+            "https://images.unsplash.com/photo-1714040292680-5a9ea419b6b5?w=1200&h=1500&fit=crop",
+        ],
+    },
+    {
+        "slug": "wheat",
+        "name": "Wheat",
+        "category": "Groceries",
+        "price": 149,
+        "stock": 200,
+        "description": "Whole wheat grain, stone-ground quality for fresh chapatis and baking. Pesticide-free. Per kg.",
+        "image": "https://images.unsplash.com/photo-1609130825188-a66b4aef2278?w=1200&h=1500&fit=crop",
+        "gallery": [
+            "https://images.unsplash.com/photo-1609130825188-a66b4aef2278?w=1200&h=1500&fit=crop",
+        ],
+    },
+    {
+        "slug": "vegetables",
+        "name": "Vegetables",
+        "category": "Groceries",
+        "price": 99,
+        "stock": 300,
+        "description": "Fresh seasonal vegetable mix — hand-picked daily from local farms. Clean-washed and ready to cook. Per kg.",
+        "image": "https://images.unsplash.com/photo-1610636996379-4d184e2ef20a?w=1200&h=1500&fit=crop",
+        "gallery": [
+            "https://images.unsplash.com/photo-1610636996379-4d184e2ef20a?w=1200&h=1500&fit=crop",
+        ],
+    },
 ]
 
 
 def ensure_featured_products():
     for item in FEATURED_PRODUCT_CATALOG:
         category, _ = Category.objects.get_or_create(name=item["category"])
+        desc = item.get("description") or DUMMY_PRODUCT_DESCRIPTION
         product, _ = Product.objects.get_or_create(
             name=item["name"],
             defaults={
                 "category": category,
-                "description": DUMMY_PRODUCT_DESCRIPTION,
+                "description": desc,
                 "price": item["price"],
                 "stock": item["stock"],
             },
@@ -182,8 +444,8 @@ def ensure_featured_products():
         if product.stock != item["stock"]:
             product.stock = item["stock"]
             changed = True
-        if (product.description or "") != DUMMY_PRODUCT_DESCRIPTION:
-            product.description = DUMMY_PRODUCT_DESCRIPTION
+        if (product.description or "") != desc:
+            product.description = desc
             changed = True
 
         if changed:
@@ -206,6 +468,7 @@ def admin_required_session(view_func):
 
 # Create your views here.
 def homepage(request):
+    ensure_featured_products()
     return render(request,'homepage.html')
 
 def shop(request):

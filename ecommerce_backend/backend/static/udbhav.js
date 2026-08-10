@@ -95,7 +95,7 @@ window.UDBHAV = (function () {
         if (!items.length) { wrap.innerHTML = emptyBag(); setTotals(0); return; }
         wrap.innerHTML = items.map(i => `
             <div class="cart-item">
-                <div class="cart-item-media"><span style="color:var(--color-line-strong)">·</span></div>
+                <div class="cart-item-media"><img src="${i.image || FALLBACK}" alt="${i.name}" style="width:56px;height:56px;object-fit:cover;border-radius:6px" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;"></div>
                 <div class="cart-item-body">
                     <div class="cart-item-name">${i.name}</div>
                     <div class="cart-item-meta">Qty ${i.qty}</div>
@@ -133,7 +133,27 @@ window.UDBHAV = (function () {
         "Sea Kelp Vitalizing Shampoo": "sea-kelp-vitalizing-shampoo",
         "Coastal Breeze Cooling Mist": "coastal-breeze-cooling-mist",
         "Dead Sea Mud & Mint Mask": "dead-sea-mud-and-mint-mask",
-        "Dead Sea Mud and Mint Mask": "dead-sea-mud-and-mint-mask"
+        "Dead Sea Mud and Mint Mask": "dead-sea-mud-and-mint-mask",
+        "iPhone 15": "iphone-15",
+        "iPhone 14": "iphone-14",
+        "Galaxy S24": "galaxy-s24",
+        "Galaxy S23": "galaxy-s23",
+        "ROG Zephyrus": "rog-zephyrus",
+        "ZenBook": "zenbook",
+        "MacBook Pro": "macbook-pro",
+        "MacBook Air": "macbook-air",
+        "Polo T-Shirt": "polo-t-shirt",
+        "Casual Graphic T-Shirt": "casual-graphic-t-shirt",
+        "Jeans": "jeans",
+        "Chinos": "chinos",
+        "3-Seater Recliner": "3-seater-recliner",
+        "L-Shaped Sofa": "l-shaped-sofa",
+        "Spoons": "spoons",
+        "Plates": "plates",
+        "Forks": "forks",
+        "Rice": "rice",
+        "Wheat": "wheat",
+        "Vegetables": "vegetables"
     };
 
     function productSlug(p) {

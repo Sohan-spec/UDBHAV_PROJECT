@@ -125,8 +125,15 @@ def login(request):
         return JsonResponse({'error': 'Invalid credentials'}, status=401)
     return JsonResponse({'error': 'Method not allowed'}, status=405)
 
+_products_seeded = False
+
 @csrf_exempt
 def get_products(request):
+    global _products_seeded
+    if not _products_seeded:
+        from .views import ensure_featured_products
+        ensure_featured_products()
+        _products_seeded = True
     # Pagination & Search optimization (BE-3)
     page = int(request.GET.get('page', 1))
     size = int(request.GET.get('size', 10))
@@ -164,11 +171,19 @@ def manage_cart(request):
     if request.method == 'GET':
         items = cart.items.select_related('product').all()
         # Fast lookup via dict (BE-3 performance constraint)
-        items_dist = {item.product.id: {'qty': item.quantity, 'name': item.product.name, 'price': float(item.product.price)} for item in items}
+        items_list = []
+        for item in items:
+            image, _ = resolve_product_media(item.product)
+            items_list.append({
+                'product_id': item.product.id,
+                'qty': item.quantity,
+                'name': item.product.name,
+                'price': float(item.product.price),
+                'image': image,
+            })
         
-        data = [{'product_id': pid, **info} for pid, info in items_dist.items()]
-        total = sum(i['qty'] * i['price'] for i in items_dist.values())
-        return JsonResponse({'items': data, 'total': total})
+        total = sum(i['qty'] * i['price'] for i in items_list)
+        return JsonResponse({'items': items_list, 'total': total})
         
     elif request.method == 'POST':
         try:

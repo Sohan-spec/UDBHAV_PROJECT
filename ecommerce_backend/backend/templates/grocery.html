@@ -14,20 +14,47 @@
 </section>
 <section class="section-tight" style="padding-top:0">
     <div class="container">
-        <div class="product-grid">
-            <article class="card">
-                <div class="card-media"><img src="https://images.unsplash.com/photo-1714040292680-5a9ea419b6b5?w=600&h=750&fit=crop" alt="Rice" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;"></div>
-                <div class="card-info"><span class="card-cat">Per kg</span><span class="card-name">Rice</span><span class="card-price">₹199</span></div>
-            </article>
-            <article class="card">
-                <div class="card-media"><img src="https://images.unsplash.com/photo-1609130825188-a66b4aef2278?w=600&h=750&fit=crop" alt="Wheat" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;"></div>
-                <div class="card-info"><span class="card-cat">Per kg</span><span class="card-name">Wheat</span><span class="card-price">₹149</span></div>
-            </article>
-            <article class="card">
-                <div class="card-media"><img src="https://images.unsplash.com/photo-1610636996379-4d184e2ef20a?w=600&h=750&fit=crop" alt="Vegetables" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;"></div>
-                <div class="card-info"><span class="card-cat">Per kg</span><span class="card-name">Vegetables</span><span class="card-price">₹99</span></div>
-            </article>
-        </div>
+        <div class="product-grid" id="category-grid"></div>
+        <p class="muted mt-3" id="grid-msg" style="text-align:center"></p>
     </div>
 </section>
+{% endblock %}
+
+{% block scripts %}
+{{ block.super }}
+<script>
+(async function () {
+    const grid = document.getElementById("category-grid");
+    const msg = document.getElementById("grid-msg");
+    msg.textContent = "Syncing from catalogue…";
+    try {
+        const res = await fetch("/api/products/?size=200");
+        const data = await res.json();
+        if (!res.ok) { msg.textContent = "Failed to load products."; return; }
+        const items = (data.products || []).filter(p => {
+            const c = (p.category || "").toLowerCase();
+            return c === "groceries";
+        });
+        if (!items.length) { msg.textContent = "No groceries in the live catalogue yet."; return; }
+        msg.textContent = "";
+        grid.innerHTML = items.map(p => `
+            <article class="card">
+                <div class="card-media">
+                    <a href="/product/${p.slug}/"><img src="${p.image || UDBHAV.FALLBACK}" alt="${p.name}" loading="lazy" onerror="this.onerror=null;this.src=UDBHAV.FALLBACK;"></a>
+                    <button class="card-add" type="button" data-add="${p.id}">Add to bag</button>
+                </div>
+                <div class="card-info">
+                    <span class="card-cat">${p.category || ""}</span>
+                    <a href="/product/${p.slug}/" class="card-name">${p.name}</a>
+                    <span class="card-price">${UDBHAV.inr(p.price)}</span>
+                </div>
+            </article>`).join("");
+    } catch (e) { msg.textContent = "Failed to load products."; }
+})();
+
+document.body.addEventListener("click", (e) => {
+    const add = e.target.closest("[data-add]");
+    if (add) { e.preventDefault(); UDBHAV.addToCart(add.dataset.add); }
+});
+</script>
 {% endblock %}
