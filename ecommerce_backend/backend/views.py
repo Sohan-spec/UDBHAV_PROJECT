@@ -19,9 +19,9 @@ FEATURED_PRODUCT_CATALOG = [
         "price": 1299,
         "stock": 45,
         "description": "Ultra-hydrating overnight serum powered by mineral-rich sea algae. Restores skin bounce and helps dull skin look fresh by morning.",
-        "image": "https://images.pexels.com/photos/6621469/pexels-photo-6621469.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "image": "https://images.pexels.com/photos/5069433/pexels-photo-5069433.jpeg?auto=compress&cs=tinysrgb&w=1200",
         "gallery": [
-            "https://images.pexels.com/photos/6621469/pexels-photo-6621469.jpeg?auto=compress&cs=tinysrgb&w=1200",
+            "https://images.pexels.com/photos/5069433/pexels-photo-5069433.jpeg?auto=compress&cs=tinysrgb&w=1200",
             "https://images.pexels.com/photos/5069433/pexels-photo-5069433.jpeg?auto=compress&cs=tinysrgb&w=1200",
             "https://images.pexels.com/photos/7796574/pexels-photo-7796574.jpeg?auto=compress&cs=tinysrgb&w=1200",
             "https://images.pexels.com/photos/3737579/pexels-photo-3737579.jpeg?auto=compress&cs=tinysrgb&w=1200",
@@ -53,7 +53,7 @@ FEATURED_PRODUCT_CATALOG = [
         "gallery": [
             "https://images.pexels.com/photos/7796574/pexels-photo-7796574.jpeg?auto=compress&cs=tinysrgb&w=1200",
             "https://images.pexels.com/photos/5069433/pexels-photo-5069433.jpeg?auto=compress&cs=tinysrgb&w=1200",
-            "https://images.pexels.com/photos/6621469/pexels-photo-6621469.jpeg?auto=compress&cs=tinysrgb&w=1200",
+            "https://images.pexels.com/photos/5069433/pexels-photo-5069433.jpeg?auto=compress&cs=tinysrgb&w=1200",
             "https://images.pexels.com/photos/3762879/pexels-photo-3762879.jpeg?auto=compress&cs=tinysrgb&w=1200",
         ],
     },
@@ -82,7 +82,7 @@ FEATURED_PRODUCT_CATALOG = [
         "image": "https://images.pexels.com/photos/4465827/pexels-photo-4465827.jpeg?auto=compress&cs=tinysrgb&w=1200",
         "gallery": [
             "https://images.pexels.com/photos/4465827/pexels-photo-4465827.jpeg?auto=compress&cs=tinysrgb&w=1200",
-            "https://images.pexels.com/photos/6621469/pexels-photo-6621469.jpeg?auto=compress&cs=tinysrgb&w=1200",
+            "https://images.pexels.com/photos/5069433/pexels-photo-5069433.jpeg?auto=compress&cs=tinysrgb&w=1200",
             "https://images.pexels.com/photos/3737579/pexels-photo-3737579.jpeg?auto=compress&cs=tinysrgb&w=1200",
             "https://images.pexels.com/photos/7796574/pexels-photo-7796574.jpeg?auto=compress&cs=tinysrgb&w=1200",
         ],
@@ -97,7 +97,7 @@ FEATURED_PRODUCT_CATALOG = [
         "image": "https://images.pexels.com/photos/6621332/pexels-photo-6621332.jpeg?auto=compress&cs=tinysrgb&w=1200",
         "gallery": [
             "https://images.pexels.com/photos/6621332/pexels-photo-6621332.jpeg?auto=compress&cs=tinysrgb&w=1200",
-            "https://images.pexels.com/photos/6621469/pexels-photo-6621469.jpeg?auto=compress&cs=tinysrgb&w=1200",
+            "https://images.pexels.com/photos/5069433/pexels-photo-5069433.jpeg?auto=compress&cs=tinysrgb&w=1200",
             "https://images.pexels.com/photos/3762879/pexels-photo-3762879.jpeg?auto=compress&cs=tinysrgb&w=1200",
             "https://images.pexels.com/photos/5069433/pexels-photo-5069433.jpeg?auto=compress&cs=tinysrgb&w=1200",
         ],
@@ -109,12 +109,12 @@ FEATURED_PRODUCT_CATALOG = [
         "price": 240,
         "stock": 58,
         "description": "Rapid-cooling skin mist that refreshes and hydrates with lightweight marine extracts.",
-        "image": "https://images.pexels.com/photos/4465122/pexels-photo-4465122.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "image": "https://images.pexels.com/photos/6663570/pexels-photo-6663570.jpeg?auto=compress&cs=tinysrgb&w=1200",
         "gallery": [
-            "https://images.pexels.com/photos/4465122/pexels-photo-4465122.jpeg?auto=compress&cs=tinysrgb&w=1200",
+            "https://images.pexels.com/photos/6663570/pexels-photo-6663570.jpeg?auto=compress&cs=tinysrgb&w=1200",
             "https://images.pexels.com/photos/3373730/pexels-photo-3373730.jpeg?auto=compress&cs=tinysrgb&w=1200",
-            "https://images.pexels.com/photos/6621457/pexels-photo-6621457.jpeg?auto=compress&cs=tinysrgb&w=1200",
-            "https://images.pexels.com/photos/6621460/pexels-photo-6621460.jpeg?auto=compress&cs=tinysrgb&w=1200",
+            "https://images.pexels.com/photos/3762879/pexels-photo-3762879.jpeg?auto=compress&cs=tinysrgb&w=1200",
+            "https://images.pexels.com/photos/7440054/pexels-photo-7440054.jpeg?auto=compress&cs=tinysrgb&w=1200",
         ],
     },
     {
@@ -124,7 +124,7 @@ FEATURED_PRODUCT_CATALOG = [
         "price": 0,
         "stock": 100,
         "description": "Miniature sample of our signature glow cream. Yours free as a REVA Novelty Gift!",
-        "image": "https://images.pexels.com/photos/6621469/pexels-photo-6621469.jpeg?auto=compress&cs=tinysrgb&w=200",
+        "image": "https://images.pexels.com/photos/5069433/pexels-photo-5069433.jpeg?auto=compress&cs=tinysrgb&w=200",
         "gallery": [],
     },
     {
