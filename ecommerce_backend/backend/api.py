@@ -46,9 +46,9 @@ def get_user_from_token(request):
             return None
         return User.objects.filter(id=user_id).first()
     except jwt.ExpiredSignatureError:
-        return None  # Token has expired — reject silently
+        return None  # Token has expired  reject silently
     except jwt.InvalidTokenError:
-        return None  # Forged / malformed token — reject silently
+        return None  # Forged / malformed token  reject silently
 
 def admin_required(view_func):
     def _wrapped_view(request, *args, **kwargs):
@@ -305,7 +305,7 @@ def admin_only_stats(request):
 def create_product(request):
     if request.method == "POST":
         # ── Level 2 Security: Mandatory Operations Security PIN ──────────────
-        # SECURITY FIX: PIN is required from env — no weak fallback allowed.
+        # SECURITY FIX: PIN is required from env  no weak fallback allowed.
         try:
             expected_pin = _get_required_admin_pin()
         except ImproperlyConfigured as e:

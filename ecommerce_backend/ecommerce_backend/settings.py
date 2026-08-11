@@ -35,7 +35,7 @@ def _require_env(name):
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY MUST be set in the .env file — the server will refuse to start without it.
+# SECRET_KEY MUST be set in the .env file  the server will refuse to start without it.
 SECRET_KEY = _require_env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
